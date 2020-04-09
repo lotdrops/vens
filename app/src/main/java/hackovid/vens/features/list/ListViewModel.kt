@@ -1,13 +1,8 @@
 package hackovid.vens.features.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import hackovid.vens.common.data.StoreDao
 
-class ListViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is dashboard Fragment"
-    }
-    val text: LiveData<String> = _text
+class ListViewModel(storeDao: StoreDao) : ViewModel() {
+    val stores = storeDao.getAllByName()
 }

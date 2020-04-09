@@ -1,13 +1,8 @@
 package hackovid.vens.features.favourites
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import hackovid.vens.common.data.StoreDao
 
-class FavouritesViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
-    }
-    val text: LiveData<String> = _text
+class FavouritesViewModel(storeDao: StoreDao) : ViewModel() {
+    val stores = storeDao.getAllByName()
 }
