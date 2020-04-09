@@ -15,4 +15,7 @@ interface StoreDao : BaseDao<Store> {
 
     @Query("SELECT * FROM Stores WHERE id = :storeId")
     fun getStoreById(storeId: Int): LiveData<Store>
+
+    @Query("UPDATE Stores SET isFavourite = :newIsFavourite WHERE id = :id")
+    suspend fun setFavourite(id: Long, newIsFavourite: Boolean)
 }

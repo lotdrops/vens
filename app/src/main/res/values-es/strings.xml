@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vens?</string>
+    <string name="title_map">Mapa</string>
+    <string name="title_list">Lista</string>
+    <string name="title_favourites">Favoritas</string>
+</resources>

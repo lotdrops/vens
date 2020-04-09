@@ -23,7 +23,7 @@
 
             <argument
                 android:name="storeId"
-                app:argType="integer"
+                app:argType="long"
                 app:nullable="false" />
         </action>
 
@@ -33,7 +33,16 @@
         android:id="@+id/navigation_favourites"
         android:name="hackovid.vens.features.favourites.FavouritesFragment"
         android:label="@string/title_favourites"
-        tools:layout="@layout/fragment_favourites" />
+        tools:layout="@layout/fragment_favourites" >
+        <action
+                android:id="@+id/nav_to_ad_detail"
+                app:destination="@id/navigation_detail">
+            <argument
+                    android:name="storeId"
+                    app:argType="long"
+                    app:nullable="false" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_detail"
@@ -41,7 +50,7 @@
         android:label="@string/title_detail" >
         <argument
             android:name="storeId"
-            app:argType="integer"
+            app:argType="long"
             app:nullable="false" />
     </fragment>
 </navigation>
