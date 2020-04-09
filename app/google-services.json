@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "194945688116",
+    "firebase_url": "https://vens-android.firebaseio.com",
+    "project_id": "vens-android",
+    "storage_bucket": "vens-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194945688116:android:47b2ef4f907d2d832fe061",
+        "android_client_info": {
+          "package_name": "com.hackovid.vens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194945688116-m5rodvhureei7p2tquemo1rvo6cs0j1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjs0-wFWzDcCsNoRn-AhPsO3XBCAEp6ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194945688116-m5rodvhureei7p2tquemo1rvo6cs0j1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194945688116:android:85a405c77c14d47b2fe061",
+        "android_client_info": {
+          "package_name": "hackovid.vens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194945688116-m5rodvhureei7p2tquemo1rvo6cs0j1g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjs0-wFWzDcCsNoRn-AhPsO3XBCAEp6ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194945688116-m5rodvhureei7p2tquemo1rvo6cs0j1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

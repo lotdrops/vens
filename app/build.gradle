@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -48,6 +50,7 @@ dependencies {
     implementation libs.navigationUi
     implementation libs.lifecycleExtensions
     implementation libs.navigationFragment
+    implementation libs.firebase
     testImplementation libs.junit
     androidTestImplementation libs.androidJunit
     androidTestImplementation libs.espressoCore
