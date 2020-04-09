@@ -9,17 +9,17 @@
         android:id="@+id/navigation_map"
         android:name="hackovid.vens.features.map.MapFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/navigation_list"
         android:name="hackovid.vens.features.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/navigation_favourites"
         android:name="hackovid.vens.features.favourites.FavouritesFragment"
         android:label="@string/title_favourites"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_favourites" />
 </navigation>

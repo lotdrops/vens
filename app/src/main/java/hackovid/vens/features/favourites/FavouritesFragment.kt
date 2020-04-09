@@ -1,31 +1,16 @@
 package hackovid.vens.features.favourites
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import hackovid.vens.R
+import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.databinding.FragmentFavouritesBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FavouritesFragment : Fragment() {
+class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
+    override val layoutRes = R.layout.fragment_favourites
 
-    private lateinit var favouritesViewModel: FavouritesViewModel
+    private val viewModel: FavouritesViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        favouritesViewModel =
-            ViewModelProviders.of(this).get(FavouritesViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        favouritesViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun setupBinding(binding: FragmentFavouritesBinding) {
+        binding.viewModel = viewModel
     }
 }

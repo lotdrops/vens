@@ -1,31 +1,16 @@
 package hackovid.vens.features.map
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import hackovid.vens.R
+import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.databinding.FragmentMapBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MapFragment : Fragment() {
+class MapFragment : BaseFragment<FragmentMapBinding>() {
+    override val layoutRes = R.layout.fragment_map
 
-    private lateinit var homeViewModel: MapViewModel
+    private val viewModel: MapViewModel by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-            ViewModelProviders.of(this).get(MapViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+    override fun setupBinding(binding: FragmentMapBinding) {
+        binding.viewModel = viewModel
     }
 }

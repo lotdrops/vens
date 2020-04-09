@@ -50,6 +50,11 @@ dependencies {
     implementation libs.navigationUi
     implementation libs.lifecycleExtensions
     implementation libs.navigationFragment
+    implementation libs.koin
+    implementation libs.koinViewmodel
+    kapt libs.roomCompiler
+    implementation libs.roomRuntime
+    implementation libs.roomKtx
     implementation libs.firebase
     testImplementation libs.junit
     androidTestImplementation libs.androidJunit
