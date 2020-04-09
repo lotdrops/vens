@@ -15,11 +15,33 @@
         android:id="@+id/navigation_list"
         android:name="hackovid.vens.features.list.ListFragment"
         android:label="@string/title_list"
-        tools:layout="@layout/fragment_list" />
+        tools:layout="@layout/fragment_list" >
+
+        <action
+            android:id="@+id/nav_to_ad_detail"
+            app:destination="@id/navigation_detail">
+
+            <argument
+                android:name="storeId"
+                app:argType="integer"
+                app:nullable="false" />
+        </action>
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favourites"
         android:name="hackovid.vens.features.favourites.FavouritesFragment"
         android:label="@string/title_favourites"
         tools:layout="@layout/fragment_favourites" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="hackovid.vens.features.detail.DetailFragment"
+        android:label="@string/title_detail" >
+        <argument
+            android:name="storeId"
+            app:argType="integer"
+            app:nullable="false" />
+    </fragment>
 </navigation>

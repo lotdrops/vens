@@ -12,4 +12,7 @@ interface StoreDao : BaseDao<Store> {
 
     @Query("SELECT * FROM Stores WHERE isFavourite ORDER BY name")
     fun getFavouritesByName(): LiveData<List<Store>>
+
+    @Query("SELECT * FROM Stores WHERE id = :storeId")
+    fun getStoreById(storeId: Int): LiveData<Store>
 }
