@@ -10,9 +10,9 @@ import org.koin.core.parameter.parametersOf
 class DetailFragment : BaseFragment<FragmentDetailBinding>() {
     override val layoutRes = R.layout.fragment_detail
 
-    private val viewModel: DetailViewModel by viewModel{ parametersOf(args.storeId) }
-
     private val args: DetailFragmentArgs by navArgs()
+
+    private val viewModel: DetailViewModel by viewModel{ parametersOf(args.storeId) }
 
     override fun setupBinding(binding: FragmentDetailBinding) {
         binding.viewModel = viewModel
