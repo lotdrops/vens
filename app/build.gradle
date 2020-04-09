@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion "29.0.3"
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        applicationId "hackovid.vens"
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.kotlinStdLib
+    implementation libs.appCompat
+    implementation libs.ktxCore
+    implementation libs.materialDesign
+    implementation libs.constraintLayout
+    implementation libs.navigationFragment
+    implementation libs.navigationUi
+    implementation libs.lifecycleExtensions
+    implementation libs.navigationFragment
+    testImplementation libs.junit
+    androidTestImplementation libs.androidJunit
+    androidTestImplementation libs.espressoCore
+}
