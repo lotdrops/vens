@@ -33,6 +33,7 @@ buildscript {
         googleMapsVersion = '17.0.0'
         googleServicesVersion = '4.3.3'
         firebaseVersion = '17.3.0'
+        mapsUtils = '1.1.0'
         // Testing
         junitVersion = '4.13'
         androidJunitVersion = '1.1.1'
@@ -79,6 +80,7 @@ buildscript {
                 googleMaps          : ('com.google.android.gms:play-services-maps:' + googleMapsVersion),
                 services            : ('com.google.gms:google-services:' + googleServicesVersion),
                 firebase            : ('com.google.firebase:firebase-analytics:' + firebaseVersion),
+                mapsUtils           : ('com.google.maps.android:android-maps-utils:' + mapsUtils),
                 // Testing
                 junit               : ('junit:junit:' + junitVersion),
                 androidJunit        : ('androidx.test.ext:junit:' + androidJunitVersion),

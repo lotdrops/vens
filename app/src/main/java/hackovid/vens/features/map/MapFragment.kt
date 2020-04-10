@@ -6,13 +6,15 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.maps.android.clustering.ClusterManager
 import hackovid.vens.R
+import hackovid.vens.common.data.toClusterStoreItem
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentMapBinding
-import kotlin.math.roundToInt
-import kotlinx.android.synthetic.main.fragment_map.view.infoLayout
+import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.math.roundToInt
 
 class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
     override val layoutRes = R.layout.fragment_map
@@ -62,7 +64,18 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         }
         mapBottomPadding.value?.let { padding -> googleMap.setBottomPadding(padding) }
+        observeStores()
     }
 
     private fun GoogleMap.setBottomPadding(padding: Int) = setPadding(0, 0, 0, padding)
+
+    private fun observeStores() {
+        observe(viewModel.stores) { stores ->
+            val clusterStores: ClusterManager<ClusterStoreItem>  = ClusterManager<ClusterStoreItem>(activity, googleMap);
+            stores.forEach { store ->
+                clusterStores.addItem(store.toClusterStoreItem())
+            }
+            clusterStores.cluster()
+        }
+    }
 }
