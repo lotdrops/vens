@@ -1,5 +1,10 @@
 package hackovid.vens.features.map
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -7,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.maps.android.clustering.ClusterManager
+import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.R
 import hackovid.vens.common.data.toClusterStoreItem
 import hackovid.vens.common.ui.BaseFragment
@@ -28,6 +34,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
         binding.viewModel = viewModel
         binding.setupViews()
         subscribeUi()
+        fetchLocation()
         setupMap()
     }
 
@@ -46,6 +53,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
                 googleMap.setBottomPadding(padding)
             }
         }
+
+        observe(viewModel.location) {
+            if (this::googleMap.isInitialized) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(it))
+            }
+        }
     }
 
     private fun setupMap() {
@@ -60,14 +73,61 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
         this.googleMap = googleMap
         googleMap.setOnMapLongClickListener { latLng -> viewModel.location.value = latLng }
         viewModel.location.value?.let { latLng ->
-            googleMap.moveCamera(CameraUpdateFactory.zoomTo(12f))
+            googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         }
         mapBottomPadding.value?.let { padding -> googleMap.setBottomPadding(padding) }
         observeStores()
+        if (context?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED &&
+            context?.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED)
+
+            googleMap.isMyLocationEnabled = true
     }
 
-    private fun GoogleMap.setBottomPadding(padding: Int) = setPadding(0, 0, 0, padding)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode) {
+            REQ_CODE_LOCATION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    fetchLocation()
+                }
+            }
+        }
+    }
+
+    private fun fetchLocation() {
+
+        if(context?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
+            PackageManager.PERMISSION_GRANTED
+            || context?.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            val permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION)
+            requestPermissions(permissions, REQ_CODE_LOCATION)
+            return
+        }
+
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val providers: List<String> = locationManager.getProviders(true)
+        var location: Location? = null
+
+        for (i in providers.size - 1 downTo 0) {
+            location = locationManager.getLastKnownLocation(providers[i])
+            if (location != null) break
+        }
+
+        location?.let { loc ->
+            LatLng(loc.latitude, loc.longitude)
+            viewModel.location.value = LatLng(loc.latitude, loc.longitude)
+        }
+
+        if (this::googleMap.isInitialized) googleMap.isMyLocationEnabled = true
+    }
 
     private fun observeStores() {
         observe(viewModel.stores) { stores ->
@@ -77,5 +137,11 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback {
             }
             clusterStores.cluster()
         }
+    }
+
+    private fun GoogleMap.setBottomPadding(padding: Int) = setPadding(0, 0, 0, padding)
+
+    companion object {
+        const val REQ_CODE_LOCATION = 100
     }
 }
