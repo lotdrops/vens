@@ -64,6 +64,7 @@ dependencies {
     implementation libs.roomKtx
     implementation libs.firebase
     implementation libs.googleMaps
+    implementation libs.mapsUtils
     testImplementation libs.junit
     androidTestImplementation libs.androidJunit
     androidTestImplementation libs.espressoCore
