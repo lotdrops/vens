@@ -70,12 +70,7 @@ abstract class StoresDatabase : RoomDatabase() {
     val fileReaderUtilities =  FileReaderUtilities(context)
     val localDataSource = LocalJsonPersistency(fileReaderUtilities, MoshiFactory.getInstance())
 
-    val remoteStores = localDataSource.readLocalStoreData()
-    val stores: ArrayList<Store> = arrayListOf()
-    remoteStores?.forEach { remoteStore ->
-        stores.add(remoteStore.toStore())
-    }
-    return stores
+    return localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
 }
 
 private const val MOCK_SAMPLES = 1000
