@@ -51,6 +51,7 @@ dependencies {
     implementation libs.navigationFragment
     implementation libs.koin
     implementation libs.koinViewmodel
+    implementation libs.liveData
     kapt libs.roomCompiler
     implementation libs.roomRuntime
     implementation libs.roomKtx
