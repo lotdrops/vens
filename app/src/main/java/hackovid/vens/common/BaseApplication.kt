@@ -2,6 +2,7 @@ package hackovid.vens.common
 
 import android.app.Application
 import hackovid.vens.common.di.dataModule
+import hackovid.vens.common.di.utilitiesModule
 import hackovid.vens.features.detail.di.detailModule
 import hackovid.vens.features.favourites.di.favouritesModule
 import hackovid.vens.features.list.di.listModule
@@ -23,6 +24,7 @@ class BaseApplication : Application() {
         mapModule,
         listModule,
         favouritesModule,
-        detailModule
+        detailModule,
+        utilitiesModule
     )
 }

@@ -6,4 +6,9 @@
     <string name="title_detail">detail</string>
 
     <string name="map_store_action">See detail</string>
+    <string name="list_screen_title">Shops</string>
+    <string name="favourites_screen_title">My shops</string>
+    <string name="favourites_screen_empty_title">You have no favourite shops added</string>
+    <string name="favourites_screen_empty_body">Tap on the heart icon of any shop to add add it to the list.\n
+    You will have quick access and notifications.</string>
 </resources>

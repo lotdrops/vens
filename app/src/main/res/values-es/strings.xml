@@ -6,4 +6,9 @@
     <string name="title_favourites">Favoritas</string>
 
     <string name="map_store_action">Ver el detalle</string>
+    <string name="list_screen_title">Tiendas</string>
+    <string name="favourites_screen_title">Mis tiendas</string>
+    <string name="favourites_screen_empty_title">No has añadido ninguna tienda a favoritas</string>
+    <string name="favourites_screen_empty_body">Haz clic en el corazón que aparece en a cualquier tienda para añadirla a la lista.\n
+        Podrás acceder cómodamente y recibir notificaciones.</string>
 </resources>
