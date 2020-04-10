@@ -4,4 +4,6 @@
     <string name="title_map">Mapa</string>
     <string name="title_list">Llista</string>
     <string name="title_favourites">Preferides</string>
+
+    <string name="map_store_action">Veure el detall</string>
 </resources>
