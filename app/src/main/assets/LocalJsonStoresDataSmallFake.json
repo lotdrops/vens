@@ -1,0 +1,90 @@
+[
+    {
+      "id": 1074376,
+      "lat": 41.424905,
+      "long": 2.207773,
+      "name": "GILABERT FUSTES",
+      "type": "Parament de la llar",
+      "adress": "CAMÍ VERNEDA, 25"
+    },
+    {
+      "id": 1077634,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077633,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077622,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077611,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077601,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Parament de la llar",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077590,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077482,
+      "lat": 41.43634126,
+      "long": 2.20730459,
+      "name": "Mercat Bon Pastor(PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "SANT ADRIÀ, 168"
+    },
+    {
+      "id": 1077581,
+      "lat": 41.40296804,
+      "long": 2.16481628,
+      "name": "Mercat Abaceria (PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "PG SANT JOAN, 181"
+    },
+    {
+      "id": 1077489,
+      "lat": 41.43634126,
+      "long": 2.20730459,
+      "name": "Mercat Bon Pastor(PROV)",
+      "type": "Quotidià no alimentari",
+      "adress": "SANT ADRIÀ, 168"
+    },
+    {
+      "id": 1077488,
+      "lat": 41.43634126,
+      "long": 2.20730459,
+      "name": "Mercat Bon Pastor(PROV)",
+      "type": "Quotidià alimentari",
+      "adress": "SANT ADRIÀ, 168"
+    }
+]
