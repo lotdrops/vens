@@ -10,7 +10,9 @@ class LocalJsonPersistency(
     private val moshi: Moshi = MoshiFactory.getInstance()
 ) : LocalDataSource<RemoteStore> {
 
-    private val localJsonStoreFile = "LocalJsonStoresData.json"
+    companion object {
+         const val localJsonStoreFile = "LocalJsonStoresData.json"
+    }
 
     override fun readLocalStoreData(): List<RemoteStore>? {
         val storesJson = fileReader.readJsonFileFromAssets(localJsonStoreFile)
