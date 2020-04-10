@@ -2,10 +2,10 @@ package hackovid.vens.features.list
 
 import androidx.navigation.fragment.NavHostFragment
 import androidx.databinding.ViewDataBinding
-import hackovid.vens.common.ui.GenericListAdapter
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.GenericListAdapter
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentListBinding
 import hackovid.vens.databinding.ItemStoreBinding

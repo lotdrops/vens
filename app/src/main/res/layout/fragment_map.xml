@@ -5,26 +5,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
+        <import type="android.view.View"/>
         <variable name="viewModel" type="hackovid.vens.features.map.MapViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".features.map.MapFragment">
+        >
 
-        <TextView
-            android:id="@+id/text_home"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapContainerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:tag="mapFragment"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/infoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_gravity="bottom"
+            android:elevation="8dp"
+            android:layout_margin="@dimen/map_info_margin"
+            android:background="@drawable/map_info_background"
+            android:visibility="@{viewModel.showStoreInfo ? View.VISIBLE : View.GONE}"
+            >
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@{viewModel.selectedStore.name}"
+                style="@android:style/TextAppearance.Material.Headline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/storeActionButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/map_store_action"
+                android:onClick="@{view -> viewModel.onStoreActionClicked()}"
+                style="@style/Widget.MaterialComponents.Button"
+                app:cornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 </layout>

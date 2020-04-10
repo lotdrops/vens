@@ -51,10 +51,12 @@ dependencies {
     implementation libs.navigationFragment
     implementation libs.koin
     implementation libs.koinViewmodel
+    implementation libs.liveData
     kapt libs.roomCompiler
     implementation libs.roomRuntime
     implementation libs.roomKtx
     implementation libs.firebase
+    implementation libs.googleMaps
     testImplementation libs.junit
     androidTestImplementation libs.androidJunit
     androidTestImplementation libs.espressoCore
