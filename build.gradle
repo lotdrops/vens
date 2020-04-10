@@ -26,6 +26,8 @@ buildscript {
         safeArgsVersion = '1.0.0'
         navigationVersion = '2.2.1'
         liveDataVersion = '2.2.0'
+        // Square
+        moshiVersion = '1.9.2'
         // Google
         materialLibraryVersion = '1.1.0'
         googleMapsVersion = '17.0.0'
@@ -53,6 +55,9 @@ buildscript {
                 koin                : ('org.koin:koin-android:' + koinVersion),
                 koinViewmodel       : ('org.koin:koin-androidx-viewmodel:' + koinVersion),
                 koinScope           : ('org.koin:koin-androidx-scope:' + koinVersion),
+                //Square
+                moshi               : ('com.squareup.moshi:moshi:' + moshiVersion),
+                moshiKapt           : ('com.squareup.moshi:moshi-kotlin-codegen:' + moshiVersion),
                 // AndroidX
                 appCompat           : ('androidx.appcompat:appcompat:' + appCompatVersion),
                 legacySupport       : ('androidx.legacy:legacy-support-v4:' + legacySupport4Version),
