@@ -12,7 +12,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     private val args: DetailFragmentArgs by navArgs()
 
-    private val viewModel: DetailViewModel by viewModel{ parametersOf(args.storeId) }
+    private val viewModel: DetailViewModel by viewModel { parametersOf(args.storeId) }
 
     override fun setupBinding(binding: FragmentDetailBinding) {
         binding.viewModel = viewModel
