@@ -1,5 +1,6 @@
 package hackovid.vens.features.favourites
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 import hackovid.vens.R
@@ -18,6 +19,15 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
 
     override fun setupBinding(binding: FragmentFavouritesBinding) {
         binding.viewModel = viewModel
+        setupToolbar(binding)
+        setupList(binding)
+    }
+
+    private fun setupToolbar(binding: FragmentFavouritesBinding) {
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+    }
+
+    private fun setupList(binding: FragmentFavouritesBinding) {
         val adapter = getListAdapter()
         with(binding.list) {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
@@ -41,7 +51,7 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
 
     private fun onStoreClick(item: Store) {
         NavHostFragment.findNavController(this)
-            .navigate(FavouritesFragmentDirections.navToAdDetail(item.id))        }
+            .navigate(FavouritesFragmentDirections.navToAdDetail(item.id)) }
 
     private fun onListItemBind(item: Store, binding: ViewDataBinding) {
         (binding as? ItemStoreBinding)?.let { itemBinding ->

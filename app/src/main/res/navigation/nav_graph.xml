@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/navigation_detail"
         android:name="hackovid.vens.features.detail.DetailFragment"
-        android:label="@string/title_detail" >
+        >
         <argument
             android:name="storeId"
             app:argType="long"

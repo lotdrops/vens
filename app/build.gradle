@@ -51,6 +51,7 @@ dependencies {
     implementation libs.navigationFragment
     implementation libs.koin
     implementation libs.koinViewmodel
+    implementation libs.liveData
     implementation libs.moshi
     kapt libs.moshiKapt
     kapt libs.roomCompiler

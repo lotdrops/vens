@@ -1,11 +1,12 @@
 package hackovid.vens.features.list
 
-import androidx.navigation.fragment.NavHostFragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
-import hackovid.vens.common.ui.GenericListAdapter
+import androidx.navigation.fragment.NavHostFragment
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.GenericListAdapter
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentListBinding
 import hackovid.vens.databinding.ItemStoreBinding
@@ -19,6 +20,15 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
 
     override fun setupBinding(binding: FragmentListBinding) {
         binding.viewModel = viewModel
+        setupToolbar(binding)
+        setupList(binding)
+    }
+
+    private fun setupToolbar(binding: FragmentListBinding) {
+        (activity as? AppCompatActivity)?.setSupportActionBar(binding.toolbar)
+    }
+
+    private fun setupList(binding: FragmentListBinding) {
         val adapter = getListAdapter()
         with(binding.list) {
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
@@ -42,7 +52,7 @@ class ListFragment : BaseFragment<FragmentListBinding>() {
 
     private fun onStoreClick(item: Store) {
         NavHostFragment.findNavController(this)
-                .navigate(ListFragmentDirections.navToAdDetail(item.id))    }
+                .navigate(ListFragmentDirections.navToAdDetail(item.id)) }
 
     private fun onListItemBind(item: Store, binding: ViewDataBinding) {
         (binding as? ItemStoreBinding)?.let { itemBinding ->

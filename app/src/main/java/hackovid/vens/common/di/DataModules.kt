@@ -16,5 +16,5 @@ val dataModule = module {
 }
 
 val utilitiesModule = module {
-    single { FileReaderUtilities(androidApplication()) }
+    factory { FileReaderUtilities(androidApplication()) }
 }
