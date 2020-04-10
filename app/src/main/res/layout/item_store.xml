@@ -10,21 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="24dp"
+        android:background="?android:selectableItemBackground"
         >
-        <TextView
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingVertical="16dp"
+            android:orientation="vertical"
             android:layout_gravity="center_vertical"
-            android:text="@{item.name}"
-            />
+            android:paddingStart="24dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
+                android:text="@{item.name}"
+                style="@style/TextAppearance.Custom.ListItem.Title"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="16dp"
+                android:text="@{item.type.toString()}"
+                style="@style/TextAppearance.Custom.ListItem.Subtitle"
+                />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/favourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/fav_button_size"
+            android:layout_height="@dimen/fav_button_size"
+            android:padding="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_gravity="center_vertical"
             android:src="@{item.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
             />
