@@ -3,6 +3,7 @@ package hackovid.vens.features.map
 import androidx.room.TypeConverters
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
+import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.core.Converters
 
@@ -35,7 +36,22 @@ data class ClusterStoreItem(
     override fun getPosition(): LatLng {
         return latLong
     }
+
 }
 
-
+fun ClusterStoreItem.toStoreItem() = Store(
+    id = id,
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    type = type,
+    isFavourite = false,
+    phone = null,
+    mobilePhone = null,
+    address = null,
+    web = null,
+    email = null,
+    schedule = null,
+    acceptsOrders = null,
+    delivers = null)
 

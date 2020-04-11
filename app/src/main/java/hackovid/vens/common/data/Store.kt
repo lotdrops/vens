@@ -3,7 +3,6 @@ package hackovid.vens.common.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.google.maps.android.clustering.ClusterItem
 import hackovid.vens.common.data.core.Converters
 import hackovid.vens.features.map.ClusterStoreItem
 
@@ -37,7 +36,7 @@ fun Store.toClusterStoreItem() = ClusterStoreItem(
     latitude = latitude,
     longitude = longitude,
     name = name,
-    type = StoreType.BUTCHER_SHOP,
+    type = type,
     isFavourite = false,
     phone = null,
     mobilePhone = null,
