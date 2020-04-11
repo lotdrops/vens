@@ -9,4 +9,13 @@
     <string name="favourites_screen_empty_title">No has afegit cap botigues a preferides</string>
     <string name="favourites_screen_empty_body">Clica el cor que apareix a qualsevol botiga per afegir-la a la llista.\n
         Hi podràs accedir ràpid i rebre notificacions.</string>
+    <string name= "on_boarding_screen_skip_text">Saltar</string>
+    <string name= "on_boarding_screen_title_slide_one">El teu comerç de confianza</string>
+    <string name= "on_boarding_screen_body_slide_one">Tots els serveis sense mouret de casa</string>
+    <string name= "on_boarding_screen_title_slide_two">Reduïr el temps d\'espera</string>
+    <string name= "on_boarding_screen_body_slide_two">Compara la afluència de gent en els diferents comerços de la teva zona, així sabràs on anar
+    per creauarte amb la menor gents possuble</string>
+    <string name= "on_boarding_screen_title_slide_three">Comunicació directa</string>
+    <string name= "on_boarding_screen_body_slide_three">Xateja, rep avisos, canvis d\'horaris, consulta disponibilitat de productes,informat de nous
+    serveis i promocions…</string>
 </resources>

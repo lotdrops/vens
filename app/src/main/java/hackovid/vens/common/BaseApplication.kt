@@ -7,6 +7,7 @@ import hackovid.vens.features.detail.di.detailModule
 import hackovid.vens.features.favourites.di.favouritesModule
 import hackovid.vens.features.list.di.listModule
 import hackovid.vens.features.map.di.mapModule
+import hackovid.vens.features.onboarding.di.onBoardingModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -25,6 +26,7 @@ class BaseApplication : Application() {
         listModule,
         favouritesModule,
         detailModule,
-        utilitiesModule
+        utilitiesModule,
+        onBoardingModule
     )
 }
