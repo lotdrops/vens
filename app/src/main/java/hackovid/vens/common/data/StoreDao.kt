@@ -3,6 +3,8 @@ package hackovid.vens.common.data
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import hackovid.vens.common.data.core.BaseDao
 
 @Dao
@@ -18,4 +20,7 @@ interface StoreDao : BaseDao<Store> {
 
     @Query("UPDATE Stores SET isFavourite = :newIsFavourite WHERE id = :id")
     suspend fun setFavourite(id: Long, newIsFavourite: Boolean)
+
+    @RawQuery(observedEntities = [Store::class])
+    fun getByQuery(query: SupportSQLiteQuery): LiveData<List<Store>>
 }

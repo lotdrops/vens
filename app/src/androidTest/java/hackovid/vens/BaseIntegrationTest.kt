@@ -1,6 +1,5 @@
 package hackovid.vens
 
-
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
 import hackovid.vens.common.data.LocalDataSource
@@ -9,9 +8,9 @@ import hackovid.vens.common.data.json.LocalJsonPersistency
 import hackovid.vens.common.data.json.MoshiFactory
 import hackovid.vens.common.data.json.RemoteStore
 import hackovid.vens.common.utils.FileReaderUtilities
+import java.io.IOException
 import org.junit.After
 import org.junit.Before
-import java.io.IOException
 
 abstract class BaseIntegrationTest {
 
