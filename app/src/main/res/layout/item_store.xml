@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="item" type="hackovid.vens.common.data.Store" />
     </data>
@@ -36,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingBottom="16dp"
-                android:text="@{item.type.toString()}"
+                bind:store_types="@{item}"
                 style="@style/TextAppearance.Custom.ListItem.Subtitle"
                 />
 
