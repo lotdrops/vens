@@ -11,7 +11,7 @@ class LocalJsonPersistency(
 ) : LocalDataSource<RemoteStore> {
 
     companion object {
-         const val localJsonStoreFile = "LocalJsonStoresData.json"
+        const val localJsonStoreFile = "LocalJsonStoresData.json"
     }
 
     override fun readLocalStoreData(): List<RemoteStore>? {
@@ -19,8 +19,5 @@ class LocalJsonPersistency(
         val storesTypes = Types.newParameterizedType(List::class.java, RemoteStore::class.java)
         val adapter = moshi.adapter<List<RemoteStore>>(storesTypes)
         return adapter.fromJson(storesJson)
-
     }
-
-
 }
