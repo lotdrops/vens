@@ -1,11 +1,24 @@
 package hackovid.vens.features.map
 
+import android.location.Location
 import androidx.lifecycle.*
 import hackovid.vens.common.data.StoreDao
+import hackovid.vens.common.data.filter.StoresDataSource
+import hackovid.vens.common.ui.SharedViewModel
+import hackovid.vens.common.utils.combineWith
 import kotlinx.coroutines.launch
 
-class MapViewModel(private val storeDao: StoreDao) : ViewModel() {
-    val stores = storeDao.getAllByName()
+class MapViewModel(
+    sharedViewModel: SharedViewModel,
+    private val storesDataSource: StoresDataSource,
+    private val storeDao: StoreDao
+) : ViewModel() {
+//    val stores = storeDao.getAllByName()
+    val location = MutableLiveData<Location?>()
+    private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
+        filter?.let { Pair(it, location) }
+    }
+    val stores = queryParams.switchMap { storesDataSource.getData(it) }
 
     val selectedStoreId = MutableLiveData<Int>()
     val selectedStore = selectedStoreId.switchMap { storeDao.getStoreById(it) }

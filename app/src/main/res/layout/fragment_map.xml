@@ -7,6 +7,9 @@
     <data>
         <import type="android.view.View"/>
         <variable name="viewModel" type="hackovid.vens.features.map.MapViewModel" />
+        <variable
+                name="fragment"
+                type="hackovid.vens.features.map.MapFragment" />
     </data>
 
     <FrameLayout
@@ -20,6 +23,17 @@
             android:layout_height="match_parent"
             android:tag="mapFragment"
             />
+        <Button
+            android:id="@+id/mapFilterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/IconButton"
+            android:text="Filtro"
+            android:layout_gravity="top|center"
+            android:textColor="@color/text_dark"
+            android:drawableRight="@drawable/amu_bubble_mask"
+        />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/infoLayout"

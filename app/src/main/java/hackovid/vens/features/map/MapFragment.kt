@@ -2,6 +2,8 @@ package hackovid.vens.features.map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Bundle
+import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -12,22 +14,24 @@ import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
 import hackovid.vens.common.data.toClusterStoreItem
-import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentMapBinding
+import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.math.roundToInt
 
 
-class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem>{
+class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem>{
 
     override val layoutRes = R.layout.fragment_map
 
-    private val viewModel: MapViewModel by viewModel()
     private val sharedViewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: MapViewModel by viewModel {parametersOf(sharedViewModel)}
 
     private val mapBottomPadding = MutableLiveData(0)
     private lateinit var googleMap: GoogleMap
@@ -38,6 +42,11 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback, Clus
         binding.setupViews()
         subscribeUi()
         setupMap()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mapFilterButton.setOnClickListener { onFilterClicked() }
     }
 
     override fun onBackPressed(): Boolean = viewModel.onBackPressed()
@@ -99,6 +108,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback, Clus
 
     private fun observeStores() {
         observe(viewModel.stores) { stores ->
+            googleMap.clear()
+            clusterManager.clearItems()
             stores.forEach { store ->
                 clusterManager.addItem(store.toClusterStoreItem())
             }
@@ -110,6 +121,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback, Clus
 
     private fun setUpClusterer() {
         clusterManager = ClusterManager(context, googleMap)
+     //   clusterManager.renderer = context?.let { ClusterStoreRenderer(it, googleMap, clusterManager) }
         googleMap.setOnCameraIdleListener(clusterManager)
     }
 
