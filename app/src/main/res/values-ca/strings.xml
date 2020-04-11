@@ -4,8 +4,8 @@
     <string name="title_map">Mapa</string>
     <string name="title_list">Llista</string>
     <string name="title_favourites">Preferides</string>
-
     <string name="map_store_action">Veure el detall</string>
+    <string name="title_filter">Filtre</string>
     <string name="list_screen_title">Botigues</string>
     <string name="favourites_screen_title">Les meves botigues</string>
     <string name="favourites_screen_empty_title">No has afegit cap botigues a preferides</string>

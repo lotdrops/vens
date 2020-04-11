@@ -3,12 +3,31 @@
     <string name="title_map">Map</string>
     <string name="title_list">List</string>
     <string name="title_favourites">Favourites</string>
-    <string name="title_detail">detail</string>
-
     <string name="map_store_action">See detail</string>
+    <string name="title_filter">Filter</string>
+
     <string name="list_screen_title">Shops</string>
+
     <string name="favourites_screen_title">My shops</string>
     <string name="favourites_screen_empty_title">You have no favourite shops added</string>
-    <string name="favourites_screen_empty_body">Tap on the heart icon of any shop to add add it to the list.\n
+    <string name="favourites_screen_empty_body">Tap on the heart icon of any shop to add it to the list.\n
     You will have quick access and notifications.</string>
+
+    <string name="filter_priority_title">Priority</string>
+    <string name="filter_priority_orders">Takes orders</string>
+    <string name="filter_priority_open">Is open</string>
+    <string name="filter_priority_delivers">Delivers home</string>
+    <string name="filter_distance_title">Distance</string>
+    <string name="filter_distance_near">100m</string>
+    <string name="filter_distance_mid">250m</string>
+    <string name="filter_distance_far">All</string>
+    <string name="filter_categories_title">Categories</string>
+    <string name="filter_must_have_title">Must have</string>
+    <string name="filter_must_have_masks">Medical mask</string>
+    <string name="filter_must_have_hand_sanitizer">Hand sanitizer</string>
+    <string name="filter_must_have_gloves">Gloves</string>
+    <string name="filter_crowded_title">Crowd</string>
+    <string name="filter_crowded_small">Small</string>
+    <string name="filter_crowded_medium">Medium</string>
+    <string name="filter_crowded_large">Large</string>
 </resources>

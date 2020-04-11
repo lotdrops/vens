@@ -1,4 +1,4 @@
-package hackovid.vens
+package hackovid.vens.common.ui
 
 import android.Manifest
 import android.content.Context
@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hackovid.vens.common.ui.BaseFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import hackovid.vens.R
+import kotlinx.android.synthetic.main.activity_main.nav_host
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: SharedViewModel by viewModel()
 
     var userLocation: Location? = null
 

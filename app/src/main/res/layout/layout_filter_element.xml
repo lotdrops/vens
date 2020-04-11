@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="android.view.View" />
+        <variable name="imgSrc" type="android.graphics.drawable.Drawable" />
+        <variable name="textRes" type="String" />
+        <variable name="imageVisible" type="Boolean" />
+        <variable name="myOnClick" type="android.view.View.OnClickListener" />
+    </data>
+    <merge
+        tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat"
+        tools:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            android:background="@drawable/bg_selectable_button"
+            android:onClick="@{myOnClick}"
+            >
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@{imgSrc}"
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="@{imageVisible ? View.VISIBLE : View.GONE}"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:gravity="center"
+                android:text="@{textRes}"
+                style="@style/TextAppearance.Custom.Body"
+                />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+    </merge>
+</layout>

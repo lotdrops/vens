@@ -5,17 +5,21 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
-import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.FilterBaseFragment
+import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentFavouritesBinding
 import hackovid.vens.databinding.ItemStoreBinding
 import hackovid.vens.features.list.StoreListAdapter
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
+class FavouritesFragment : FilterBaseFragment<FragmentFavouritesBinding>() {
     override val layoutRes = R.layout.fragment_favourites
 
-    private val viewModel: FavouritesViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: FavouritesViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun setupBinding(binding: FragmentFavouritesBinding) {
         binding.viewModel = viewModel

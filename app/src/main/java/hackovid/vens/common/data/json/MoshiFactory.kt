@@ -4,6 +4,6 @@ import com.squareup.moshi.Moshi
 
 object MoshiFactory {
 
-    private val moshi : Moshi =  Moshi.Builder().build()
+    private val moshi: Moshi = Moshi.Builder().build()
     fun getInstance() = moshi
 }
