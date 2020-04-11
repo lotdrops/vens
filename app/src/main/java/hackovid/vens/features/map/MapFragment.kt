@@ -119,7 +119,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), OnMapReadyCallback, Clus
     private fun GoogleMap.setBottomPadding(padding: Int) = setPadding(0, 0, 0, padding)
 
     override fun onClusterItemClick(item: ClusterStoreItem?): Boolean {
-        viewModel.selectedStore.value = item?.toStoreItem()
+        viewModel.selectedStoreId.value = item?.toStoreItem()?.id?.toInt()
         return true
     }
 }
