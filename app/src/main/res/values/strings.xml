@@ -8,4 +8,13 @@
     <string name="favourites_screen_empty_title">You have no favourite shops added</string>
     <string name="favourites_screen_empty_body">Tap on the heart icon of any shop to add add it to the list.\n
     You will have quick access and notifications.</string>
+    <string name="on_boarding_screen_skip_text">Skip</string>
+    <string name="on_boarding_screen_title_slide_one">Your trust commerce</string>
+    <string name="on_boarding_screen_body_slide_one">All services without leaving home</string>
+    <string name="on_boarding_screen_title_slide_two">Reduce waiting time</string>
+    <string name="on_boarding_screen_body_slide_two">Compare the influx of people in the different shops in your area, so you will know
+                    where to go to meet as few people as possible</string>
+    <string name="on_boarding_screen_title_slide_three">Direct communication</string>
+    <string name="on_boarding_screen_body_slide_three">Chat, receive alerts, time changes, check product availability, find out about
+    new services, promotions…</string>
 </resources>
