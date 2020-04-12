@@ -44,15 +44,24 @@ fun setStoreType(view: TextView, crowd: Int?) {
 
 @BindingAdapter("bind:phones")
 fun setPhones(view: TextView, store: Store) {
-    view.visibility = View.VISIBLE
-    if (!store.phone.isNullOrBlank() && !store.mobilePhone.isNullOrBlank()) {
-        view.text = "${store.phone} | ${store.mobilePhone}"
-    } else if (!store.phone.isNullOrBlank()) {
-        view.text = "${store.phone}"
-    } else if (!store.mobilePhone.isNullOrBlank()) {
-        view.text = "${store.mobilePhone}"
-    } else {
-        view.visibility = View.GONE
-    }
-
+    view.setPhones(store.phone, store.mobilePhone)
 }
+
+@BindingAdapter("bind:phones")
+fun setPhones(view: TextView, store: StoreListUi) {
+    view.setPhones(store.phone, store.mobilePhone)
+}
+
+private fun TextView.setPhones(phone: String?, mobilePhone: String?) {
+    visibility = View.VISIBLE
+    if (!phone.isNullOrBlank() && !mobilePhone.isNullOrBlank()) {
+        text = "${phone} | ${mobilePhone}"
+    } else if (!phone.isNullOrBlank()) {
+        text = "${phone}"
+    } else if (!mobilePhone.isNullOrBlank()) {
+        text = "${mobilePhone}"
+    } else {
+        visibility = View.GONE
+    }
+}
+
