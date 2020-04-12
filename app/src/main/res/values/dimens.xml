@@ -5,12 +5,24 @@
 
     <dimen name="map_info_margin">8dp</dimen>
 
-    <dimen name="title_text_size">23sp</dimen>
-    <dimen name="subtitle_text_size">17sp</dimen>
+    <dimen name="title_text_size">24sp</dimen>
+    <dimen name="subtitle_text_size">20sp</dimen>
+    <dimen name="filter_text_size">15sp</dimen>
     <dimen name="body_text_size">14sp</dimen>
     <dimen name="list_title_text_size">16sp</dimen>
     <dimen name="fav_button_size">56dp</dimen>
-    <dimen name="selectable_button_radius">4dp</dimen>
+
+    <dimen name="selectable_button_height">88dp</dimen>
+    <dimen name="selectable_button_radius">8dp</dimen>
+    <dimen name="selectable_button_margin">24dp</dimen>
+
+    <dimen name="map_card_title">18dp</dimen>
+    <dimen name="map_card_description">14dp</dimen>
+    <dimen name="list_card_title">@dimen/subtitle_text_size</dimen>
+    <dimen name="list_card_description">14dp</dimen>
+    <dimen name="list_card_type">12dp</dimen>
+
+    <dimen name="button_corner_radius">20dp</dimen>
 
     <dimen name="on_board_title_font_size">20sp</dimen>
     <dimen name="on_board_body_text_font_size">13sp</dimen>
