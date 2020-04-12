@@ -9,14 +9,14 @@ import hackovid.vens.common.data.StoreType
 
 @JsonClass(generateAdapter = true)
 data class RemoteStore(
-    val id: Long = 0,
+    @Json(name = "id") val id: Long = 0,
     @Json(name = "lat") val latitude: Double,
     @Json(name = "long") val longitude: Double,
-    val name: String,
-    val type: String,
-    val subtype: String,
-    val adress: String?,
-    val web: String?
+    @Json(name = "name") val name: String,
+    @Json(name = "type") val type: String,
+    @Json(name = "subtype") val subtype: String,
+    @Json(name = "adress") val adress: String?,
+    @Json(name = "web") val web: String?
 )
 
 fun RemoteStore.toStore() = Store(

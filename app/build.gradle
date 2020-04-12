@@ -25,9 +25,27 @@ android {
         resValue "string", "mapsApiKey", localProperties['API_KEY']
     }
 
+    def isAutoSigning = new File("keystore.properties").exists()
+    if (isAutoSigning) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(file("../keystore.properties")))
+
+        signingConfigs {
+            release {
+                storeFile file(System.getenv("HOME") + props['RELEASE_STORE_FILE'])
+                storePassword props['RELEASE_STORE_PASSWORD']
+                keyAlias props['RELEASE_STORE_KEY_ALIAS']
+                keyPassword props['RELEASE_STORE_KEY_PASSWORD']
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            if (isAutoSigning) {
+                signingConfig signingConfigs.release
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
