@@ -7,9 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hackovid.vens.common.ui.BaseFragment
-import hackovid.vens.common.utils.observe
-import hackovid.vens.features.onboarding.OnBoardingActivity
-import hackovid.vens.features.onboarding.OnBoardingViewModel
+import hackovid.vens.features.onboarding.ui.OnBoardingActivity
+import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
 import kotlinx.android.synthetic.main.activity_main.nav_host
 import org.koin.android.ext.android.inject
 

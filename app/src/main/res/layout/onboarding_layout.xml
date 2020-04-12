@@ -11,15 +11,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".features.onboarding.OnBoardingFragment">
+            tools:context=".features.onboarding.ui.OnBoardingFragment">
 
         <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="30dp"
+                android:textColor="@color/on_board_title_color"
+                android:fontFamily="@font/vag_rounded_std_bold"
                 android:text="@{onBoarding.title}"
-                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textSize="@dimen/on_board_title_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +30,15 @@
 
         <TextView
                 android:id="@+id/content"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/open_sans"
                 android:text="@{onBoarding.content}"
                 android:textAlignment="center"
-                android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textSize="@dimen/on_board_body_text_font_size"
+                app:layout_constraintLeft_toRightOf="@id/vertical_left_guidline"
+                app:layout_constraintRight_toLeftOf="@id/vertical_right_guidline"
                 app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <LinearLayout
@@ -79,6 +83,7 @@
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:visibility="@{onBoarding.nextScreenIconVisibility}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
 
@@ -94,7 +99,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/title" />
 
             <ImageView
-                    android:id="@+id/skip_icon"
+                    android:id="@+id/next_icon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_dot_selected_onboarding" />
@@ -102,6 +107,37 @@
         </LinearLayout>
 
 
+            <TextView
+                    android:id="@+id/discover"
+                    android:visibility="@{onBoarding.discoverIconVisibility}"
+                    android:layout_height="40dp"
+                    android:layout_width="140dp"
+                    android:text="@string/on_boarding_discover_text"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/vag_rounded_std_bold"
+                    android:gravity="center"
+                    android:textColor="@color/on_board_title_color"
+                    android:textSize="20sp"
+                    android:background="@drawable/button_semicircle_shape"
+                    android:layout_marginBottom="50dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vertical_left_guidline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintGuide_percent="0.10"
+                android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/vertical_right_guidline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintGuide_percent="0.90"
+                android:orientation="vertical"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
