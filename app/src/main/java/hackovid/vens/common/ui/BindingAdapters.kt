@@ -8,6 +8,8 @@ import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
+import kotlin.math.max
+import kotlin.math.roundToInt
 
 @BindingAdapter("bind:is_selected")
 fun setSelected(view: View, selected: Boolean) {
@@ -42,17 +44,44 @@ fun setStoreType(view: TextView, crowd: Int?) {
     view.text = view.resources.getText(textId)
 }
 
+@BindingAdapter("bind:distance")
+fun setDistance(view: TextView, distance: Int?) {
+    if (distance == null) {
+        view.text = view.resources.getText(R.string.list_distance_no_permission)
+    } else {
+        val isMeters = distance < 1000
+        val textDistance = if (isMeters) {
+            distance.toString()
+        } else {
+            "${distance / 1000}.${(distance / 10000).rem(10)}"
+        }
+        val textId = if (isMeters) R.string.list_distance_m else R.string.list_distance_km
+        val minutes = distance.distanceToMinutes()
+        view.text = view.resources.getString(textId, textDistance, minutes)
+    }
+}
+
+private fun Int.distanceToMinutes(): Int = max(1.0, (this * 4 / 300.0)).roundToInt()
+
 @BindingAdapter("bind:phones")
 fun setPhones(view: TextView, store: Store) {
-    view.visibility = View.VISIBLE
-    if (!store.phone.isNullOrBlank() && !store.mobilePhone.isNullOrBlank()) {
-        view.text = "${store.phone} | ${store.mobilePhone}"
-    } else if (!store.phone.isNullOrBlank()) {
-        view.text = "${store.phone}"
-    } else if (!store.mobilePhone.isNullOrBlank()) {
-        view.text = "${store.mobilePhone}"
-    } else {
-        view.visibility = View.GONE
-    }
+    view.setPhones(store.phone, store.mobilePhone)
+}
 
+@BindingAdapter("bind:phones")
+fun setPhones(view: TextView, store: StoreListUi) {
+    view.setPhones(store.phone, store.mobilePhone)
+}
+
+private fun TextView.setPhones(phone: String?, mobilePhone: String?) {
+    visibility = View.VISIBLE
+    if (!phone.isNullOrBlank() && !mobilePhone.isNullOrBlank()) {
+        text = "$phone | $mobilePhone"
+    } else if (!phone.isNullOrBlank()) {
+        text = "$phone"
+    } else if (!mobilePhone.isNullOrBlank()) {
+        text = "$mobilePhone"
+    } else {
+        visibility = View.GONE
+    }
 }
