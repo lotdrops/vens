@@ -88,7 +88,7 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
         googleMap.setOnMapLongClickListener { latLng -> sharedViewModel.location.value = latLng }
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(17f))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sharedViewModel.location.value))
         googleMap.uiSettings.isMapToolbarEnabled = false
         mapBottomPadding.value?.let { padding -> googleMap.setBottomPadding(padding) }

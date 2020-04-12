@@ -11,7 +11,7 @@ data class FilterParams(
         const val DEFAULT_DISTANCE = 0
         const val DEFAULT_CROWD = 0
         fun defaultCategories() =
-            listOfTrue(StoreType.values().size)
+            StoreType.values().map { it == StoreType.GROCERY || it == StoreType.MARKET }
         fun defaultSelectable() =
             listOfFalse(NUMBER_OF_SELECTABLE)
     }

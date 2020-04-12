@@ -49,17 +49,17 @@ fun Store.toClusterStoreItem(location: Location?) = ClusterStoreItem(
     name = name,
     type = type,
     subtype = subtype,
-    isFavourite = false,
-    phone = null,
-    mobilePhone = null,
-    address = null,
-    web = null,
-    email = null,
-    schedule = null,
+    isFavourite = isFavourite,
+    phone = phone,
+    mobilePhone = mobilePhone,
+    address = address,
+    web = web,
+    email = email,
+    schedule = schedule,
     crowd = null,
     distance = location?.distance(latitude, longitude),
-    acceptsOrders = null,
-    delivers = null)
+    acceptsOrders = acceptsOrders,
+    delivers = delivers)
 
 private fun Location.distance(latitude: Double, longitude: Double) = Location("").apply {
     setLatitude(latitude)
