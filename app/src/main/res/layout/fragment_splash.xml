@@ -22,7 +22,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/icon_app"/>
+                android:src="@drawable/icon_app"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
