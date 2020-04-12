@@ -29,6 +29,7 @@
     <string name="filter_crowded_small">Baixa</string>
     <string name="filter_crowded_medium">Mitja</string>
     <string name="filter_crowded_large">Alta</string>
+    <string name="filter_crowded_unknown">Desconegut</string>
 
     <string name="store_type_grocery">Alimentació</string>
     <string name="store_type_beauty">Bellesa</string>
