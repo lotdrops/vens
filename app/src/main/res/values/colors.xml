@@ -12,6 +12,7 @@
     <color name="onBackground">#000000</color>
     <color name="onSurface">#000000</color>
     <color name="textPrimary">@color/dark_on_white</color>
+    <color name="light_background">#fbfbff</color>
 
     <color name="body_text">#99000000</color>
     <color name="yellow">#fdc610</color>
@@ -20,4 +21,5 @@
     <color name="dark_on_white">#161F3D</color>
     <color name="selected_gray">#C8CAD7</color>
     <color name="unselected_text">#6B030B37</color>
+    <color name="lightPurple">#E3E5FC</color>
 </resources>

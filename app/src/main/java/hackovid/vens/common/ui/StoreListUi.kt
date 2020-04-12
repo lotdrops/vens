@@ -1,14 +1,13 @@
 package hackovid.vens.common.ui
 
 import android.location.Location
-import androidx.room.PrimaryKey
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import kotlin.math.roundToInt
 
 data class StoreListUi(
-    @PrimaryKey val id: Long = 0,
+    val id: Long,
     val latitude: Double,
     val longitude: Double,
     val name: String,
@@ -27,6 +26,7 @@ data class StoreListUi(
 )
 
 fun Store.toListUi(location: Location?) = StoreListUi(
+    id = id,
     latitude = latitude,
     longitude = longitude,
     name = name,

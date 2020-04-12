@@ -12,6 +12,16 @@
     <string name="favourites_screen_empty_body">Haz clic en el corazón que aparece en a cualquier tienda para añadirla a la lista.\n
         Podrás acceder cómodamente y recibir notificaciones.</string>
 
+    <string name="generic_error_not_done_yet_title">No disponible</string>
+    <string name="generic_error_not_done_yet_message">Lo sentimos, esta funcionalidad se desarrollará próximamente</string>
+    <string name="generic_positive_button">OK</string>
+
+    <string name="list_contact">Contacta con tu tienda</string>
+
+    <string name="list_distance_no_permission">Es necesaria la localización</string>
+    <string name="list_distance_m">%sm, unos %d min</string>
+    <string name="list_distance_km">%skm, unos %d min</string>
+
     <string name="filter_priority_title">Prioridad</string>
     <string name="filter_priority_orders">Acepta pedidos</string>
     <string name="filter_priority_open">Está abierto</string>
