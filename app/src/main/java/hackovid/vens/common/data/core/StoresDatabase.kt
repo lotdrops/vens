@@ -1,25 +1,21 @@
 package hackovid.vens.common.data.core
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import hackovid.vens.common.data.LocalDataSource
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
-import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.json.LocalJsonPersistency
 import hackovid.vens.common.data.json.MoshiFactory
-import hackovid.vens.common.data.json.RemoteStore
 import hackovid.vens.common.data.json.toStore
 import hackovid.vens.common.utils.FileReaderUtilities
-import kotlin.random.Random
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 const val DATABASE_NAME = "stores-db"
 
@@ -47,35 +43,20 @@ abstract class StoresDatabase : RoomDatabase() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         CoroutineScope(Dispatchers.IO).launch {
-                            getInstance(context).storeDao().insertList(processLocalDatabaseFromJsonFile(context))
+                            getInstance(context).storeDao().insertList(
+                                processLocalDatabaseFromJsonFile(context)
+                            )
+                            Log.w("Parse json", "Database processed")
                         }
                     }
                 })
                 .build()
-
-        private fun buildMockData() = (0..MOCK_SAMPLES).map { buildMockStore(it) }
-
-        private fun buildMockStore(id: Int) = Store(
-            id = id.toLong(),
-            latitude = Random.nextDouble(LAT_MIN, LAT_MAX),
-            longitude = Random.nextDouble(LONG_MIN, LONG_MAX),
-            name = "Botiga $id",
-            type = StoreType.values()[Random.nextInt(StoreType.values().size)],
-            isFavourite = id.rem(100) == 0
-        )
     }
 }
 
- fun processLocalDatabaseFromJsonFile(context: Context): List<Store> {
-    val fileReaderUtilities =  FileReaderUtilities(context)
+fun processLocalDatabaseFromJsonFile(context: Context): List<Store> {
+    val fileReaderUtilities = FileReaderUtilities(context)
     val localDataSource = LocalJsonPersistency(fileReaderUtilities, MoshiFactory.getInstance())
 
     return localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
 }
-
-private const val MOCK_SAMPLES = 1000
-
-private const val LAT_MAX = 41.4382825
-private const val LONG_MAX = 2.2066148
-private const val LAT_MIN = 41.3670529
-private const val LONG_MIN = 2.1269364
