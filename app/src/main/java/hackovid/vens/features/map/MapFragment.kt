@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
@@ -18,14 +19,14 @@ import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentMapBinding
-import kotlin.math.roundToInt
-import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.fragment_map.view.*
+import kotlinx.android.synthetic.main.fragment_map.mapFilterButton
+import kotlinx.android.synthetic.main.fragment_map.view.infoLayout
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.math.roundToInt
 
-class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback,
+class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapClickListener, OnMapReadyCallback,
     ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
 
     override val layoutRes = R.layout.fragment_map
@@ -100,6 +101,7 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
         )
             if (this::googleMap.isInitialized) {
                 googleMap.isMyLocationEnabled = true
+                googleMap.setOnMapClickListener(this)
                 googleMap.uiSettings.isMyLocationButtonEnabled = false
                 googleMap.animateCamera(
                     CameraUpdateFactory.newLatLng(sharedViewModel.location.value)
@@ -109,11 +111,8 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
 
     private fun observeStores() {
         observe(viewModel.stores) { stores ->
-            googleMap.clear()
             clusterManager.clearItems()
-            stores.forEach { store ->
-                clusterManager.addItem(store.toClusterStoreItem())
-            }
+            clusterManager.addItems(stores)
             clusterManager.setOnClusterItemClickListener(this)
             clusterManager.setAlgorithm(NonHierarchicalViewBasedAlgorithm(
                 resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels)
@@ -124,9 +123,10 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
 
     private fun setUpClusterer() {
         clusterManager = ClusterManager(context, googleMap)
-        /*clusterManager.renderer = context?.let {
+        googleMap.setOnMarkerClickListener(clusterManager)
+        clusterManager.renderer = context?.let {
             ClusterStoreRenderer(it, googleMap, clusterManager)
-        }*/
+        }
         googleMap.setOnCameraIdleListener(clusterManager)
     }
 
@@ -135,5 +135,9 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
     override fun onClusterItemClick(item: ClusterStoreItem?): Boolean {
         viewModel.selectedStoreId.value = item?.toStoreItem()?.id?.toInt()
         return true
+    }
+
+    override fun onMapClick(p0: LatLng?) {
+        viewModel.selectedStoreId.value = null
     }
 }

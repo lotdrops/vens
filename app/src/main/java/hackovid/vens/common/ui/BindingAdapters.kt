@@ -85,3 +85,4 @@ private fun TextView.setPhones(phone: String?, mobilePhone: String?) {
         visibility = View.GONE
     }
 }
+
