@@ -42,21 +42,8 @@ abstract class StoresDatabase : RoomDatabase() {
                 .addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            getInstance(context).storeDao().insertList(
-                                processLocalDatabaseFromJsonFile(context)
-                            )
-                            Log.w("Parse json", "Database processed")
-                        }
                     }
                 })
                 .build()
     }
-}
-
-fun processLocalDatabaseFromJsonFile(context: Context): List<Store> {
-    val fileReaderUtilities = FileReaderUtilities(context)
-    val localDataSource = LocalJsonPersistency(fileReaderUtilities, MoshiFactory.getInstance())
-
-    return localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
 }
