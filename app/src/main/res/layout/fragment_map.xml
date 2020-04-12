@@ -23,17 +23,19 @@
             android:layout_height="match_parent"
             android:tag="mapFragment"
             />
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/mapFilterButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/IconButton"
-            android:text="Filtro"
+            android:paddingHorizontal="36dp"
+            android:layout_marginVertical="8dp"
+            android:text="@string/title_filter"
             android:layout_gravity="top|center"
-            android:textColor="@color/text_dark"
             android:drawableRight="@drawable/amu_bubble_mask"
-        />
-
+            app:cornerRadius="@dimen/button_corner_radius"
+            style="@style/RoundedButton"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/infoLayout"
@@ -70,8 +72,8 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/map_store_action"
                 android:onClick="@{view -> viewModel.onStoreActionClicked()}"
-                style="@style/Widget.MaterialComponents.Button"
-                app:cornerRadius="12dp"
+                style="@style/RoundedButton"
+                app:cornerRadius="@dimen/button_corner_radius"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleTextView"
                 app:layout_constraintBottom_toBottomOf="parent"

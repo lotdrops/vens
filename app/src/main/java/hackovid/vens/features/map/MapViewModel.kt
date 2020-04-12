@@ -32,6 +32,7 @@ class MapViewModel(
         if (it != null) storeDao.getStoreById(it)
         else MutableLiveData()
     }
+
     val showStoreInfo = selectedStoreId.map { it != null }
 
     fun onBackPressed(): Boolean = (showStoreInfo.value == true).apply {
@@ -39,7 +40,7 @@ class MapViewModel(
     }
 
     fun onStoreActionClicked() {
-        //TODO: navigate to detail
+        // TODO: navigate to detail
     }
     fun onFavouriteClicked() {
         viewModelScope.launch {
