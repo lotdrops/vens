@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="item" type="hackovid.vens.common.data.Store" />
     </data>
@@ -27,7 +28,8 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp"
                 android:text="@{item.name}"
-                style="@style/TextAppearance.Custom.ListItem.Title"
+                style="@style/TextAppearance.Custom.ListCardTitle"
+                tools:text="Fusteria Genis"
                 />
 
             <TextView
@@ -36,7 +38,8 @@
                 android:layout_weight="1"
                 android:paddingBottom="16dp"
                 bind:store_types="@{item}"
-                style="@style/TextAppearance.Custom.ListItem.Subtitle"
+                style="@style/TextAppearance.Custom.ListCardType"
+                tools:text="Llar - Fusteria"
                 />
 
         </LinearLayout>

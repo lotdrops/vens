@@ -32,7 +32,7 @@ class MapViewModel(
     }
 
     fun onStoreActionClicked() {
-        //TODO: navigate to detail
+        // TODO: navigate to detail
     }
     fun onFavouriteClicked() {
         viewModelScope.launch {
