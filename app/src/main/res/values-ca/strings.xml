@@ -18,4 +18,6 @@
     <string name= "on_boarding_screen_title_slide_three">Comunicació directa</string>
     <string name= "on_boarding_screen_body_slide_three">Xateja, rep avisos, canvis d\'horaris, consulta disponibilitat de productes,informat de nous
     serveis i promocions…</string>
+    <string name= "on_boarding_discover_text">Descobreix</string>
+
 </resources>

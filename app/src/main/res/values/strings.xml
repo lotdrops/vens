@@ -17,4 +17,6 @@
     <string name="on_boarding_screen_title_slide_three">Direct communication</string>
     <string name="on_boarding_screen_body_slide_three">Chat, receive alerts, time changes, check product availability, find out about
     new services, promotions…</string>
+    <string name= "on_boarding_discover_text">Discover</string>
+
 </resources>

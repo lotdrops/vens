@@ -1,27 +1,38 @@
-package hackovid.vens.features.onboarding
+package hackovid.vens.features.onboarding.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hackovid.vens.R
 import hackovid.vens.databinding.OnboardingLayoutBinding
-
-typealias nextButtonClicked = (OnboardingModel) -> Unit
+import hackovid.vens.features.onboarding.OnboardingModel
 
 class OnboardingAdapter(
     private val onBoardingListModel: List<OnboardingModel>,
-    private val onClick: nextButtonClicked
+    private val nextButtonClicked: (OnboardingModel, Int) -> Unit,
+    private val discoverButtonClicked: () -> Unit,
+    private val skipButtonClicked: () -> Unit
 ) : RecyclerView.Adapter<OnboardingAdapter.OnBoardingViewHolder>() {
 
-    lateinit var binding : OnboardingLayoutBinding
+    lateinit var binding: OnboardingLayoutBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        binding = OnboardingLayoutBinding.inflate(inflater, parent,false)
+        binding = OnboardingLayoutBinding.inflate(inflater, parent, false)
         val viewHolder = OnBoardingViewHolder(binding)
-        binding.nextLinearLayout.setOnClickListener {
-            onClick(onBoardingListModel[viewHolder.adapterPosition])
+        binding.nextIcon.setOnClickListener {
+            nextButtonClicked(
+                onBoardingListModel[viewHolder.adapterPosition],
+                viewHolder.adapterPosition + 1
+            )
         }
+        binding.skipText.setOnClickListener {
+            skipButtonClicked()
+        }
+        binding.discover.setOnClickListener {
+            discoverButtonClicked()
+        }
+
         return viewHolder
     }
 
@@ -51,12 +62,14 @@ class OnboardingAdapter(
         holder.bind(onBoardingListModel[position])
     }
 
-    inner class OnBoardingViewHolder(val binding: OnboardingLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class OnBoardingViewHolder(val binding: OnboardingLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(onboardingModel: OnboardingModel) {
             binding.onBoarding = onboardingModel
             binding.executePendingBindings()
         }
     }
+
 
 }
