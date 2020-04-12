@@ -5,18 +5,22 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
-import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.GenericListAdapter
+import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentListBinding
 import hackovid.vens.databinding.ItemStoreBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 typealias StoreListAdapter = GenericListAdapter<Store>
-class ListFragment : BaseFragment<FragmentListBinding>() {
+class ListFragment : FilterBaseFragment<FragmentListBinding>() {
     override val layoutRes = R.layout.fragment_list
 
-    private val viewModel: ListViewModel by viewModel()
+    private val sharedViewModel: SharedViewModel by sharedViewModel()
+    private val viewModel: ListViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun setupBinding(binding: FragmentListBinding) {
         binding.viewModel = viewModel
