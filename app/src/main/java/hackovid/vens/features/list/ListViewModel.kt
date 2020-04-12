@@ -1,7 +1,5 @@
 package hackovid.vens.features.list
 
-import android.location.Location
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
@@ -11,6 +9,7 @@ import hackovid.vens.common.data.filter.StoresDataSource
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.ui.StoreListUi
 import hackovid.vens.common.ui.toListUi
+import hackovid.vens.common.ui.toLocation
 import hackovid.vens.common.utils.combineWith
 import kotlinx.coroutines.launch
 
@@ -19,7 +18,7 @@ class ListViewModel(
     private val storesDataSource: StoresDataSource,
     private val storeDao: StoreDao
 ) : ViewModel() {
-    val location = MutableLiveData<Location?>()
+    private val location = sharedViewModel.location.map { it.toLocation() }
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
     }
