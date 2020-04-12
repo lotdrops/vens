@@ -3,6 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="card_corner_radius">8dp</dimen>
+
     <dimen name="map_info_margin">8dp</dimen>
 
     <dimen name="title_text_size">24sp</dimen>
@@ -13,14 +15,16 @@
     <dimen name="fav_button_size">56dp</dimen>
 
     <dimen name="selectable_button_height">88dp</dimen>
-    <dimen name="selectable_button_radius">8dp</dimen>
+    <dimen name="selectable_button_radius">@dimen/card_corner_radius</dimen>
     <dimen name="selectable_button_margin">24dp</dimen>
+
 
     <dimen name="map_card_title">18dp</dimen>
     <dimen name="map_card_description">14dp</dimen>
     <dimen name="list_card_title">@dimen/subtitle_text_size</dimen>
     <dimen name="list_card_description">14dp</dimen>
     <dimen name="list_card_type">12dp</dimen>
+    <dimen name="list_card_icon_size">24dp</dimen>
 
     <dimen name="button_corner_radius">20dp</dimen>
 
