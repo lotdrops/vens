@@ -103,14 +103,15 @@
     <string name="store_subtype_dry_cleaner">Tintorerias</string>
     <string name="store_subtype_vet_store">Veterinario / Mascotas</string>
 
-    <string name= "on_boarding_screen_skip_text">Saltar</string>
+    <string name= "on_boarding_screen_skip_text">Siguiente</string>
     <string name= "on_boarding_screen_title_slide_one">Tu comercio de confianza</string>
-    <string name= "on_boarding_screen_body_slide_one">Todos los servicios sin moverte de casa</string>
+    <string name= "on_boarding_screen_body_slide_one">Apoya el comercio de proximidad, ahorra tiempo y explora a tu alrededor sin moverte de casa, dando vida a tu barrio.</string>
     <string name= "on_boarding_screen_title_slide_two">Reducir el tiempo de espera</string>
-    <string name= "on_boarding_screen_body_slide_two">Compara la afluencia de gente en los diferentes comercios de tu zona, así sabrás dónde ir
-    para cruzarte con la menor gente posible</string>
+    <string name= "on_boarding_screen_body_slide_two">Compara la afluencia de gente en tus comercios favoritos, así sabrás dónde ir
+    para ahorrar tiempo y evitar gente</string>
     <string name= "on_boarding_screen_title_slide_three">Comunicación directa</string>
-    <string name= "on_boarding_screen_body_slide_three">Chatea, recibe avisos, cambios horarios, consulta disponibilidad de productos, infórmate de
+    <string name= "on_boarding_screen_body_slide_three">Ten una comunicación más cercana y sencilla con tus tiendas favoritas:
+        chatea, recibe avisos, ve los cambios horarios, consulta disponibilidad de productos, infórmate de
     nuevos servicios, promociones…</string>
     <string name= "on_boarding_discover_text">Descubre</string>
 

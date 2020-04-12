@@ -103,15 +103,15 @@
     <string name="store_subtype_dry_cleaner">Tintoreries</string>
     <string name="store_subtype_vet_store">Veterinaris / Mascotes</string>
 
-    <string name= "on_boarding_screen_skip_text">Saltar</string>
+    <string name= "on_boarding_screen_skip_text">Següent</string>
     <string name= "on_boarding_screen_title_slide_one">El teu comerç de confiança</string>
-    <string name= "on_boarding_screen_body_slide_one">Tots els serveis sense moure\'t de casa</string>
+    <string name= "on_boarding_screen_body_slide_one">Recolza el comerç de proximitat, estalvia temps i explora al teu voltant, donant vida al teu barri.</string>
     <string name= "on_boarding_screen_title_slide_two">Reduïr el temps d\'espera</string>
-    <string name= "on_boarding_screen_body_slide_two">Compara l\'afluència de gent en els diferents comerços de la teva zona, així sabràs on anar
-    per creuar-te amb el mínim de gent possible</string>
+    <string name= "on_boarding_screen_body_slide_two">Compara l\'afluència de gent en els teus comerços preferits. Així sabràs on anar
+    per per estalviar temps i evitar la gent</string>
     <string name= "on_boarding_screen_title_slide_three">Comunicació directa</string>
-    <string name= "on_boarding_screen_body_slide_three">Xateja, rep avisos, canvis d\'horaris, consulta disponibilitat de productes, informa\'t de nous
-    serveis i promocions…</string>
+    <string name= "on_boarding_screen_body_slide_three">Tingues una comunicaci més propera i senzilla amb les teves botigues preferides:
+         xateja, rep avisos, veu els canvis d\'horaris, consulta disponibilitat de productes, informa\'t de nous serveis i promocions…</string>
     <string name= "on_boarding_discover_text">Descobreix</string>
 
 </resources>

@@ -103,15 +103,15 @@
     <string name="store_subtype_dry_cleaner">Dry cleaner</string>
     <string name="store_subtype_vet_store">Vet store</string>
 
-    <string name="on_boarding_screen_skip_text">Skip</string>
+    <string name="on_boarding_screen_skip_text">Next</string>
     <string name="on_boarding_screen_title_slide_one">Your trust commerce</string>
-    <string name="on_boarding_screen_body_slide_one">All services without leaving home</string>
+    <string name="on_boarding_screen_body_slide_one">Support local stores, save time and explore around you, while helping your neighbourhood.</string>
     <string name="on_boarding_screen_title_slide_two">Reduce waiting time</string>
-    <string name="on_boarding_screen_body_slide_two">Compare the influx of people in the different shops in your area, so you will know
-                    where to go to meet as few people as possible</string>
+    <string name="on_boarding_screen_body_slide_two">Compare the influx of people in your favourite shops, so that you know
+                    where to go to save time and avoid people</string>
     <string name="on_boarding_screen_title_slide_three">Direct communication</string>
-    <string name="on_boarding_screen_body_slide_three">Chat, receive alerts, time changes, check product availability, find out about
-    new services, promotions…</string>
+    <string name="on_boarding_screen_body_slide_three">Have a closer and easier communication with your favourite shops:
+        chat, receive alerts, see schedule changes, check product availability, find out about new services, promotions…</string>
     <string name= "on_boarding_discover_text">Discover</string>
 
 </resources>

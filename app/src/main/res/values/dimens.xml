@@ -33,8 +33,8 @@
     <dimen name="detail_card_top_margin">276dp</dimen>
     <dimen name="detail_fav_top_margin">260dp</dimen>
 
-    <dimen name="on_board_title_font_size">20sp</dimen>
-    <dimen name="on_board_body_text_font_size">13sp</dimen>
-    <dimen name="on_board_skip_font_size">12sp</dimen>
+    <dimen name="on_board_title_font_size">24sp</dimen>
+    <dimen name="on_board_body_text_font_size">16sp</dimen>
+    <dimen name="on_board_skip_font_size">14sp</dimen>
 
 </resources>

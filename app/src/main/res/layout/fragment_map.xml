@@ -87,7 +87,6 @@
                 android:layout_gravity="center_vertical"
                 bind:layout_constraintEnd_toEndOf="parent"
                 bind:layout_constraintTop_toTopOf="parent"
-                bind:layout_constraintBottom_toTopOf="@+id/storeActionButton"
                 android:onClick="@{()-> viewModel.onFavouriteClicked()}"
                 android:src="@{viewModel.selectedStore.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
                 />
