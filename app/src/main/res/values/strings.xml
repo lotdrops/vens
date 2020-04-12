@@ -30,6 +30,7 @@
     <string name="filter_crowded_small">Small</string>
     <string name="filter_crowded_medium">Medium</string>
     <string name="filter_crowded_large">Large</string>
+    <string name="filter_crowded_unknown">Unknown</string>
 
     <string name="store_type_grocery">Grocery</string>
     <string name="store_type_beauty">Beauty</string>
