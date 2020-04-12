@@ -92,6 +92,7 @@ fun Store.toClusterStoreItem() = ClusterStoreItem(
     longitude = longitude,
     name = name,
     type = type,
+    subtype = subtype,
     isFavourite = false,
     phone = null,
     mobilePhone = null,
