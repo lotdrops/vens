@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
+import hackovid.vens.common.data.toClusterStoreItem
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
