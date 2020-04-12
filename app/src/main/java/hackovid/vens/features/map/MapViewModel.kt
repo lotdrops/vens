@@ -31,6 +31,9 @@ class MapViewModel(
         if (this) selectedStoreId.value = null
     }
 
+    fun onStoreActionClicked() {
+        //TODO: navigate to detail
+    }
     fun onFavouriteClicked() {
         viewModelScope.launch {
             selectedStore.value?.let { st -> storeDao.setFavourite(st.id, !st.isFavourite) }
