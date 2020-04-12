@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.viewpager2.widget.ViewPager2
-import hackovid.vens.MainActivity
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentOnboardingBinding
 import hackovid.vens.features.onboarding.OnboardingModel
