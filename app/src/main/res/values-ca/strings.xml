@@ -22,6 +22,12 @@
     <string name="list_distance_m">%sm, uns %d min</string>
     <string name="list_distance_km">%skm, uns %d min</string>
 
+    <string name="detail_distance_no_permission">Cal el permís de localització</string>
+    <string name="detail_distance_m">Distància de %sm, uns %d min</string>
+    <string name="detail_distance_km">Distància de %skm, uns %d min</string>
+
+    <string name="detail_schedules_upcoming">Els horaris estaran disponibles properament</string>
+
     <string name="filter_priority_title">Prioritat</string>
     <string name="filter_priority_orders">Comandes per telèfon</string>
     <string name="filter_priority_open">Botiga online</string>

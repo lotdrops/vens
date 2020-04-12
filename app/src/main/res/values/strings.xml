@@ -17,6 +17,12 @@
     <string name="list_distance_m">%sm, about %d min</string>
     <string name="list_distance_km">%skm, about %d min</string>
 
+    <string name="detail_distance_no_permission">Location permission needed</string>
+    <string name="detail_distance_m">Distance of %sm, about %d min</string>
+    <string name="detail_distance_km">Distance of %skm, about %d min</string>
+
+    <string name="detail_schedules_upcoming">Schedules will be available shortly</string>
+
     <string name="favourites_screen_title">My shops</string>
     <string name="favourites_screen_empty_title">You have no favourite shops added</string>
     <string name="favourites_screen_empty_body">Tap on the heart icon of any shop to add it to the list.\n

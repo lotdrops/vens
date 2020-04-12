@@ -27,4 +27,9 @@
     <dimen name="list_card_icon_size">20dp</dimen>
 
     <dimen name="button_corner_radius">20dp</dimen>
+
+    <dimen name="detail_card_radius">24dp</dimen>
+    <dimen name="detail_image_height">250dp</dimen>
+    <dimen name="detail_card_top_margin">226dp</dimen>
+    <dimen name="detail_fav_top_margin">210dp</dimen>
 </resources>

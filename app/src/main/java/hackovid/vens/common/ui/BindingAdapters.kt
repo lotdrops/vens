@@ -69,16 +69,44 @@ fun setDistance(view: TextView, distance: Int?) {
     }
 }
 
+@BindingAdapter("bind:full_distance")
+fun setFullDistance(view: TextView, distance: Int?) {
+    if (distance == null) {
+        view.text = view.resources.getText(R.string.detail_distance_no_permission)
+    } else {
+        val isMeters = distance < 1000
+        val textDistance = if (isMeters) {
+            distance.toString()
+        } else {
+            "${distance / 1000}.${(distance / 10000).rem(10)}"
+        }
+        val textId = if (isMeters) R.string.detail_distance_m else R.string.detail_distance_km
+        val minutes = distance.distanceToMinutes()
+        view.text = view.resources.getString(textId, textDistance, minutes)
+    }
+}
+
 private fun Int.distanceToMinutes(): Int = max(1.0, (this * 4 / 300.0)).roundToInt()
 
 @BindingAdapter("bind:phones")
-fun setPhones(view: TextView, store: Store) {
-    view.setPhones(store.phone, store.mobilePhone)
+fun setPhones(view: TextView, store: Store?) {
+    if (store != null) {
+        view.setPhones(store.phone, store.mobilePhone)
+    }
 }
 
 @BindingAdapter("bind:phones")
-fun setPhones(view: TextView, store: StoreListUi) {
-    view.setPhones(store.phone, store.mobilePhone)
+fun setPhones(view: TextView, store: StoreListUi?) {
+    if (store != null) {
+        view.setPhones(store.phone, store.mobilePhone)
+    }
+}
+
+@BindingAdapter("bind:phones_visibility")
+fun setPhonesVisibility(view: View, store: StoreListUi?) {
+    view.visibility = if (!store?.phone.isNullOrBlank() || !store?.mobilePhone.isNullOrBlank()) {
+        View.VISIBLE
+    } else View.GONE
 }
 
 private fun TextView.setPhones(phone: String?, mobilePhone: String?) {

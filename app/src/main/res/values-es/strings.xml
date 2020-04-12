@@ -22,6 +22,12 @@
     <string name="list_distance_m">%sm, unos %d min</string>
     <string name="list_distance_km">%skm, unos %d min</string>
 
+    <string name="detail_distance_no_permission">El permiso de localización es necesario</string>
+    <string name="detail_distance_m">Distancia de %sm, unos %d min</string>
+    <string name="detail_distance_km">Distancia de %skm, unos %d min</string>
+
+    <string name="detail_schedules_upcoming">Los horarios estarán disponibles próximamente</string>
+
     <string name="filter_priority_title">Prioridad</string>
     <string name="filter_priority_orders">Acepta pedidos</string>
     <string name="filter_priority_open">Está abierto</string>
