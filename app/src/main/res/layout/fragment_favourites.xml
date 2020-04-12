@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <import type="android.view.View" />
+        <variable name="viewModel" type="hackovid.vens.features.favourites.FavouritesViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="@string/favourites_screen_title"
+                android:layout_marginLeft="48dp"
+                style="@style/TextAppearance.Custom.Title"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_background"
+            android:visibility="@{viewModel.showEmpty ? View.GONE : View.VISIBLE}"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/placeholder_no_favs"
+            android:layout_gravity="center_horizontal"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginHorizontal="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/favourites_screen_empty_title"
+            style="@style/TextAppearance.Custom.Subtitle"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="24dp"
+            android:text="@string/favourites_screen_empty_body"
+            android:gravity="center_horizontal"
+            style="@style/TextAppearance.Custom.Body"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            />
+    </LinearLayout>
+</layout>

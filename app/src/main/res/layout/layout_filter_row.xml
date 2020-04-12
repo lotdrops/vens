@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View" />
+        <variable name="img0" type="android.graphics.drawable.Drawable" />
+        <variable name="img1" type="android.graphics.drawable.Drawable" />
+        <variable name="img2" type="android.graphics.drawable.Drawable" />
+        <variable name="text0" type="String" />
+        <variable name="text1" type="String" />
+        <variable name="text2" type="String" />
+        <variable name="onClick0" type="android.view.View.OnClickListener" />
+        <variable name="onClick1" type="android.view.View.OnClickListener" />
+        <variable name="onClick2" type="android.view.View.OnClickListener" />
+        <variable name="selected0" type="Boolean" />
+        <variable name="selected1" type="Boolean" />
+        <variable name="selected2" type="Boolean" />
+        <variable name="imagesVisible" type="Boolean" />
+    </data>
+    <merge
+        tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat"
+        tools:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/selectable_button_height"
+            android:orientation="horizontal"
+            >
+
+            <include
+                layout="@layout/layout_filter_element"
+                bind:textRes="@{text0}"
+                bind:imgSrc="@{img0}"
+                bind:imageVisible="@{imagesVisible}"
+                bind:is_selected="@{selected0}"
+                bind:myOnClick="@{onClick0}"
+                />
+
+            <Space
+                android:layout_width="@dimen/selectable_button_margin"
+                android:layout_height="match_parent"
+                />
+
+            <include
+                layout="@layout/layout_filter_element"
+                bind:textRes="@{text1}"
+                bind:imgSrc="@{img1}"
+                bind:imageVisible="@{imagesVisible}"
+                bind:is_selected="@{selected1}"
+                bind:myOnClick="@{onClick1}"
+                />
+
+            <Space
+                android:layout_width="@dimen/selectable_button_margin"
+                android:layout_height="match_parent"
+                />
+
+            <include
+                layout="@layout/layout_filter_element"
+                bind:textRes="@{text2}"
+                bind:imgSrc="@{img2}"
+                bind:imageVisible="@{imagesVisible}"
+                bind:is_selected="@{selected2}"
+                bind:myOnClick="@{onClick2}"
+                />
+
+        </LinearLayout>
+    </merge>
+</layout>

@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion "29.0.3"
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        applicationId "hackovid.vens"
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        resValue "string", "mapsApiKey", localProperties['API_KEY']
+    }
+
+    def isAutoSigning = new File("keystore.properties").exists()
+    if (isAutoSigning) {
+        Properties props = new Properties()
+        props.load(new FileInputStream(file("../keystore.properties")))
+
+        signingConfigs {
+            release {
+                storeFile file(System.getenv("HOME") + props['RELEASE_STORE_FILE'])
+                storePassword props['RELEASE_STORE_PASSWORD']
+                keyAlias props['RELEASE_STORE_KEY_ALIAS']
+                keyPassword props['RELEASE_STORE_KEY_PASSWORD']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            if (isAutoSigning) {
+                signingConfig signingConfigs.release
+            }
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.kotlinStdLib
+    implementation libs.appCompat
+    implementation libs.ktxCore
+    implementation libs.materialDesign
+    implementation libs.constraintLayout
+    implementation libs.navigationFragment
+    implementation libs.navigationUi
+    implementation libs.lifecycleExtensions
+    implementation libs.navigationFragment
+    implementation libs.koin
+    implementation libs.koinViewmodel
+    implementation libs.liveData
+    implementation libs.moshi
+    kapt libs.moshiKapt
+    implementation libs.liveData
+    kapt libs.roomCompiler
+    implementation libs.roomRuntime
+    implementation libs.roomKtx
+    implementation libs.firebase
+    implementation libs.googleMaps
+    implementation libs.mapsUtils
+    testImplementation libs.junit
+    androidTestImplementation libs.androidJunit
+    androidTestImplementation libs.espressoCore
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@+id/splashFragment">
+
+    <fragment
+            android:id="@+id/splashFragment"
+            android:name="hackovid.vens.features.onboarding.ui.SplashFragment"
+            tools:layout="@layout/fragment_splash">
+        <action
+                android:id="@+id/nav_to_onboarding_fragment"
+                app:destination="@id/onBoardingFragment">
+        </action>
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/onBoardingFragment"
+            android:name="hackovid.vens.features.onboarding.ui.OnBoardingFragment"
+            tools:layout="@layout/fragment_onboarding" />
+
+</navigation>

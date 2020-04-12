@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="transparent">#0000</color>
+
+    <color name="colorPrimary">@color/yellow</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">@color/yellow</color>
+    <color name="onPrimary">@color/white</color>
+    <color name="onSecondary">@color/white</color>
+    <color name="onBackground">#000000</color>
+    <color name="onSurface">#000000</color>
+    <color name="textPrimary">@color/dark_on_white</color>
+    <color name="light_background">#fbfbff</color>
+
+    <color name="body_text">#99000000</color>
+
+    <color name="gray_unselected">#44000000</color>
+    <color name="yellow">#fdc610</color>
+    <color name="text_dark">#030b37</color>
+
+    <color name="dark_on_white">#161F3D</color>
+    <color name="selected_gray">#C8CAD7</color>
+    <color name="unselected_text">#6B030B37</color>
+    <color name="lightPurple">#E3E5FC</color>
+    <color name="on_board_yellow_primary">#fdc510</color>
+
+
+</resources>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="viewModel" type="hackovid.vens.features.filter.FilterBottomSheetViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center"
+                    android:text="@string/title_filter"
+                    style="@style/TextAppearance.Custom.Title"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/filter_priority_title"
+                    style="@style/TextAppearance.Custom.Subtitle"
+                    />
+
+                <include
+                    layout="@layout/layout_filter_row"
+                    bind:text0="@{@string/filter_priority_orders}"
+                    bind:text1="@{@string/filter_priority_open}"
+                    bind:text2="@{@string/filter_priority_delivers}"
+                    bind:selected0="@{viewModel.priorities.get(0) == true}"
+                    bind:selected1="@{viewModel.priorities.get(1) == true}"
+                    bind:selected2="@{viewModel.priorities.get(2) == true}"
+                    bind:img0="@{@drawable/ic_phone}"
+                    bind:img1="@{@drawable/ic_add_shopping_cart}"
+                    bind:img2="@{@drawable/ic_directions_bike}"
+                    bind:onClick0="@{v -> viewModel.onPrioritySelected(0)}"
+                    bind:onClick1="@{v -> viewModel.onPrioritySelected(1)}"
+                    bind:onClick2="@{v -> viewModel.onPrioritySelected(2)}"
+                    bind:imagesVisible="@{true}"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/filter_distance_title"
+                    style="@style/TextAppearance.Custom.Subtitle"
+                    />
+
+                <include
+                    layout="@layout/layout_filter_row"
+                    bind:text0="@{@string/filter_distance_near}"
+                    bind:text1="@{@string/filter_distance_mid}"
+                    bind:text2="@{@string/filter_distance_far}"
+                    bind:selected0="@{viewModel.distance == 0}"
+                    bind:selected1="@{viewModel.distance == 1}"
+                    bind:selected2="@{viewModel.distance == 2}"
+                    bind:img0="@{@drawable/ic_filter_distance_low}"
+                    bind:img1="@{@drawable/ic_filter_distance_medium}"
+                    bind:img2="@{@drawable/ic_filter_distance_high}"
+                    bind:onClick0="@{v -> viewModel.onDistanceSelected(0)}"
+                    bind:onClick1="@{v -> viewModel.onDistanceSelected(1)}"
+                    bind:onClick2="@{v -> viewModel.onDistanceSelected(2)}"
+                    bind:imagesVisible="@{true}"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/filter_categories_title"
+                    style="@style/TextAppearance.Custom.Subtitle"
+                    />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categories_chipgroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/filter_must_have_title"
+                    style="@style/TextAppearance.Custom.Subtitle"
+                    />
+
+                <include
+                    layout="@layout/layout_filter_row"
+                    bind:text0="@{@string/filter_must_have_masks}"
+                    bind:text1="@{@string/filter_must_have_hand_sanitizer}"
+                    bind:text2="@{@string/filter_must_have_gloves}"
+                    bind:img0="@{@drawable/ic_filter_mask}"
+                    bind:img1="@{@drawable/ic_filter_water}"
+                    bind:img2="@{@drawable/ic_filter_glove}"
+                    bind:selected0="@{viewModel.mustHave.get(0) == true}"
+                    bind:selected1="@{viewModel.mustHave.get(1) == true}"
+                    bind:selected2="@{viewModel.mustHave.get(2) == true}"
+                    bind:onClick0="@{v -> viewModel.onMustHaveSelected(0)}"
+                    bind:onClick1="@{v -> viewModel.onMustHaveSelected(1)}"
+                    bind:onClick2="@{v -> viewModel.onMustHaveSelected(2)}"
+                    bind:imagesVisible="@{true}"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:paddingStart="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/filter_crowded_title"
+                    style="@style/TextAppearance.Custom.Subtitle"
+                    />
+
+                <include
+                    layout="@layout/layout_filter_row"
+                    bind:text0="@{@string/filter_crowded_small}"
+                    bind:text1="@{@string/filter_crowded_medium}"
+                    bind:text2="@{@string/filter_crowded_large}"
+                    bind:img0="@{@drawable/ic_filter_crowd_low}"
+                    bind:img1="@{@drawable/ic_filter_crowd_medium}"
+                    bind:img2="@{@drawable/ic_filter_crowd_high}"
+                    bind:selected0="@{viewModel.crowd == 0}"
+                    bind:selected1="@{viewModel.crowd == 1}"
+                    bind:selected2="@{viewModel.crowd == 2}"
+                    bind:onClick0="@{v -> viewModel.onCrowdSelected(0)}"
+                    bind:onClick1="@{v -> viewModel.onCrowdSelected(1)}"
+                    bind:onClick2="@{v -> viewModel.onCrowdSelected(2)}"
+                    bind:imagesVisible="@{true}"
+                    />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/storeActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="36dp"
+                android:layout_marginVertical="8dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/title_filter"
+                android:onClick="@{v -> viewModel.onFilterClicked()}"
+                app:cornerRadius="@dimen/button_corner_radius"
+                style="@style/RoundedButton"
+                />
+        </FrameLayout>
+    </FrameLayout>
+</layout>

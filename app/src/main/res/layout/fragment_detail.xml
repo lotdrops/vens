@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="android.view.View" />
+        <variable name="viewModel" type="hackovid.vens.features.detail.DetailViewModel" />
+    </data>
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_image_height"
+            app:imageResource="@{viewModel.image.intValue()}"
+            android:scaleType="centerCrop"
+            android:background="@color/lightPurple"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/detail_card_top_margin"
+            android:background="@drawable/bg_detail_card"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    bind:store_types="@{viewModel.storeUi}"
+                    android:layout_marginBottom="12dp"
+                    style="@style/TextAppearance.Custom.DetailType"
+                    tools:text="Llar - Fusteria"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.storeUi.name}"
+                    style="@style/TextAppearance.Custom.DetailTitle"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.storeUi.address}"
+                    android:visibility="@{(viewModel.storeUi.address == null || viewModel.storeUi.address.length()==0) ? View.GONE : View.VISIBLE}"
+                    android:layout_marginVertical="12dp"
+                    style="@style/TextAppearance.Custom.DetailDescription"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/list_card_icon_size"
+                        android:layout_height="@dimen/list_card_icon_size"
+                        android:src="@drawable/ic_place"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="16dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        bind:full_distance="@{viewModel.storeUi.distance}"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                        tools:text="245m, uns 5 min"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    bind:phones_visibility="@{viewModel.storeUi}"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/list_card_icon_size"
+                        android:layout_height="@dimen/list_card_icon_size"
+                        android:src="@drawable/ic_call"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="16dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        bind:phones="@{viewModel.storeUi}"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                        tools:text="245m, uns 5 min"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="@{(viewModel.storeUi.web == null || viewModel.storeUi.web.length()==0) ? View.GONE : View.VISIBLE}"
+                    >
+                    <ImageView
+                        android:layout_width="@dimen/list_card_icon_size"
+                        android:layout_height="@dimen/list_card_icon_size"
+                        android:src="@drawable/ic_web"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="16dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.storeUi.web}"
+                        android:layout_marginEnd="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                        tools:text="245m, uns 5 min"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/selected_gray"
+                    android:alpha="0.2"
+                    android:layout_marginVertical="8dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filter_crowded_title"
+                    android:layout_marginVertical="8dp"
+                    style="@style/TextAppearance.Custom.DetailSubTitle"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_schedules_upcoming"
+                    android:layout_marginVertical="8dp"
+                    style="@style/TextAppearance.Custom.DetailMessage"
+                    />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/time_upcoming"
+                    android:background="@drawable/bg_back_arrow"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_back_arrow"
+            android:onClick="@{view -> viewModel.onBackClicked()}"
+            android:background="@drawable/bg_back_arrow"
+            />
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="@dimen/detail_fav_top_margin"
+            android:layout_marginEnd="36dp"
+            android:padding="12dp"
+            android:layout_gravity="top|end"
+            android:tint="@color/dark_on_white"
+            android:src="@{viewModel.storeUi.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
+            android:onClick="@{view -> viewModel.onFavouriteClicked()}"
+            android:background="@{viewModel.storeUi.isFavourite==true ? @drawable/bg_fav_round_button_selected : @drawable/bg_fav_round_button_unselected}"
+            />
+
+        
+    </FrameLayout>
+</layout>

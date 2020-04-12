@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_map">
+
+    <fragment
+        android:id="@+id/navigation_map"
+        android:name="hackovid.vens.features.map.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map">
+
+        <action
+            android:id="@+id/nav_to_ad_detail"
+            app:destination="@id/navigation_detail">
+            <argument
+                android:name="storeId"
+                app:argType="long"
+                app:nullable="false" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="hackovid.vens.features.list.ListFragment"
+        android:label="@string/title_list"
+        tools:layout="@layout/fragment_list" >
+
+        <action
+            android:id="@+id/nav_to_ad_detail"
+            app:destination="@id/navigation_detail">
+
+            <argument
+                android:name="storeId"
+                app:argType="long"
+                app:nullable="false" />
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favourites"
+        android:name="hackovid.vens.features.favourites.FavouritesFragment"
+        android:label="@string/title_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+                android:id="@+id/nav_to_ad_detail"
+                app:destination="@id/navigation_detail">
+            <argument
+                    android:name="storeId"
+                    app:argType="long"
+                    app:nullable="false" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="hackovid.vens.features.detail.DetailFragment"
+        >
+        <argument
+            android:name="storeId"
+            app:argType="long"
+            app:nullable="false" />
+    </fragment>
+</navigation>
