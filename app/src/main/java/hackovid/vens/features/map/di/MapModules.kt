@@ -9,4 +9,4 @@ import org.koin.dsl.module
 val mapModule = module {
     viewModel { (sharedViewModel: SharedViewModel) ->
         MapViewModel(sharedViewModel, get { parametersOf(false) }, get())
-    }}
+    } }

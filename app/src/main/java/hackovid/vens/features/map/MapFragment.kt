@@ -18,20 +18,20 @@ import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentMapBinding
+import kotlin.math.roundToInt
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import kotlin.math.roundToInt
 
-
-class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem>{
+class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback,
+    ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
 
     override val layoutRes = R.layout.fragment_map
 
     private val sharedViewModel: SharedViewModel by sharedViewModel()
-    private val viewModel: MapViewModel by viewModel {parametersOf(sharedViewModel)}
+    private val viewModel: MapViewModel by viewModel { parametersOf(sharedViewModel) }
 
     private val mapBottomPadding = MutableLiveData(0)
     private lateinit var googleMap: GoogleMap
@@ -101,8 +101,9 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
             if (this::googleMap.isInitialized) {
                 googleMap.isMyLocationEnabled = true
                 googleMap.uiSettings.isMyLocationButtonEnabled = false
-                googleMap.animateCamera(CameraUpdateFactory.newLatLng(sharedViewModel.location.value))
-
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLng(sharedViewModel.location.value)
+                )
             }
     }
 
@@ -114,14 +115,18 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), OnMapReadyCallback
                 clusterManager.addItem(store.toClusterStoreItem())
             }
             clusterManager.setOnClusterItemClickListener(this)
-            clusterManager.setAlgorithm(NonHierarchicalViewBasedAlgorithm(resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels))
+            clusterManager.setAlgorithm(NonHierarchicalViewBasedAlgorithm(
+                resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels)
+            )
             clusterManager.cluster()
         }
     }
 
     private fun setUpClusterer() {
         clusterManager = ClusterManager(context, googleMap)
-     //   clusterManager.renderer = context?.let { ClusterStoreRenderer(it, googleMap, clusterManager) }
+        /*clusterManager.renderer = context?.let {
+            ClusterStoreRenderer(it, googleMap, clusterManager)
+        }*/
         googleMap.setOnCameraIdleListener(clusterManager)
     }
 
