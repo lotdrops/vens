@@ -4,6 +4,7 @@ import androidx.navigation.fragment.navArgs
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.SharedViewModel
+import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentDetailBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,5 +22,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>() {
 
     override fun setupBinding(binding: FragmentDetailBinding) {
         binding.viewModel = viewModel
+        observe(viewModel.backEvent) { activity?.onBackPressed() }
     }
 }

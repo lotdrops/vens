@@ -1,7 +1,6 @@
 package hackovid.vens.common.data.core
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -9,13 +8,6 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
-import hackovid.vens.common.data.json.LocalJsonPersistency
-import hackovid.vens.common.data.json.MoshiFactory
-import hackovid.vens.common.data.json.toStore
-import hackovid.vens.common.utils.FileReaderUtilities
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 const val DATABASE_NAME = "stores-db"
 
@@ -42,21 +34,8 @@ abstract class StoresDatabase : RoomDatabase() {
                 .addCallback(object : Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            getInstance(context).storeDao().insertList(
-                                processLocalDatabaseFromJsonFile(context)
-                            )
-                            Log.w("Parse json", "Database processed")
-                        }
                     }
                 })
                 .build()
     }
-}
-
-fun processLocalDatabaseFromJsonFile(context: Context): List<Store> {
-    val fileReaderUtilities = FileReaderUtilities(context)
-    val localDataSource = LocalJsonPersistency(fileReaderUtilities, MoshiFactory.getInstance())
-
-    return localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
 }
