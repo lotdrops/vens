@@ -1,0 +1,16 @@
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+        android:fromDegrees="180"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="360">
+  <vector xmlns:android="http://schemas.android.com/apk/res/android"
+      android:width="20dp"
+      android:height="14dp"
+      android:viewportWidth="20"
+      android:viewportHeight="14">
+    <path
+        android:pathData="M0.333,6.06c0.01,-0.014 0.026,-0.02 0.037,-0.032 0.024,-0.034 0.036,-0.07 0.069,-0.104L5.517,0.898c0.222,-0.22 0.436,-0.47 0.702,-0.643 0.794,-0.516 1.883,-0.223 2.265,0.652 0.536,1.225 -0.764,2.125 -1.526,2.88l-1.709,1.69h12.359c0.853,0 1.769,-0.045 2.215,0.859 0.626,1.266 -0.523,2.176 -1.69,2.193 -2.487,0.035 -4.977,0 -7.465,0H5.25l1.525,1.509c0.813,0.805 2.408,1.904 1.642,3.221 -0.515,0.887 -1.691,0.958 -2.426,0.318 -0.239,-0.208 -0.455,-0.45 -0.68,-0.673L1.897,9.526C1.013,8.651 -0.73,7.44 0.333,6.06"
+        android:fillColor="#030B37"
+        android:fillType="evenOdd"/>
+  </vector>
+</rotate>

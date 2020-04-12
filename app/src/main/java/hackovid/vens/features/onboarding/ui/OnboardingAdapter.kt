@@ -43,16 +43,20 @@ class OnboardingAdapter(
     override fun onBindViewHolder(holder: OnBoardingViewHolder, position: Int) {
         when (position) {
             0 -> {
+                binding.topIcImageCenter.setImageResource(R.drawable.ic_on_board_market)
                 binding.dotOne.setImageResource(R.drawable.ic_dot_selected_onboarding)
                 binding.dotTwo.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotThree.setImageResource(R.drawable.ic_dot_unselected_onboarding)
             }
             1 -> {
+                binding.topIcImageCenter.setImageResource(R.drawable.ic_on_board_schedule_store)
                 binding.dotOne.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotTwo.setImageResource(R.drawable.ic_dot_selected_onboarding)
                 binding.dotThree.setImageResource(R.drawable.ic_dot_unselected_onboarding)
             }
             2 -> {
+                binding.topIcImageCenter.setImageResource(0)
+                binding.topIcImageRight.setImageResource(R.drawable.ic_on_board_direct_chat)
                 binding.dotOne.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotTwo.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotThree.setImageResource(R.drawable.ic_dot_selected_onboarding)

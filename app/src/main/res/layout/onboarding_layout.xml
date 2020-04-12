@@ -13,12 +13,42 @@
             android:layout_height="match_parent"
             tools:context=".features.onboarding.ui.OnBoardingFragment">
 
+        <ImageView
+                android:id="@+id/top_ic_image_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="parent">
+            <ImageView
+                    android:id="@+id/top_ic_image_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    app:layout_constraintRight_toRightOf="parent"/>
+        </LinearLayout>
+
+
         <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="30dp"
-                android:textColor="@color/on_board_title_color"
+                android:textColor="@color/text_dark"
                 android:fontFamily="@font/vag_rounded_std_bold"
                 android:text="@{onBoarding.title}"
                 android:textAlignment="center"
@@ -34,6 +64,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="20dp"
+                android:textColor="@color/unselected_text"
                 android:fontFamily="@font/open_sans"
                 android:text="@{onBoarding.content}"
                 android:textAlignment="center"
@@ -95,38 +126,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:textColor="@color/unselected_text"
+                    android:fontFamily="@font/open_sans"
                     android:text="@string/on_boarding_screen_skip_text"
-                    android:textSize="@dimen/on_board_skip_font_size"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title" />
+                    android:textSize="@dimen/on_board_skip_font_size" />
 
-            <ImageView
+            <LinearLayout
                     android:id="@+id/next_icon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_dot_selected_onboarding" />
-
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_yellow_dot"
+                    android:gravity="center">
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_next_arrow"/>
+            </LinearLayout>
         </LinearLayout>
 
-
-            <TextView
+            <LinearLayout
                     android:id="@+id/discover"
                     android:visibility="@{onBoarding.discoverIconVisibility}"
-                    android:layout_height="40dp"
-                    android:layout_width="140dp"
-                    android:text="@string/on_boarding_discover_text"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/vag_rounded_std_bold"
-                    android:gravity="center"
-                    android:textColor="@color/on_board_title_color"
-                    android:textSize="20sp"
-                    android:background="@drawable/button_semicircle_shape"
-                    android:layout_marginBottom="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    android:paddingEnd="25dp"
+                    android:paddingStart="25dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/button_semicircle_shape"
+                    android:layout_marginBottom="50dp">
+                <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="@string/on_boarding_discover_text"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/vag_rounded_std_bold"
+                        android:gravity="center"
+                        android:textColor="@color/text_dark"
+                        android:textSize="20sp"
+                        />
+
+            </LinearLayout>
+
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/vertical_left_guidline"
