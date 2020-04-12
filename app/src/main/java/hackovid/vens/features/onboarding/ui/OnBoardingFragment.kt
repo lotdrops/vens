@@ -26,7 +26,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        registerOnBackDispatcher()
 
     }
 
@@ -72,22 +71,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     private fun navigateToMain() {
         viewModel.hideDashBoard()
         startActivity(Intent(activity, MainActivity::class.java))
-    }
-
-    private fun registerOnBackDispatcher() {
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                onBack()
-            }
-        })
-    }
-
-    fun onBack() {
-        if (viewModel.currentPosition > 0) {
-            onBoardBinding.viewpager.setCurrentItem(viewModel.currentPosition - 1, true)
-        } else {
-            navigateToMain()
-        }
     }
 
 }
