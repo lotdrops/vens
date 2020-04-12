@@ -16,6 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -26,6 +27,7 @@
                 android:gravity="center"
                 android:layout_marginBottom="16dp"
                 android:text="@string/favourites_screen_title"
+                android:layout_marginLeft="48dp"
                 style="@style/TextAppearance.Custom.Title"
                 />
         </androidx.appcompat.widget.Toolbar>

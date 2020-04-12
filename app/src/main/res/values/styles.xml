@@ -1,5 +1,7 @@
 <resources>
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -80,6 +82,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
+
     <style name="TextAppearance.Custom.ListCardSecondaryText" parent="BaseBodyStyle">
         <item name="android:textSize">@dimen/list_card_description</item>
         <item name="android:textColor">@color/unselected_text</item>

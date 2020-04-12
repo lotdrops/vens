@@ -10,14 +10,21 @@ import hackovid.vens.common.data.StoreDao
 class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
     fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
         params?.let { notNullParams ->
-            if (notNullParams.second != null) {
-                // TODO sort by distance
+            val orderCriteria = if (notNullParams.second != null) {
+                buildOrderByDistance(notNullParams)
             } else {
-                val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} ORDER BY name"
-                return storeDao.getByQuery(SimpleSQLiteQuery(query))
+                "ORDER BY name"
             }
+            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} $orderCriteria"
+            return storeDao.getByQuery(SimpleSQLiteQuery(query))
         }
         return MutableLiveData()
+    }
+
+    private fun buildOrderByDistance(params: Pair<FilterParams, Location?>): String {
+        return "ORDER BY ((longitude -${params.second?.longitude}) *" +
+                "(longitude -${params.second?.longitude})) + ((latitude -${params.second?.latitude}) " +
+                "* (latitude -${params.second?.latitude}))"
     }
 
     private fun buildWhereClause(params: Pair<FilterParams, Location?>): String {

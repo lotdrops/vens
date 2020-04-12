@@ -1,7 +1,6 @@
 package hackovid.vens.features.list
 
 import android.location.Location
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
@@ -19,7 +18,15 @@ class ListViewModel(
     private val storesDataSource: StoresDataSource,
     private val storeDao: StoreDao
 ) : ViewModel() {
-    val location = MutableLiveData<Location?>()
+    val location = sharedViewModel.location.map { latLang ->
+        if (latLang == null) null
+        else {
+            Location("").apply {
+                latitude = latLang.latitude
+                longitude = latLang.longitude
+            }
+        }
+    }
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
     }
