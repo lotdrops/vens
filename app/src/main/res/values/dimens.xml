@@ -24,7 +24,7 @@
     <dimen name="list_card_title">@dimen/subtitle_text_size</dimen>
     <dimen name="list_card_description">14dp</dimen>
     <dimen name="list_card_type">12dp</dimen>
-    <dimen name="list_card_icon_size">24dp</dimen>
+    <dimen name="list_card_icon_size">20dp</dimen>
 
     <dimen name="button_corner_radius">20dp</dimen>
 

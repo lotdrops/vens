@@ -100,12 +100,15 @@
                     android:layout_width="@dimen/list_card_icon_size"
                     android:layout_height="@dimen/list_card_icon_size"
                     android:src="@drawable/ic_person"
+                    android:layout_gravity="center_vertical"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     bind:crowd="@{item.crowd}"
                     android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="@style/TextAppearance.Custom.ListCardSecondaryText"
                     tools:text="Baixa"
                     />
@@ -114,12 +117,15 @@
                     android:layout_width="@dimen/list_card_icon_size"
                     android:layout_height="@dimen/list_card_icon_size"
                     android:src="@drawable/ic_place"
+                    android:layout_gravity="center_vertical"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     bind:distance="@{item.distance}"
                     android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="@style/TextAppearance.Custom.ListCardSecondaryText"
                     tools:text="245m, uns 5 min"
                     />

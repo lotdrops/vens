@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
     <data>
@@ -32,11 +32,10 @@
             android:layout_marginVertical="8dp"
             android:text="@string/title_filter"
             android:layout_gravity="top|center"
-            android:drawableRight="@drawable/amu_bubble_mask"
-            app:cornerRadius="@dimen/button_corner_radius"
+            android:drawableRight="@drawable/ic_filter_map"
+            bind:cornerRadius="@dimen/button_corner_radius"
             style="@style/RoundedButton"
             />
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/infoLayout"
@@ -46,6 +45,7 @@
             android:elevation="8dp"
             android:layout_margin="@dimen/map_info_margin"
             android:background="@drawable/map_info_background"
+            android:onClick="@{view -> viewModel.onStoreActionClicked()}"
             android:visibility="@{viewModel.showStoreInfo ? View.VISIBLE : View.GONE}"
             >
 
@@ -56,28 +56,26 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:text="@{viewModel.selectedStore.name}"
-                android:maxLines="1"
-                android:ellipsize="end"
-                style="@android:style/TextAppearance.Material.Headline"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/map_favourite"
-                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Bon Salmó"
+                style="@style/TextAppearance.Custom.MapCardTitle"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintEnd_toStartOf="@+id/map_favourite"
+                bind:layout_constraintStart_toStartOf="parent"
                 />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/storeActionButton"
+            <TextView
+                android:id="@+id/descriptionTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/map_store_action"
-                android:onClick="@{view -> viewModel.onStoreActionClicked()}"
-                style="@style/RoundedButton"
-                app:cornerRadius="@dimen/button_corner_radius"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:paddingBottom="4dp"
+                bind:store_types="@{viewModel.selectedStore}"
+                tools:text="Bon Salmó"
+                style="@style/TextAppearance.Custom.MapCardDescription"
+                bind:layout_constraintTop_toBottomOf="@+id/titleTextView"
+                bind:layout_constraintEnd_toStartOf="@+id/map_favourite"
+                bind:layout_constraintBottom_toBottomOf="@+id/map_separator"
+                bind:layout_constraintStart_toStartOf="parent"
                 />
 
             <ImageView
@@ -85,15 +83,69 @@
                 android:layout_width="@dimen/fav_button_size"
                 android:layout_height="@dimen/fav_button_size"
                 android:padding="16dp"
-                android:visibility="gone"
                 android:layout_marginEnd="8dp"
                 android:layout_gravity="center_vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/storeActionButton"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toTopOf="parent"
+                bind:layout_constraintBottom_toTopOf="@+id/storeActionButton"
                 android:onClick="@{()-> viewModel.onFavouriteClicked()}"
                 android:src="@{viewModel.selectedStore.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
                 />
+
+            <View
+                android:id="@+id/map_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.2"
+                bind:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+                bind:layout_constraintBottom_toTopOf="@id/mapCardBottomShopInfo"
+                android:background="@color/selected_gray"
+                    />
+            <LinearLayout
+                android:id="@+id/mapCardBottomShopInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:paddingVertical="8dp"
+                bind:layout_constraintTop_toBottomOf="@+id/map_separator"
+                bind:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/list_card_icon_size"
+                    android:layout_height="@dimen/list_card_icon_size"
+                    android:src="@drawable/ic_person"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    bind:crowd="@{viewModel.selectedStore.crowd}"
+                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    tools:text="Baixa"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/list_card_icon_size"
+                    android:layout_height="@dimen/list_card_icon_size"
+                    android:src="@drawable/ic_place"
+                    android:layout_gravity="center_vertical"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    bind:distance="@{viewModel.selectedStore.distance}"
+                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    tools:text="245m, uns 5 min"
+                    />
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

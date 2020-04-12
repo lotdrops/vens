@@ -9,7 +9,17 @@
         android:id="@+id/navigation_map"
         android:name="hackovid.vens.features.map.MapFragment"
         android:label="@string/title_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+
+        <action
+            android:id="@+id/nav_to_ad_detail"
+            app:destination="@id/navigation_detail">
+            <argument
+                android:name="storeId"
+                app:argType="long"
+                app:nullable="false" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_list"
