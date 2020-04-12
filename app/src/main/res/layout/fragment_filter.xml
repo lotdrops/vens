@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="hackovid.vens.features.filter.FilterBottomSheetViewModel" />
     </data>
@@ -50,10 +50,13 @@
                     bind:selected0="@{viewModel.priorities.get(0) == true}"
                     bind:selected1="@{viewModel.priorities.get(1) == true}"
                     bind:selected2="@{viewModel.priorities.get(2) == true}"
+                    bind:img0="@{@drawable/ic_phone}"
+                    bind:img1="@{@drawable/ic_add_shopping_cart}"
+                    bind:img2="@{@drawable/ic_directions_bike}"
                     bind:onClick0="@{v -> viewModel.onPrioritySelected(0)}"
                     bind:onClick1="@{v -> viewModel.onPrioritySelected(1)}"
                     bind:onClick2="@{v -> viewModel.onPrioritySelected(2)}"
-                    bind:imagesVisible="@{false}"
+                    bind:imagesVisible="@{true}"
                     />
 
                 <TextView
@@ -74,10 +77,13 @@
                     bind:selected0="@{viewModel.distance == 0}"
                     bind:selected1="@{viewModel.distance == 1}"
                     bind:selected2="@{viewModel.distance == 2}"
+                    bind:img0="@{@drawable/ic_filter_distance_low}"
+                    bind:img1="@{@drawable/ic_filter_distance_medium}"
+                    bind:img2="@{@drawable/ic_filter_distance_high}"
                     bind:onClick0="@{v -> viewModel.onDistanceSelected(0)}"
                     bind:onClick1="@{v -> viewModel.onDistanceSelected(1)}"
                     bind:onClick2="@{v -> viewModel.onDistanceSelected(2)}"
-                    bind:imagesVisible="@{false}"
+                    bind:imagesVisible="@{true}"
                     />
 
                 <TextView
@@ -111,13 +117,16 @@
                     bind:text0="@{@string/filter_must_have_masks}"
                     bind:text1="@{@string/filter_must_have_hand_sanitizer}"
                     bind:text2="@{@string/filter_must_have_gloves}"
+                    bind:img0="@{@drawable/ic_filter_mask}"
+                    bind:img1="@{@drawable/ic_filter_water}"
+                    bind:img2="@{@drawable/ic_filter_glove}"
                     bind:selected0="@{viewModel.mustHave.get(0) == true}"
                     bind:selected1="@{viewModel.mustHave.get(1) == true}"
                     bind:selected2="@{viewModel.mustHave.get(2) == true}"
                     bind:onClick0="@{v -> viewModel.onMustHaveSelected(0)}"
                     bind:onClick1="@{v -> viewModel.onMustHaveSelected(1)}"
                     bind:onClick2="@{v -> viewModel.onMustHaveSelected(2)}"
-                    bind:imagesVisible="@{false}"
+                    bind:imagesVisible="@{true}"
                     />
 
                 <TextView
@@ -135,9 +144,9 @@
                     bind:text0="@{@string/filter_crowded_small}"
                     bind:text1="@{@string/filter_crowded_medium}"
                     bind:text2="@{@string/filter_crowded_large}"
-                    bind:img0="@{@drawable/ic_person}"
-                    bind:img1="@{@drawable/ic_people}"
-                    bind:img2="@{@drawable/ic_people_add}"
+                    bind:img0="@{@drawable/ic_filter_crowd_low}"
+                    bind:img1="@{@drawable/ic_filter_crowd_medium}"
+                    bind:img2="@{@drawable/ic_filter_crowd_high}"
                     bind:selected0="@{viewModel.crowd == 0}"
                     bind:selected1="@{viewModel.crowd == 1}"
                     bind:selected2="@{viewModel.crowd == 2}"
