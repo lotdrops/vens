@@ -8,6 +8,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.StoresDataSource
+import hackovid.vens.common.data.toClusterStoreItem
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.combineWith
 import kotlinx.coroutines.launch
@@ -21,10 +22,16 @@ class MapViewModel(
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
     }
-    val stores = queryParams.switchMap { storesDataSource.getData(it) }
+    val stores = queryParams.switchMap {
+        storesDataSource.getData(it).map {
+                stores -> stores.map { store -> store.toClusterStoreItem() } }
+    }
 
     val selectedStoreId = MutableLiveData<Int>()
-    val selectedStore = selectedStoreId.switchMap { storeDao.getStoreById(it) }
+    val selectedStore = selectedStoreId.switchMap {
+        if (it != null) storeDao.getStoreById(it)
+        else MutableLiveData()
+    }
     val showStoreInfo = selectedStoreId.map { it != null }
 
     fun onBackPressed(): Boolean = (showStoreInfo.value == true).apply {
