@@ -28,20 +28,20 @@
 
     <string name="detail_schedules_upcoming">Los horarios estarán disponibles próximamente</string>
 
-    <string name="filter_priority_title">Prioridad</string>
+    <string name="filter_priority_title">Prioridad (próximamente)</string>
     <string name="filter_priority_orders">Acepta pedidos</string>
     <string name="filter_priority_open">Está abierto</string>
     <string name="filter_priority_delivers">Entrega a domicilio</string>
-    <string name="filter_distance_title">Distancia</string>
+    <string name="filter_distance_title">Distancia (próximamente)</string>
     <string name="filter_distance_near">100m</string>
     <string name="filter_distance_mid">250m</string>
     <string name="filter_distance_far">Todo</string>
     <string name="filter_categories_title">Categorias</string>
-    <string name="filter_must_have_title">Medidas de higiene</string>
+    <string name="filter_must_have_title">Medidas de higiene (próximamente)</string>
     <string name="filter_must_have_masks">Mascarilla</string>
     <string name="filter_must_have_hand_sanitizer">Gel de manos</string>
     <string name="filter_must_have_gloves">Guantes</string>
-    <string name="filter_crowded_title">Afluencia</string>
+    <string name="filter_crowded_title">Afluencia (próximamente)</string>
     <string name="filter_crowded_small">Baja</string>
     <string name="filter_crowded_medium">Mediana</string>
     <string name="filter_crowded_large">Alta</string>
@@ -102,14 +102,15 @@
     <string name="store_subtype_health">Sanidad y asistencia</string>
     <string name="store_subtype_dry_cleaner">Tintorerias</string>
     <string name="store_subtype_vet_store">Veterinario / Mascotas</string>
+
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">Tu comercio de confianza</string>
     <string name= "on_boarding_screen_body_slide_one">Todos los servicios sin moverte de casa</string>
     <string name= "on_boarding_screen_title_slide_two">Reducir el tiempo de espera</string>
-    <string name= "on_boarding_screen_body_slide_two">Compara la afluencia de gente en los diferentes comercios de tu zona, así sabrás donde ir
+    <string name= "on_boarding_screen_body_slide_two">Compara la afluencia de gente en los diferentes comercios de tu zona, así sabrás dónde ir
     para cruzarte con la menor gente posible</string>
     <string name= "on_boarding_screen_title_slide_three">Comunicación directa</string>
-    <string name= "on_boarding_screen_body_slide_three">Chatea, recibe avisos, cambios horarios, consulta disponibilidad de productos, informate de
+    <string name= "on_boarding_screen_body_slide_three">Chatea, recibe avisos, cambios horarios, consulta disponibilidad de productos, infórmate de
     nuevos servicios, promociones…</string>
     <string name= "on_boarding_discover_text">Descubre</string>
 

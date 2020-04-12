@@ -28,16 +28,16 @@
 
     <string name="detail_schedules_upcoming">Els horaris estaran disponibles properament</string>
 
-    <string name="filter_priority_title">Prioritat</string>
+    <string name="filter_priority_title">Prioritat (properament)</string>
     <string name="filter_priority_orders">Comandes per telèfon</string>
     <string name="filter_priority_open">Botiga online</string>
     <string name="filter_priority_delivers">Servei a domicili</string>
-    <string name="filter_distance_title">Distància</string>
+    <string name="filter_distance_title">Distància (properament)</string>
     <string name="filter_distance_near">100m</string>
     <string name="filter_distance_mid">250m</string>
     <string name="filter_distance_far">Tots</string>
     <string name="filter_categories_title">Categories</string>
-    <string name="filter_must_have_title">Mesures d\'ihiene</string>
+    <string name="filter_must_have_title">Mesures d\'higiene (properament)</string>
     <string name="filter_must_have_masks">Mascaretes</string>
     <string name="filter_must_have_hand_sanitizer">Gel de mans</string>
     <string name="filter_must_have_gloves">Guants</string>
@@ -102,14 +102,15 @@
     <string name="store_subtype_health">Sanitat i assistència</string>
     <string name="store_subtype_dry_cleaner">Tintoreries</string>
     <string name="store_subtype_vet_store">Veterinaris / Mascotes</string>
+
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">El teu comerç de confiança</string>
     <string name= "on_boarding_screen_body_slide_one">Tots els serveis sense moure\'t de casa</string>
     <string name= "on_boarding_screen_title_slide_two">Reduïr el temps d\'espera</string>
     <string name= "on_boarding_screen_body_slide_two">Compara l\'afluència de gent en els diferents comerços de la teva zona, així sabràs on anar
-    per creauarte amb la menor gent possible</string>
+    per creuar-te amb el mínim de gent possible</string>
     <string name= "on_boarding_screen_title_slide_three">Comunicació directa</string>
-    <string name= "on_boarding_screen_body_slide_three">Xateja, rep avisos, canvis d\'horaris, consulta disponibilitat de productes, informat de nous
+    <string name= "on_boarding_screen_body_slide_three">Xateja, rep avisos, canvis d\'horaris, consulta disponibilitat de productes, informa\'t de nous
     serveis i promocions…</string>
     <string name= "on_boarding_discover_text">Descobreix</string>
 

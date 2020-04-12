@@ -66,7 +66,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     private fun ChipGroup.addChips() {
         StoreType.values().forEachIndexed() { position, storeType ->
             addView(Chip(context).apply {
-                text = storeType.name.toLowerCase().capitalize()
+                text = resources.getText(storeType.textRes)
                 isCheckable = true
                 setOnCheckedChangeListener { _, isChecked: Boolean ->
                     viewModel.onCategorySelected(position, isChecked)

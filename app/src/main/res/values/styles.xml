@@ -102,30 +102,29 @@
 
     <style name="TextAppearance.Custom.DetailSubTitle" parent="BaseTitleStyle">
         <item name="android:maxLines">1</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:ellipsize">end</item>
     </style>
 
     <style name="TextAppearance.Custom.DetailMessage" parent="BaseBodyStyle">
-        <item name="android:maxLines">1</item>
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textStyle">italic</item>
     </style>
 
     <style name="TextAppearance.Custom.DetailDescription" parent="BaseBodyStyle">
         <item name="android:fontFamily">@font/open_sans_semibold</item>
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:ellipsize">end</item>
     </style>
 
     <style name="TextAppearance.Custom.DetailSecondaryText" parent="BaseBodyStyle">
-        <item name="android:textSize">16dp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/unselected_text</item>
     </style>
     <style name="TextAppearance.Custom.DetailType" parent="BaseBodyStyle">
-        <item name="android:textSize">14dp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/unselected_text</item>
     </style>
 
