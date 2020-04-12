@@ -9,9 +9,7 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSplashBinding
 import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
-import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
-
 
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
@@ -20,7 +18,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if(viewModel.onBoardScreenShouldBeDisplayed()) {
+        if (viewModel.onBoardScreenShouldBeDisplayed()) {
             viewModel.loadDatabaseIfIsTheFirstTime()
             observe(viewModel.isDatabaseLoaded) { isDatabaseAlreadyLoaded ->
                 if (isDatabaseAlreadyLoaded) {
@@ -36,15 +34,4 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.nav_to_onboarding_fragment)
     }
-
 }
-
-
-
-
-
-
-
-
-
-

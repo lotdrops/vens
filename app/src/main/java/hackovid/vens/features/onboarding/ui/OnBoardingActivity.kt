@@ -14,5 +14,4 @@ class OnBoardingActivity : AppCompatActivity() {
     override fun onBackPressed() {
         finish()
     }
-
 }

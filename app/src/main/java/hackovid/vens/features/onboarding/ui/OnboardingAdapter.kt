@@ -60,7 +60,6 @@ class OnboardingAdapter(
                 binding.dotOne.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotTwo.setImageResource(R.drawable.ic_dot_unselected_onboarding)
                 binding.dotThree.setImageResource(R.drawable.ic_dot_selected_onboarding)
-
             }
         }
         holder.bind(onBoardingListModel[position])
@@ -74,6 +73,4 @@ class OnboardingAdapter(
             binding.executePendingBindings()
         }
     }
-
-
 }

@@ -1,5 +1,6 @@
 package hackovid.vens.common
 
+import hackovid.vens.features.filter.di.filterModule
 import android.app.Application
 import hackovid.vens.common.data.filter.commonFilterModule
 import hackovid.vens.common.di.dataModule
@@ -12,8 +13,6 @@ import hackovid.vens.features.map.di.mapModule
 import hackovid.vens.features.onboarding.di.onBoardingModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import  hackovid.vens.features.filter.di.filterModule
-
 
 class BaseApplication : Application() {
     override fun onCreate() {
