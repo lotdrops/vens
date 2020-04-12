@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.doOnLayout
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -14,20 +15,19 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
-import hackovid.vens.common.data.toClusterStoreItem
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentMapBinding
+import kotlin.math.roundToInt
 import kotlinx.android.synthetic.main.fragment_map.mapFilterButton
 import kotlinx.android.synthetic.main.fragment_map.view.infoLayout
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import kotlin.math.roundToInt
 
-class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapClickListener, OnMapReadyCallback,
-    ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
+class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapClickListener,
+    OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
 
     override val layoutRes = R.layout.fragment_map
 
@@ -70,6 +70,10 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
             if (this::googleMap.isInitialized) {
                 locateUserOnMap()
             }
+        }
+        observe(viewModel.navigateToDetail) { storeId ->
+            NavHostFragment.findNavController(this)
+                .navigate(MapFragmentDirections.navToAdDetail(storeId))
         }
     }
 
@@ -133,7 +137,7 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
     private fun GoogleMap.setBottomPadding(padding: Int) = setPadding(0, 0, 0, padding)
 
     override fun onClusterItemClick(item: ClusterStoreItem?): Boolean {
-        viewModel.selectedStoreId.value = item?.toStoreItem()?.id?.toInt()
+        viewModel.selectedStoreId.value = item?.id?.toInt()
         return true
     }
 
