@@ -6,7 +6,16 @@
     <string name="map_store_action">See detail</string>
     <string name="title_filter">Filter</string>
 
+    <string name="generic_error_not_done_yet_title">Not available</string>
+    <string name="generic_error_not_done_yet_message">Sorry, this functionality will be added shortly</string>
+    <string name="generic_positive_button">OK</string>
+
     <string name="list_screen_title">Shops</string>
+    <string name="list_contact">Contact the shopkeeper</string>
+
+    <string name="list_distance_no_permission">Location needed</string>
+    <string name="list_distance_m">%sm, about %d min</string>
+    <string name="list_distance_km">%skm, about %d min</string>
 
     <string name="favourites_screen_title">My shops</string>
     <string name="favourites_screen_empty_title">You have no favourite shops added</string>

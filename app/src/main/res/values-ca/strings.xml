@@ -12,6 +12,16 @@
     <string name="favourites_screen_empty_body">Clica el cor que apareix a qualsevol botiga per afegir-la a la llista.\n
         Hi podràs accedir ràpid i rebre notificacions.</string>
 
+    <string name="generic_error_not_done_yet_title">No disponible</string>
+    <string name="generic_error_not_done_yet_message">Ens sap greu, aquesta funcionalitat es desenvoluparà properament</string>
+    <string name="generic_positive_button">OK</string>
+
+    <string name="list_contact">Contacta amb el botiguer</string>
+
+    <string name="list_distance_no_permission">Cal la localització</string>
+    <string name="list_distance_m">%sm, uns %d min</string>
+    <string name="list_distance_km">%skm, uns %d min</string>
+
     <string name="filter_priority_title">Prioritat</string>
     <string name="filter_priority_orders">Comandes per telèfon</string>
     <string name="filter_priority_open">Botiga online</string>

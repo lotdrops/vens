@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="item" type="hackovid.vens.common.data.Store" />
+        <import type="android.view.View" />
+        <variable name="item" type="hackovid.vens.common.ui.StoreListUi" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="?android:selectableItemBackground"
+        android:layout_marginVertical="8dp"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         >
-
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_width="@dimen/fav_button_size"
+            android:layout_height="@dimen/fav_button_size"
+            android:padding="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="top|end"
+            android:src="@{item.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
+            />
+        
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="24dp"
+            android:padding="24dp"
             >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
+                bind:store_types="@{item}"
+                android:layout_marginBottom="8dp"
+                style="@style/TextAppearance.Custom.ListCardType"
+                tools:text="Llar - Fusteria"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@{item.name}"
+                android:layout_marginBottom="8dp"
                 style="@style/TextAppearance.Custom.ListCardTitle"
                 tools:text="Fusteria Genis"
                 />
@@ -35,24 +54,80 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingBottom="16dp"
-                bind:store_types="@{item}"
-                style="@style/TextAppearance.Custom.ListCardType"
-                tools:text="Llar - Fusteria"
+                android:text="@{item.address}"
+                android:layout_marginBottom="8dp"
+                android:visibility="@{(item.address == null || item.address.length()==0) ? View.GONE : View.VISIBLE}"
+                style="@style/TextAppearance.Custom.ListCardDescription"
+                tools:text="Mare de Deu de Port, 252"
                 />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:phones="@{item}"
+                style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                tools:text="935814047"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.web}"
+                android:visibility="@{(item.web == null || item.web.length()==0) ? View.GONE : View.VISIBLE}"
+                style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                tools:text="www.bonsalmo.com"
+                />
+
+            <TextView
+                android:id="@+id/contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_contact"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="4dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/textPrimary"
+                style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                android:background="@drawable/purple_rounded_bg"
+                />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="@dimen/list_card_icon_size"
+                    android:layout_height="@dimen/list_card_icon_size"
+                    android:src="@drawable/ic_person"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    bind:crowd="@{item.crowd}"
+                    android:layout_marginEnd="16dp"
+                    style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    tools:text="Baixa"
+                    />
+
+                <ImageView
+                    android:layout_width="@dimen/list_card_icon_size"
+                    android:layout_height="@dimen/list_card_icon_size"
+                    android:src="@drawable/ic_place"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    bind:distance="@{item.distance}"
+                    android:layout_marginEnd="16dp"
+                    style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    tools:text="245m, uns 5 min"
+                    />
+                
+            </LinearLayout>
+            
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/favourite"
-            android:layout_width="@dimen/fav_button_size"
-            android:layout_height="@dimen/fav_button_size"
-            android:padding="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_gravity="center_vertical"
-            android:src="@{item.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
-            />
-
-    </LinearLayout>
+        
+    </androidx.cardview.widget.CardView>
+    
 </layout>
