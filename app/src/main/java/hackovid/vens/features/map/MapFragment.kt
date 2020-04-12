@@ -15,6 +15,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
+import hackovid.vens.common.ui.DEFAULT_LAT
+import hackovid.vens.common.ui.DEFAULT_LONG
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.observe
@@ -89,7 +91,8 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
         this.googleMap = googleMap
         googleMap.setOnMapLongClickListener { latLng -> sharedViewModel.location.value = latLng }
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17f))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sharedViewModel.location.value))
+        val location = sharedViewModel.location.value ?: LatLng(DEFAULT_LAT, DEFAULT_LONG)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
         googleMap.uiSettings.isMapToolbarEnabled = false
         mapBottomPadding.value?.let { padding -> googleMap.setBottomPadding(padding) }
         setUpClusterer()

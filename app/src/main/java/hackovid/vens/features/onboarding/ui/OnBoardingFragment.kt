@@ -66,5 +66,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     private fun navigateToMain() {
         viewModel.hideDashBoard()
         startActivity(Intent(activity, MainActivity::class.java))
+        activity?.finish()
     }
 }

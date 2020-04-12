@@ -27,6 +27,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
             }
         } else {
             startActivity(Intent(activity, MainActivity::class.java))
+            activity?.finish()
         }
     }
 

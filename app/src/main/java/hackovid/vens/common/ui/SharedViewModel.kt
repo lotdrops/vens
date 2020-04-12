@@ -7,7 +7,7 @@ import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.common.data.filter.FilterParams
 
 class SharedViewModel : ViewModel() {
-    val location: MutableLiveData<LatLng?> = MutableLiveData(LatLng(DEFAULT_LAT, DEFAULT_LONG))
+    val location: MutableLiveData<LatLng?> = MutableLiveData()
 
     val filter = MutableLiveData(
         FilterParams(
@@ -24,5 +24,5 @@ else {
     }
 }
 
-private const val DEFAULT_LAT = 41.384771
-private const val DEFAULT_LONG = 2.174065
+const val DEFAULT_LAT = 41.384771
+const val DEFAULT_LONG = 2.174065
