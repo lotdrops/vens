@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import hackovid.vens.R
 import hackovid.vens.common.data.core.Converters
+import hackovid.vens.features.map.ClusterStoreItem
 
 @Entity(tableName = "Stores")
 data class Store(
@@ -84,3 +85,20 @@ enum class StoreSubtype(val textRes: Int) {
     DRY_CLEANER(R.string.store_subtype_dry_cleaner),
     VET_STORE(R.string.store_subtype_vet_store),
 }
+
+fun Store.toClusterStoreItem() = ClusterStoreItem(
+    id = id,
+    latitude = latitude,
+    longitude = longitude,
+    name = name,
+    type = type,
+    subtype = subtype,
+    isFavourite = false,
+    phone = null,
+    mobilePhone = null,
+    address = null,
+    web = null,
+    email = null,
+    schedule = null,
+    acceptsOrders = null,
+    delivers = null)
