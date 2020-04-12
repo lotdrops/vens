@@ -3,10 +3,11 @@ package hackovid.vens.features.favourites
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import hackovid.vens.R
-import hackovid.vens.common.data.Store
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
+import hackovid.vens.common.ui.StoreListUi
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentFavouritesBinding
 import hackovid.vens.databinding.ItemStoreBinding
@@ -48,21 +49,32 @@ class FavouritesFragment : FilterBaseFragment<FragmentFavouritesBinding>() {
         onBind = ::onListItemBind
     )
 
-    private fun areStoresTheSame(first: Store, second: Store) = first.id == second.id
+    private fun areStoresTheSame(first: StoreListUi, second: StoreListUi) = first.id == second.id
 
-    private fun areStoresContentsEqual(first: Store, second: Store) =
+    private fun areStoresContentsEqual(first: StoreListUi, second: StoreListUi) =
         first.name == second.name && first.isFavourite == second.isFavourite
 
-    private fun onStoreClick(item: Store) {
+    private fun onStoreClick(item: StoreListUi) {
         NavHostFragment.findNavController(this)
             .navigate(FavouritesFragmentDirections.navToAdDetail(item.id)) }
 
-    private fun onListItemBind(item: Store, binding: ViewDataBinding) {
+    private fun onListItemBind(item: StoreListUi, binding: ViewDataBinding) {
         (binding as? ItemStoreBinding)?.let { itemBinding ->
             itemBinding.favourite.setOnClickListener {
                 viewModel.onFavouriteClicked(item)
             }
+            itemBinding.contact.setOnClickListener {
+                showNotDoneDialog()
+            }
         }
+    }
+
+    private fun showNotDoneDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.generic_error_not_done_yet_title)
+            .setMessage(R.string.generic_error_not_done_yet_message)
+            .setPositiveButton(R.string.generic_positive_button) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun subscribeUI(adapter: StoreListAdapter) {

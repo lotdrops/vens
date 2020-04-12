@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.StoresDataSource
 import hackovid.vens.common.ui.SharedViewModel
+import hackovid.vens.common.ui.StoreListUi
+import hackovid.vens.common.ui.toListUi
 import kotlinx.coroutines.launch
 
 class FavouritesViewModel(
@@ -16,11 +17,14 @@ class FavouritesViewModel(
     private val storesDataSource: StoresDataSource,
     private val storeDao: StoreDao
 ) : ViewModel() {
-    val stores = sharedViewModel.filter.switchMap { storesDataSource.getData(Pair(it, null)) }
+    // TODO pass location to toListUi(loc)
+    val stores = sharedViewModel.filter.switchMap {
+        storesDataSource.getData(Pair(it, null)).map { it.map { store -> store.toListUi(null) } }
+    }
 
     val showEmpty: LiveData<Boolean> = stores.map { it.isEmpty() }
 
-    fun onFavouriteClicked(item: Store) {
+    fun onFavouriteClicked(item: StoreListUi) {
         viewModelScope.launch {
             storeDao.setFavourite(item.id, !item.isFavourite)
         }
