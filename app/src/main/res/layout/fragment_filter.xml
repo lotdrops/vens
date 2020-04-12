@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
     <data>
         <variable name="viewModel" type="hackovid.vens.features.filter.FilterBottomSheetViewModel" />
     </data>
@@ -26,6 +27,7 @@
                     android:paddingTop="16dp"
                     android:paddingStart="8dp"
                     android:layout_marginBottom="16dp"
+                    android:gravity="center"
                     android:text="@string/title_filter"
                     style="@style/TextAppearance.Custom.Title"
                     />
@@ -170,7 +172,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/title_filter"
                 android:onClick="@{v -> viewModel.onFilterClicked()}"
-                style="@style/Widget.MaterialComponents.Button"
+                app:cornerRadius="@dimen/button_corner_radius"
+                style="@style/RoundedButton"
                 />
         </FrameLayout>
     </FrameLayout>

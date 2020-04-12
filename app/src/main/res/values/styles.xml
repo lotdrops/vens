@@ -1,58 +1,84 @@
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="MyBaseTextViewStyle" parent="android:Widget.Material.TextView">
+    <!--    WIDGETS-->
+    <style name="RoundedButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/yellow</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/vag_rounded_std_bold</item>
     </style>
 
-    <style name="TextAppearance.Custom.Title" parent="MyBaseTextViewStyle">
-        <item name="android:textStyle">normal</item>
+    <!--    TEXT STYLES-->
+    <!--    Base    -->
+    <style name="BaseTitleStyle" parent="android:Widget.Material.TextView">
+        <item name="android:fontFamily">@font/vag_rounded_std_bold</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/onBackground</item>
+    </style>
+
+    <style name="BaseBodyStyle" parent="android:Widget.Material.TextView">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance.Custom.Title" parent="BaseTitleStyle">
         <item name="android:textSize">@dimen/title_text_size</item>
     </style>
 
-    <style name="TextAppearance.Custom.Body" parent="MyBaseTextViewStyle">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/body_text</item>
-        <item name="android:textSize">@dimen/body_text_size</item>
-    </style>
-
-    <style name="TextAppearance.Custom.Subtitle" parent="MyBaseTextViewStyle">
-        <item name="android:textStyle">italic</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/body_text</item>
+    <style name="TextAppearance.Custom.Subtitle" parent="BaseTitleStyle">
         <item name="android:textSize">@dimen/subtitle_text_size</item>
     </style>
 
-    <style name="TextAppearance.Custom.ListItem.Title" parent="MyBaseTextViewStyle">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/onBackground</item>
-        <item name="android:textSize">@dimen/list_title_text_size</item>
+    <style name="TextAppearance.Custom.Body" parent="BaseBodyStyle">
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textColor">@color/unselected_text</item>
+    </style>
+
+    <!--    Filter    -->
+    <style name="TextAppearance.Custom.FilterElement" parent="BaseBodyStyle">
+        <item name="android:textColor">@color/selectable_text</item>
+        <item name="android:textSize">@dimen/filter_text_size</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <!--    Map card    -->
+    <style name="TextAppearance.Custom.MapCardTitle" parent="BaseTitleStyle">
+        <item name="android:textSize">@dimen/map_card_title</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="TextAppearance.Custom.MapCardDescription" parent="BaseBodyStyle">
+        <item name="android:textSize">@dimen/map_card_description</item>
+        <item name="android:textColor">@color/unselected_text</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="TextAppearance.Custom.ListItem.Subtitle" parent="MyBaseTextViewStyle">
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/body_text</item>
-        <item name="android:textSize">@dimen/body_text_size</item>
+    <!--    List Card    -->
+    <style name="TextAppearance.Custom.ListCardTitle" parent="BaseTitleStyle">
+        <item name="android:textSize">@dimen/list_card_title</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
-    
-    <style name="IconButton" parent="@style/Widget.AppCompat.Button">
-        <item name="backgroundTint">@color/yellow</item>
-        <item name="android:textAllCaps">false</item>
+    <style name="TextAppearance.Custom.ListCardDescription" parent="BaseBodyStyle">
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">@dimen/list_card_description</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="TextAppearance.Custom.ListCardSecondaryText" parent="BaseBodyStyle">
+        <item name="android:textSize">@dimen/list_card_description</item>
+        <item name="android:textColor">@color/unselected_text</item>
+    </style>
+    <style name="TextAppearance.Custom.ListCardType" parent="BaseBodyStyle">
+        <item name="android:textSize">@dimen/list_card_type</item>
+        <item name="android:textColor">@color/unselected_text</item>
     </style>
 
 </resources>

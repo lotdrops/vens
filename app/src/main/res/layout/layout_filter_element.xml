@@ -35,6 +35,7 @@
                 android:src="@{imgSrc}"
                 android:layout_marginTop="4dp"
                 android:layout_gravity="center_horizontal"
+                android:tint="@color/selectable_text"
                 android:visibility="@{imageVisible ? View.VISIBLE : View.GONE}"
                 />
             <TextView
@@ -44,7 +45,7 @@
                 android:paddingHorizontal="8dp"
                 android:gravity="center"
                 android:text="@{textRes}"
-                style="@style/TextAppearance.Custom.Body"
+                style="@style/TextAppearance.Custom.FilterElement"
                 />
 
             <Space
