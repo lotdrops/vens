@@ -13,13 +13,13 @@ import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import hackovid.vens.R
 
-
 class ClusterStoreRenderer(
     private val context: Context,
     map: GoogleMap,
     clusterManager:
     ClusterManager<ClusterStoreItem>
-) : DefaultClusterRenderer<ClusterStoreItem>(context, map, clusterManager), GoogleMap.OnMarkerClickListener{
+) : DefaultClusterRenderer<ClusterStoreItem>(context, map, clusterManager),
+    GoogleMap.OnMarkerClickListener {
 
     override fun onBeforeClusterItemRendered(
         item: ClusterStoreItem?,
@@ -43,13 +43,10 @@ class ClusterStoreRenderer(
 
     private var previousMarker: Marker? = null
     override fun onMarkerClick(marker: Marker?): Boolean {
-        Log.d("asdf","asdfasdfasdf")
+        Log.d("asdf", "asdfasdfasdf")
         previousMarker?.setIcon(BitmapDescriptorFactory.fromBitmap(yellowMarkerBitmap()))
-        marker?.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-        previousMarker = marker;
-        return true;
+        marker?.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+        previousMarker = marker
+        return true
     }
-
 }
-
-

@@ -1,10 +1,12 @@
 package hackovid.vens.features.map
 
+import android.location.Location
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
+import kotlin.math.roundToInt
 
 data class ClusterStoreItem(
     val id: Long = 0,
@@ -21,6 +23,8 @@ data class ClusterStoreItem(
     val web: String? = null,
     val email: String? = null,
     val schedule: String? = null,
+    val crowd: Int? = null,
+    val distance: Int? = null,
     val acceptsOrders: Boolean? = null,
     val delivers: Boolean? = null
 ) : ClusterItem {
@@ -38,7 +42,7 @@ data class ClusterStoreItem(
     }
 }
 
-fun ClusterStoreItem.toStoreItem() = Store(
+fun Store.toClusterStoreItem(location: Location?) = ClusterStoreItem(
     id = id,
     latitude = latitude,
     longitude = longitude,
@@ -52,6 +56,12 @@ fun ClusterStoreItem.toStoreItem() = Store(
     web = null,
     email = null,
     schedule = null,
+    crowd = null,
+    distance = location?.distance(latitude, longitude),
     acceptsOrders = null,
-    delivers = null
-)
+    delivers = null)
+
+private fun Location.distance(latitude: Double, longitude: Double) = Location("").apply {
+    setLatitude(latitude)
+    setLongitude(longitude)
+}.distanceTo(this).roundToInt()

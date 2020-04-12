@@ -8,6 +8,7 @@ import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
+import hackovid.vens.features.map.ClusterStoreItem
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -18,6 +19,13 @@ fun setSelected(view: View, selected: Boolean) {
 
 @BindingAdapter("bind:store_types")
 fun setStoreType(view: TextView, store: Store?) {
+    if (store != null) {
+        view.text = view.resources.getStoretypeText(store.type, store.subtype)
+    }
+}
+
+@BindingAdapter("bind:store_types")
+fun setStoreType(view: TextView, store: ClusterStoreItem?) {
     if (store != null) {
         view.text = view.resources.getStoretypeText(store.type, store.subtype)
     }
@@ -85,4 +93,3 @@ private fun TextView.setPhones(phone: String?, mobilePhone: String?) {
         visibility = View.GONE
     }
 }
-
