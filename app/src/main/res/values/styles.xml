@@ -16,6 +16,14 @@
         <item name="cornerSize">16dp</item>
     </style>
 
+    <style name="BottomSheetDialogRounded" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle.Rounded</item>
+    </style>
+
+    <style name="BottomSheetStyle.Rounded" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_filter_sheet</item>
+    </style>
+
     <!--    WIDGETS-->
     <style name="RoundedButton" parent="@style/Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/yellow</item>

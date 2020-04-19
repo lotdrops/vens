@@ -4,7 +4,7 @@
         <shape android:shape="rectangle">
             <corners android:topLeftRadius="@dimen/detail_card_radius"
                 android:topRightRadius="@dimen/detail_card_radius"/>
-            <solid android:color="@color/white" />
+            <solid android:color="@color/colorSurface" />
         </shape>
     </item>
 </selector>

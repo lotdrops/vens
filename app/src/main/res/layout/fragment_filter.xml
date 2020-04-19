@@ -17,20 +17,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
+                android:paddingHorizontal="12dp"
                 android:orientation="vertical"
                 >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingStart="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:text="@string/title_filter"
-                    style="@style/TextAppearance.Custom.Title"
-                    />
+                    android:orientation="horizontal"
+                    android:layout_marginVertical="16dp"
+                    >
+                    <View
+                        android:layout_width="@dimen/close_button_size"
+                        android:layout_height="@dimen/close_button_size"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/title_filter"
+                        style="@style/TextAppearance.Custom.Title"
+                        />
+                    <ImageView
+                        android:layout_width="@dimen/close_button_size"
+                        android:layout_height="@dimen/close_button_size"
+                        android:padding="16dp"
+                        android:src="@drawable/ic_close"
+                        android:tint="@color/dark_on_white"
+                        android:onClick="@{v -> viewModel.onCloseClicked()}"
+                        />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"

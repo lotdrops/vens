@@ -13,6 +13,7 @@
     <dimen name="body_text_size">14sp</dimen>
     <dimen name="list_title_text_size">16sp</dimen>
     <dimen name="fav_button_size">56dp</dimen>
+    <dimen name="close_button_size">48dp</dimen>
 
     <dimen name="selectable_button_height">88dp</dimen>
     <dimen name="selectable_button_radius">@dimen/card_corner_radius</dimen>

@@ -10,6 +10,7 @@
     <color name="onPrimary">@color/white</color>
     <color name="onSecondary">@color/white</color>
     <color name="onBackground">#000000</color>
+    <color name="colorSurface">#FFFFFF</color>
     <color name="onSurface">#000000</color>
     <color name="textPrimary">@color/dark_on_white</color>
     <color name="light_background">#fbfbff</color>

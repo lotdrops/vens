@@ -27,6 +27,11 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     private val sharedViewModel: SharedViewModel by sharedViewModel()
     private val viewModel: FilterBottomSheetViewModel by viewModel { parametersOf(sharedViewModel) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.BottomSheetDialogRounded)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

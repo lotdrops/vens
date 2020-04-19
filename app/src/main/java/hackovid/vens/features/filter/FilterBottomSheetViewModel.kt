@@ -58,6 +58,10 @@ class FilterBottomSheetViewModel(private val sharedViewModel: SharedViewModel) :
         closeFilter.call()
     }
 
+    fun onCloseClicked() {
+        closeFilter.call()
+    }
+
     private fun List<Boolean>.setInPosition(value: Boolean, position: Int) =
         this.toMutableList().apply { set(position, value) }.toList()
 
