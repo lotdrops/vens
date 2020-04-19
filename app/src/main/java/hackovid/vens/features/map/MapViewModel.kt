@@ -41,6 +41,15 @@ class MapViewModel(
 
     val showStoreInfo = selectedStoreId.map { it != null }
 
+    private val cardMapPadding = MutableLiveData(0)
+    val mapBottomPadding = cardMapPadding.combineWith(showStoreInfo) { padding, showing ->
+        if (showing == true) padding ?: 0 else 0
+    }
+
+    fun setCardMapPadding(padding: Int) {
+        cardMapPadding.value = padding
+    }
+
     fun onBackPressed(): Boolean = (showStoreInfo.value == true).apply {
         if (this) selectedStoreId.value = null
     }

@@ -3,15 +3,16 @@ package hackovid.vens.features.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.doOnLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
@@ -36,9 +37,9 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
     private val sharedViewModel: SharedViewModel by sharedViewModel()
     private val viewModel: MapViewModel by viewModel { parametersOf(sharedViewModel) }
 
-    private val mapBottomPadding = MutableLiveData(0)
     private lateinit var googleMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<ClusterStoreItem>
+    private lateinit var renderer: ClusterStoreRenderer
 
     override fun setupBinding(binding: FragmentMapBinding) {
         binding.viewModel = viewModel
@@ -56,13 +57,13 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
 
     private fun FragmentMapBinding.setupViews() {
         root.infoLayout.doOnLayout {
-            mapBottomPadding.value = it.height +
-                    it.resources.getDimension(R.dimen.map_info_margin).roundToInt()
+            this@MapFragment.viewModel.setCardMapPadding(it.height +
+                    it.resources.getDimension(R.dimen.map_info_margin).roundToInt())
         }
     }
 
     private fun subscribeUi() {
-        observe(mapBottomPadding) { padding ->
+        observe(viewModel.mapBottomPadding) { padding ->
             if (padding != null && this::googleMap.isInitialized) {
                 googleMap.setBottomPadding(padding)
             }
@@ -89,15 +90,25 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-        googleMap.setOnMapLongClickListener { latLng -> sharedViewModel.location.value = latLng }
+        googleMap.styleMap()
+        googleMap.setOnMapLongClickListener { latLng ->
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+        }
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17f))
         val location = sharedViewModel.location.value ?: LatLng(DEFAULT_LAT, DEFAULT_LONG)
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
         googleMap.uiSettings.isMapToolbarEnabled = false
-        mapBottomPadding.value?.let { padding -> googleMap.setBottomPadding(padding) }
         setUpClusterer()
         observeStores()
         locateUserOnMap()
+    }
+
+    private fun GoogleMap.styleMap() {
+        try {
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.google_map_style))
+        } catch (e: Exception) {
+            Log.e("MapFragment", "Error loading map style: $e")
+        }
     }
 
     private fun locateUserOnMap() {
@@ -132,7 +143,7 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
         clusterManager = ClusterManager(context, googleMap)
         googleMap.setOnMarkerClickListener(clusterManager)
         clusterManager.renderer = context?.let {
-            ClusterStoreRenderer(it, googleMap, clusterManager)
+            ClusterStoreRenderer(it, googleMap, clusterManager).apply { renderer = this }
         }
         googleMap.setOnCameraIdleListener(clusterManager)
     }
@@ -141,10 +152,12 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
 
     override fun onClusterItemClick(item: ClusterStoreItem?): Boolean {
         viewModel.selectedStoreId.value = item?.id?.toInt()
+        if (this::renderer.isInitialized) renderer.onClusterItemSelected(item)
         return true
     }
 
     override fun onMapClick(p0: LatLng?) {
         viewModel.selectedStoreId.value = null
+        if (this::renderer.isInitialized) renderer.onClusterItemSelected(null)
     }
 }
