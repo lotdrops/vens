@@ -18,7 +18,7 @@ buildscript {
         legacySupport4Version = '1.0.0'
         roomVersion = '2.2.5'
         recyclerViewVersion = '1.1.0'
-        constraintLayoutVersion = '1.1.3'
+        constraintLayoutVersion = '2.0.0-beta4'
         ktxCoreVersion = '1.2.0'
         lifecycleVersion = '2.2.0'
         lifecycleScopeVersion = '2.2.0'

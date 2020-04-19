@@ -9,29 +9,60 @@
         <variable name="viewModel" type="hackovid.vens.features.detail.DetailViewModel" />
     </data>
     
-    <FrameLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutDescription="@xml/detail_scene"
         >
         <ImageView
-            android:layout_width="match_parent"
+            android:id="@+id/header_image"
+            android:layout_width="0dp"
             android:layout_height="@dimen/detail_image_height"
             app:imageResource="@{viewModel.image.intValue()}"
             android:scaleType="centerCrop"
             android:background="@color/lightPurple"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/grocery"
             />
 
-        <ScrollView
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/content_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            bind:layout_constraintGuide_begin="@dimen/detail_card_top_margin"
+            />
+
+        <View
+            android:id="@+id/content_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/detail_card_top_margin"
+            android:layout_height="0dp"
             android:background="@drawable/bg_detail_card"
+            android:elevation="8dp"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toTopOf="@+id/content_guideline"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/content_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="8dp"
+            bind:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/fav_button"
+            bind:layout_constraintBottom_toBottomOf="parent"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="24dp"
                 >
 
                 <TextView
@@ -40,7 +71,7 @@
                     bind:store_types="@{viewModel.storeUi}"
                     android:layout_marginBottom="12dp"
                     style="@style/TextAppearance.Custom.DetailType"
-                    tools:text="Llar - Fusteria"
+                    tools:text="Alimentacio - Fruiteria"
                     />
 
                 <TextView
@@ -48,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{viewModel.storeUi.name}"
                     style="@style/TextAppearance.Custom.DetailTitle"
+                    tools:text="Fruiteria Merce"
                     />
 
                 <TextView
@@ -57,6 +89,7 @@
                     android:visibility="@{(viewModel.storeUi.address == null || viewModel.storeUi.address.length()==0) ? View.GONE : View.VISIBLE}"
                     android:layout_marginVertical="12dp"
                     style="@style/TextAppearance.Custom.DetailDescription"
+                    tools:text="Rambla de Catalunya 2"
                     />
 
                 <LinearLayout
@@ -171,31 +204,38 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <ImageView
+            android:id="@+id/back_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="8dp"
             android:padding="12dp"
+            android:elevation="12dp"
             android:src="@drawable/ic_back_arrow"
             android:onClick="@{view -> viewModel.onBackClicked()}"
             android:background="@drawable/bg_back_arrow"
+            bind:layout_constraintTop_toTopOf="parent"
+            bind:layout_constraintStart_toStartOf="parent"
             />
 
         <ImageView
+            android:id="@+id/fav_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:layout_marginTop="@dimen/detail_fav_top_margin"
             android:layout_marginEnd="36dp"
             android:padding="12dp"
             android:layout_gravity="top|end"
             android:tint="@color/dark_on_white"
+            android:elevation="12dp"
             android:src="@{viewModel.storeUi.isFavourite==true ? @drawable/ic_favorite_selected : @drawable/ic_favorite_unselected}"
             android:onClick="@{view -> viewModel.onFavouriteClicked()}"
-            android:background="@{viewModel.storeUi.isFavourite==true ? @drawable/bg_fav_round_button_selected : @drawable/bg_fav_round_button_unselected}"
+            android:background="@drawable/bg_fav_round_button_selected"
+            bind:layout_constraintTop_toTopOf="@+id/content_background"
+            bind:layout_constraintBottom_toTopOf="@+id/content_background"
+            bind:layout_constraintEnd_toEndOf="parent"
             />
 
-        
-    </FrameLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
