@@ -37,9 +37,9 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     }
 
     private fun buildOrderByDistance(params: Pair<FilterParams, Location?>): String {
-        return "ORDER BY ((longitude -${params.second?.longitude}) *" +
-                "(longitude -${params.second?.longitude})) + ((latitude -${params.second?.latitude}) " +
-                "* (latitude -${params.second?.latitude}))"
+        return "ORDER BY ((longitude -(${params.second?.longitude})) *" +
+                "(longitude -(${params.second?.longitude}))) + ((latitude -(${params.second?.latitude})) " +
+                "* (latitude -(${params.second?.latitude})))"
     }
 
     private fun buildWhereClause(params: Pair<FilterParams, Location?>): String {
