@@ -21,6 +21,21 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
         return MutableLiveData()
     }
 
+    fun getDataByDistance(params: Pair<FilterParams, Location>): LiveData<List<Store>> {
+        val orderCriteria = buildOrderByDistance(params)
+        val query = "SELECT * FROM Stores${buildWhereClause(params)} $orderCriteria"
+        return storeDao.getByQuery(SimpleSQLiteQuery(query))
+    }
+
+    fun getDataByName(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+        params?.let { notNullParams ->
+            val orderCriteria = "ORDER BY name"
+            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} $orderCriteria"
+            return storeDao.getByQuery(SimpleSQLiteQuery(query))
+        }
+        return MutableLiveData()
+    }
+
     private fun buildOrderByDistance(params: Pair<FilterParams, Location?>): String {
         return "ORDER BY ((longitude -${params.second?.longitude}) *" +
                 "(longitude -${params.second?.longitude})) + ((latitude -${params.second?.latitude}) " +
