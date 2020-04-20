@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.core.distance
 
@@ -17,7 +18,9 @@ class StoresUseCase(
 ) {
     fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> = when {
         params == null -> MutableLiveData()
-        params.second != null -> getStoresByDistance(params as Pair<FilterParams, Location>)
+        params.first.sortStrategy == SortStrategy.NONE -> getStoresNoOrder(params)
+        params.second != null && params.first.sortStrategy == SortStrategy.DISTANCE ->
+            getStoresByDistance(params as Pair<FilterParams, Location>)
         else -> getStoresByName(params)
     }
 
@@ -41,6 +44,13 @@ class StoresUseCase(
 
     private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
         storesDataSource.getDataByName(params)
+
+    private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
+        storesDataSource.getData(params).map {
+            val location = params?.second
+            if (location != null) it.filterByDistance(params.first.distance, location)
+            else it
+        }
 
     private fun List<Store>.sortFirst(location: Location): List<Store> {
         val firstList = subList(0, FIRST_SORT_SIZE.coerceAtMost(size))

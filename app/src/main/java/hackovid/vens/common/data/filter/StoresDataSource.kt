@@ -9,6 +9,7 @@ import hackovid.vens.common.data.StoreDao
 
 class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
     fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+        // TODO return appropriate but without sorting
         params?.let { notNullParams ->
             val orderCriteria = if (notNullParams.second != null) {
                 buildOrderByDistance(notNullParams)

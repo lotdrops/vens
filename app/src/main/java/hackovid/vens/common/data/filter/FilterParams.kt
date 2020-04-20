@@ -5,7 +5,8 @@ import hackovid.vens.common.data.StoreType
 data class FilterParams(
     val categories: List<Boolean>,
     val distance: Int = DEFAULT_DISTANCE,
-    val crowd: Int = DEFAULT_CROWD
+    val crowd: Int = DEFAULT_CROWD,
+    val sortStrategy: SortStrategy = SortStrategy.DISTANCE
 ) {
     companion object {
         const val DEFAULT_DISTANCE = 0
@@ -22,3 +23,5 @@ data class FilterParams(
 private const val NUMBER_OF_SELECTABLE = 3
 private fun listOfTrue(size: Int): List<Boolean> = arrayOfNulls<Unit>(size).map { true }
 private fun listOfFalse(size: Int): List<Boolean> = arrayOfNulls<Unit>(size).map { false }
+
+enum class SortStrategy { NAME, DISTANCE, NONE }
