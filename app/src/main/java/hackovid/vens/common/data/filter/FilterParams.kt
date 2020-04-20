@@ -9,6 +9,9 @@ data class FilterParams(
 ) {
     companion object {
         const val DEFAULT_DISTANCE = 0
+        const val SHORT_DISTANCE = 0
+        const val MEDIUM_DISTANCE = 1
+        const val ANY_DISTANCE = 2
         const val DEFAULT_CROWD = 0
         fun defaultCategories() =
             StoreType.values().map { it == StoreType.GROCERY || it == StoreType.MARKET }
