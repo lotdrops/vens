@@ -1,7 +1,6 @@
 package hackovid.vens.common.data.filter
 
 import android.location.Location
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -35,7 +34,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     private fun buildDistanceFilter(params: Pair<FilterParams, Location>): String {
         val latitude = params.second.latitude
         val longitude = params.second.longitude
-        val distance = params.first.distance
+        val distance = 1000//TODO: params.first.distance or whatever the correct distance is
         val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 /PI) / cos(latitude * PI / 180)
         val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
         val latitudeNorth = latitude + (distance/ EARTH_RADIUS) * 180 / PI
@@ -46,11 +45,11 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
 
     fun getDataByName(
         params: Pair<FilterParams, Location?>?,
-        limit: Int? = null
+        limit: Int = 0
     ): LiveData<List<Store>> {
-        params?.let { notNullParams ->
+        params?.let {
             val orderCriteria = "ORDER BY name"
-            val query = "SELECT * FROM Stores $orderCriteria"
+            val query = "SELECT * FROM Stores $orderCriteria LIMIT($limit)"
             return storeDao.getByQuery(SimpleSQLiteQuery(query))
         }
         return MutableLiveData()
