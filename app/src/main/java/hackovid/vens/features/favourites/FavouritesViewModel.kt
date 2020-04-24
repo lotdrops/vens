@@ -8,6 +8,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.FilterParams
+import hackovid.vens.common.data.filter.SortStrategy
 import hackovid.vens.common.data.filter.StoresUseCase
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.ui.StoreListUi
@@ -26,8 +27,7 @@ class FavouritesViewModel(
         filter?.let { Pair(it, location) }
     }
     val stores = queryParams.switchMap {
-        // Remove location to sort by name
-        storesUseCase.getData(it.removeLocation()).map { stores ->
+        storesUseCase.getData(it.byName()).map { stores ->
             stores.map { store -> store.toListUi(location.value) }
         }
     }
@@ -40,6 +40,6 @@ class FavouritesViewModel(
         }
     }
 
-    private fun Pair<FilterParams, Location?>?.removeLocation() = if (this == null) null
-    else Pair(this.first, null)
+    private fun Pair<FilterParams, Location?>?.byName() = if (this == null) null
+    else Pair(this.first.copy(sortStrategy = SortStrategy.NAME), second)
 }
