@@ -14,7 +14,7 @@ import hackovid.vens.common.data.core.distance
  */
 class StoresUseCase(
     private val storesDataSource: StoresDataSource,
-    private val emitTemporalSort: Boolean = true
+    private val fastLoadFirstResults: Boolean = true
 ) {
     fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> = when {
         params == null -> MutableLiveData()
@@ -28,7 +28,7 @@ class StoresUseCase(
         val res = MediatorLiveData<List<Store>>()
         res.addSource(storesDataSource.getDataByDistance(params)) { stores ->
             val filteredStores = stores.filterByDistance(params.first.distance, params.second)
-            if (emitTemporalSort) {
+            if (fastLoadFirstResults) {
                 res.value = filteredStores.sortFirst(params.second)
             }
             res.value = filteredStores.sortAll(params.second)
@@ -42,8 +42,28 @@ class StoresUseCase(
         else -> this
     }
 
-    private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
-        storesDataSource.getDataByName(params)
+    private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+        val res = MediatorLiveData<List<Store>>()
+        var sentFirstValue = false
+        val emit: (List<Store>) -> Unit = { stores ->
+            if (!sentFirstValue) {
+                sentFirstValue = true
+                res.value = stores.filtered(params)
+            }
+        }
+        if (fastLoadFirstResults) {
+            res.addSource(storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE)) { emit(it) }
+        }
+        res.addSource(storesDataSource.getDataByName(params)) { emit(it) }
+        return res
+    }
+
+    private fun List<Store>.filtered(params: Pair<FilterParams, Location?>?) =
+        if (params?.second != null) {
+            filterByDistance(params.first.distance, params.second!!)
+        } else {
+            this
+        }
 
     private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
         storesDataSource.getData(params).map {
@@ -53,8 +73,9 @@ class StoresUseCase(
         }
 
     private fun List<Store>.sortFirst(location: Location): List<Store> {
-        val firstList = subList(0, FIRST_SORT_SIZE.coerceAtMost(size))
-        val secondList = if (FIRST_SORT_SIZE < size) subList(FIRST_SORT_SIZE, size) else emptyList()
+        val firstList = subList(0, FIRST_RESULTS_SIZE.coerceAtMost(size))
+        val secondList = if (FIRST_RESULTS_SIZE < size) subList(FIRST_RESULTS_SIZE, size)
+        else emptyList()
         return firstList.sortAll(location) + secondList
     }
     private fun List<Store>.sortAll(location: Location): List<Store> =
@@ -62,6 +83,6 @@ class StoresUseCase(
 
     private fun Store.distance(location: Location) = location.distance(latitude, longitude)
 }
-private const val FIRST_SORT_SIZE = 20
+private const val FIRST_RESULTS_SIZE = 20
 private const val SHORT_DISTANCE = 100
 private const val MEDIUM_DISTANCE = 250
