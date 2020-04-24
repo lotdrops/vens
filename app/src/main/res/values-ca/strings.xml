@@ -32,7 +32,7 @@
     <string name="filter_priority_orders">Comandes per telèfon</string>
     <string name="filter_priority_open">Botiga online</string>
     <string name="filter_priority_delivers">Servei a domicili</string>
-    <string name="filter_distance_title">Distància (properament)</string>
+    <string name="filter_distance_title">Distància</string>
     <string name="filter_distance_near">100m</string>
     <string name="filter_distance_mid">250m</string>
     <string name="filter_distance_far">Tots</string>

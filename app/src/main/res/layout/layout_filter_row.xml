@@ -17,6 +17,7 @@
         <variable name="selected1" type="Boolean" />
         <variable name="selected2" type="Boolean" />
         <variable name="imagesVisible" type="Boolean" />
+        <variable name="visibility" type="Integer" />
     </data>
     <merge
         tools:parentTag="androidx.appcompat.widget.LinearLayoutCompat"
@@ -26,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/selectable_button_height"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:visibility="@{visibility}"
             >
 
             <include
