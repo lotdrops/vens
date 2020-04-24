@@ -77,24 +77,12 @@
                 style="@style/TextAppearance.Custom.ListCardSecondaryText"
                 tools:text="www.bonsalmo.com"
                 />
-
-            <TextView
-                android:id="@+id/contact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/list_contact"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="4dp"
-                android:layout_marginBottom="8dp"
-                android:textColor="@color/textPrimary"
-                style="@style/TextAppearance.Custom.ListCardSecondaryText"
-                android:background="@drawable/purple_rounded_bg"
-                />
             
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="8dp"
                 >
                 <ImageView
                     android:layout_width="@dimen/list_card_icon_size"

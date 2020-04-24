@@ -63,18 +63,7 @@ class FavouritesFragment : FilterBaseFragment<FragmentFavouritesBinding>() {
             itemBinding.favourite.setOnClickListener {
                 viewModel.onFavouriteClicked(item)
             }
-            itemBinding.contact.setOnClickListener {
-                showNotDoneDialog()
-            }
         }
-    }
-
-    private fun showNotDoneDialog() {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(R.string.generic_error_not_done_yet_title)
-            .setMessage(R.string.generic_error_not_done_yet_message)
-            .setPositiveButton(R.string.generic_positive_button) { dialog, _ -> dialog.dismiss() }
-            .show()
     }
 
     private fun subscribeUI(adapter: StoreListAdapter) {
