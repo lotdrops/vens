@@ -1,11 +1,14 @@
 package hackovid.vens.common.data.filter
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
+import java.lang.Math.PI
+import kotlin.math.cos
 
 class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
     fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
@@ -16,7 +19,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
             } else {
                 "ORDER BY name"
             }
-            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)}"
+            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} $orderCriteria"
             return storeDao.getByQuery(SimpleSQLiteQuery(query))
         }
         return MutableLiveData()
@@ -24,8 +27,21 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
 
     fun getDataByDistance(params: Pair<FilterParams, Location>): LiveData<List<Store>> {
         val orderCriteria = buildOrderByDistance(params)
-        val query = "SELECT * FROM Stores${buildWhereClause(params)} $orderCriteria"
+        val distanceFilter = buildDistanceFilter(params)
+        val query = "SELECT * FROM Stores ${buildWhereClause(params)} $distanceFilter $orderCriteria"
         return storeDao.getByQuery(SimpleSQLiteQuery(query))
+    }
+
+    private fun buildDistanceFilter(params: Pair<FilterParams, Location>): String {
+        val latitude = params.second.latitude
+        val longitude = params.second.longitude
+        val distance = params.first.distance
+        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 /PI) / cos(latitude * PI / 180)
+        val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
+        val latitudeNorth = latitude + (distance/ EARTH_RADIUS) * 180 / PI
+        val latitudeSouth = latitude - ((distance/ EARTH_RADIUS) * 180 / PI)
+        
+        return " AND (latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
     }
 
     fun getDataByName(
@@ -34,7 +50,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     ): LiveData<List<Store>> {
         params?.let { notNullParams ->
             val orderCriteria = "ORDER BY name"
-            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} $orderCriteria"
+            val query = "SELECT * FROM Stores $orderCriteria"
             return storeDao.getByQuery(SimpleSQLiteQuery(query))
         }
         return MutableLiveData()
@@ -70,3 +86,5 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
         return query
     }
 }
+
+private const val EARTH_RADIUS = 6378000.0

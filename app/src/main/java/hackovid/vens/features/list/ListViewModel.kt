@@ -1,5 +1,6 @@
 package hackovid.vens.features.list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
@@ -23,7 +24,7 @@ class ListViewModel(
         filter?.let { Pair(it, location) }
     }
     val stores = queryParams.switchMap {
-        storesUseCase.getData(it).map { it.map { store -> store.toListUi(location.value) } }
+        storesUseCase.getData(it).map { it.apply { Log.d("coords","list size:$size") }.map { store -> store.toListUi(location.value) } }
     }
 
     fun onFavouriteClicked(item: StoreListUi) {

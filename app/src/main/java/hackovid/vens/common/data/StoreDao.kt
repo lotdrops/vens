@@ -23,4 +23,10 @@ interface StoreDao : BaseDao<Store> {
 
     @RawQuery(observedEntities = [Store::class])
     fun getByQuery(query: SupportSQLiteQuery): LiveData<List<Store>>
+
+    @Query("SELECT typeof(longitude) FROM Stores")
+    suspend fun prova(): List<String>
+
+    @Query("SELECT * FROM Stores")
+    suspend fun getAll(): List<Store>
 }

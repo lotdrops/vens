@@ -40,7 +40,7 @@ class OnBoardingViewModel(
         } else {
             isDatabaseLoaded.value = false
             CoroutineScope(Dispatchers.IO).launch {
-                database.storeDao().insertList(localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList())
+                database.storeDao().insertList(localDataSource.readLocalStoreData()?.map { it.toStore() }.apply { Log.d("coords","importListSZ:${this?.size}") } ?: emptyList())
                 Log.w("Parse json", "Database processed")
                 withContext(Dispatchers.Main) {
                     localStorage.setDataBaseAlreadyLoaded(true)
