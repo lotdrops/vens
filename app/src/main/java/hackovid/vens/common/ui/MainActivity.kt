@@ -1,22 +1,40 @@
 package hackovid.vens.common.ui
 
-import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hackovid.vens.R
+import hackovid.vens.common.utils.getImmediateLocation
+import hackovid.vens.common.utils.hasLocationPermission
+import hackovid.vens.common.utils.observe
+import hackovid.vens.common.utils.requestLocationPermission
+import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: SharedViewModel by viewModel()
+
+    private var fusedLocationClient: FusedLocationProviderClient? = null
+
+    private val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            locationResult?.lastLocation?.let { newLoc ->
+                viewModel.onNewLocation(LatLng(newLoc.latitude, newLoc.longitude))
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +43,22 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
         fetchLocation()
+        observe(viewModel.requestLocationEvent) { onLocationRequested() }
+    }
+
+    private fun onLocationRequested() {
+        stopLocationUpdates()
+        requestLocationPermission(USER_REQUESTED_LOCATION)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (hasLocationPermission()) startLocationUpdates()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopLocationUpdates()
     }
 
     override fun onBackPressed() {
@@ -49,43 +83,46 @@ class MainActivity : AppCompatActivity() {
     ) {
         when (requestCode) {
             REQ_CODE_LOCATION -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] ==
-                            PackageManager.PERMISSION_GRANTED)) {
-                    fetchLocation()
+                if ((grantResults.getOrNull(0) == PackageManager.PERMISSION_GRANTED)) {
+                    startLocationUpdates()
+                }
+            }
+            USER_REQUESTED_LOCATION -> {
+                if ((grantResults.getOrNull(0) == PackageManager.PERMISSION_GRANTED)) {
+                    viewModel.onLocationAccepted.call()
+                    startLocationUpdates()
                 }
             }
         }
     }
 
     private fun fetchLocation() {
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) !=
-            PackageManager.PERMISSION_GRANTED ||
-            checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-                val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)
-                requestPermissions(permissions, REQ_CODE_LOCATION)
-                return
-        }
-
-        val locationManager: LocationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val providers: List<String> = locationManager.getProviders(true)
-        var userLocation: Location? = null
-        for (i in providers.size - 1 downTo 0) {
-            userLocation = locationManager.getLastKnownLocation(providers[i])
-            if (userLocation != null) {
-                break
+        if (hasLocationPermission()) {
+            val location = getImmediateLocation()
+            if (location != null) {
+                viewModel.onNewLocation(LatLng(location.latitude, location.longitude))
             }
-        }
-
-        userLocation?.let { loc ->
-            viewModel.location.value = LatLng(loc.latitude, loc.longitude)
+        } else {
+            requestLocationPermission(REQ_CODE_LOCATION)
         }
     }
 
-    companion object {
-        const val REQ_CODE_LOCATION = 100
+    private fun startLocationUpdates() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        val locationRequest = LocationRequest().apply {
+            priority = PRIORITY_BALANCED_POWER_ACCURACY
+            interval = TimeUnit.SECONDS.toMillis(15)
+            fastestInterval = TimeUnit.SECONDS.toMillis(30)
+        }
+        fusedLocationClient?.requestLocationUpdates(
+            locationRequest, locationCallback, Looper.getMainLooper()
+        )
+    }
+
+    private fun stopLocationUpdates() {
+        fusedLocationClient?.removeLocationUpdates(locationCallback)
     }
 }
+
+private const val REQ_CODE_LOCATION = 100
+private const val USER_REQUESTED_LOCATION = 101

@@ -31,6 +31,7 @@ buildscript {
         // Google
         materialLibraryVersion = '1.1.0'
         googleMapsVersion = '17.0.0'
+        locationServicesVersion = '17.0.0'
         googleServicesVersion = '4.3.3'
         firebaseVersion = '17.3.0'
         mapsUtilsVersion = '1.1.0'
@@ -78,6 +79,7 @@ buildscript {
                 // Google
                 materialDesign      : ('com.google.android.material:material:' + materialLibraryVersion),
                 googleMaps          : ('com.google.android.gms:play-services-maps:' + googleMapsVersion),
+                playLocation        : ('com.google.android.gms:play-services-location:' + locationServicesVersion),
                 services            : ('com.google.gms:google-services:' + googleServicesVersion),
                 firebase            : ('com.google.firebase:firebase-analytics:' + firebaseVersion),
                 mapsUtils           : ('com.google.maps.android:android-maps-utils:' + mapsUtilsVersion),

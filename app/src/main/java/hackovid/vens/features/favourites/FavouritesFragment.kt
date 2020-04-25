@@ -3,7 +3,6 @@ package hackovid.vens.features.favourites
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import hackovid.vens.R
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
