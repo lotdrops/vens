@@ -127,6 +127,7 @@
                     android:layout_height="@dimen/list_card_icon_size"
                     android:src="@drawable/ic_person"
                     android:layout_gravity="center_vertical"
+                    android:visibility="gone"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,6 +137,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    android:visibility="gone"
                     tools:text="Baixa"
                     />
 
