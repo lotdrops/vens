@@ -21,6 +21,8 @@ class MapViewModel(
 ) : ViewModel() {
     val navigateToDetail = SingleLiveEvent<Long>()
 
+    val locateUserEvent = SingleLiveEvent<Unit>()
+
     val location = MutableLiveData<Location?>()
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
@@ -63,5 +65,9 @@ class MapViewModel(
         viewModelScope.launch {
             selectedStore.value?.let { st -> storeDao.setFavourite(st.id, !st.isFavourite) }
         }
+    }
+
+    fun onLocationClicked() {
+        locateUserEvent.call()
     }
 }

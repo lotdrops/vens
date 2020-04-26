@@ -3,7 +3,6 @@ package hackovid.vens.features.favourites
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import hackovid.vens.R
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
@@ -63,18 +62,7 @@ class FavouritesFragment : FilterBaseFragment<FragmentFavouritesBinding>() {
             itemBinding.favourite.setOnClickListener {
                 viewModel.onFavouriteClicked(item)
             }
-            itemBinding.contact.setOnClickListener {
-                showNotDoneDialog()
-            }
         }
-    }
-
-    private fun showNotDoneDialog() {
-        MaterialAlertDialogBuilder(context)
-            .setTitle(R.string.generic_error_not_done_yet_title)
-            .setMessage(R.string.generic_error_not_done_yet_message)
-            .setPositiveButton(R.string.generic_positive_button) { dialog, _ -> dialog.dismiss() }
-            .show()
     }
 
     private fun subscribeUI(adapter: StoreListAdapter) {

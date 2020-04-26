@@ -40,8 +40,10 @@ class OnBoardingViewModel(
         } else {
             isDatabaseLoaded.value = false
             CoroutineScope(Dispatchers.IO).launch {
-                database.storeDao().insertList(localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList())
-                Log.w("Parse json", "Database processed")
+                database.storeDao().insertList(
+                    localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
+                )
+                Log.i("Parse json", "Database processed")
                 withContext(Dispatchers.Main) {
                     localStorage.setDataBaseAlreadyLoaded(true)
                     isDatabaseLoaded.value = true

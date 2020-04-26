@@ -11,4 +11,6 @@ interface LocalStorage {
     fun setOnboardScreenVisibility(shouldBeDisplayed: Boolean)
     fun isDataBaseAlreadyLoaded(): Boolean
     fun setDataBaseAlreadyLoaded(alreadyLoaded: Boolean)
+    fun wasLocationPermissionRequested(): Boolean
+    fun setLocationPermissionRequested()
 }
