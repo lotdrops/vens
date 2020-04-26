@@ -80,7 +80,7 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
             if (context?.hasLocationPermission() == true) {
                 locateUser()
             } else {
-                sharedViewModel.requestLocationEvent.call()
+                sharedViewModel.userRequestsLocationEvent.call()
             }
         }
         observe(viewModel.navigateToDetail) { storeId ->

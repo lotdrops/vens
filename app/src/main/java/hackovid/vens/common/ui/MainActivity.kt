@@ -43,10 +43,13 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host)
         navView.setupWithNavController(navController)
         fetchLocation()
-        observe(viewModel.requestLocationEvent) { onLocationRequested() }
+        observe(viewModel.userRequestsLocationEvent) { onLocationRequestedByUser() }
+        observe(viewModel.requestLocationEvent) {
+            if (!hasLocationPermission()) requestLocationPermission(FIRST_TIME_LOCATION)
+        }
     }
 
-    private fun onLocationRequested() {
+    private fun onLocationRequestedByUser() {
         stopLocationUpdates()
         requestLocationPermission(USER_REQUESTED_LOCATION)
     }
@@ -82,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            REQ_CODE_LOCATION -> {
+            FIRST_TIME_LOCATION -> {
                 if ((grantResults.getOrNull(0) == PackageManager.PERMISSION_GRANTED)) {
                     startLocationUpdates()
                 }
@@ -102,8 +105,6 @@ class MainActivity : AppCompatActivity() {
             if (location != null) {
                 viewModel.onNewLocation(LatLng(location.latitude, location.longitude))
             }
-        } else {
-            requestLocationPermission(REQ_CODE_LOCATION)
         }
     }
 
@@ -124,5 +125,5 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-private const val REQ_CODE_LOCATION = 100
+private const val FIRST_TIME_LOCATION = 100
 private const val USER_REQUESTED_LOCATION = 101
