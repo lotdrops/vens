@@ -1,11 +1,10 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="screen_horizontal_margin">24dp</dimen>
 
     <dimen name="card_corner_radius">8dp</dimen>
 
     <dimen name="map_info_margin">8dp</dimen>
+    <dimen name="map_location_margin">16dp</dimen>
 
     <dimen name="title_text_size">24sp</dimen>
     <dimen name="subtitle_text_size">20sp</dimen>
@@ -15,7 +14,7 @@
     <dimen name="fav_button_size">56dp</dimen>
     <dimen name="close_button_size">48dp</dimen>
 
-    <dimen name="selectable_button_height">88dp</dimen>
+    <dimen name="selectable_button_height">96dp</dimen>
     <dimen name="selectable_button_radius">@dimen/card_corner_radius</dimen>
     <dimen name="selectable_button_margin">24dp</dimen>
 

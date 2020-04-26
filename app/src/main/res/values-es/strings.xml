@@ -102,7 +102,7 @@
     <string name="store_subtype_dry_cleaner">Tintorerias</string>
     <string name="store_subtype_vet_store">Veterinario / Mascotas</string>
 
-    <string name= "on_boarding_screen_skip_text">Siguiente</string>
+    <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">Tu comercio de confianza</string>
     <string name= "on_boarding_screen_body_slide_one">Apoya el comercio de proximidad, ahorra tiempo y explora a tu alrededor sin moverte de casa, dando vida a tu barrio.</string>
     <string name= "on_boarding_screen_title_slide_two">Reducir el tiempo de espera</string>

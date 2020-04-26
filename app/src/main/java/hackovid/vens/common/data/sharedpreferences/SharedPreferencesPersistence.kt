@@ -24,6 +24,17 @@ class SharedPreferencesPersistence(val context: Context) : LocalStorage {
             .edit()
             .putBoolean(DATABASE_LOADED_IDENTIFIER, alreadyLoaded)
             .apply()
+
+    override fun wasLocationPermissionRequested() =
+        context.getSharedPreferences(LOCATION_PERMISSION_REQUESTED, Context.MODE_PRIVATE)
+            .getBoolean(LOCATION_PERMISSION_REQUESTED, false)
+
+    override fun setLocationPermissionRequested() =
+        context.getSharedPreferences(LOCATION_PERMISSION_REQUESTED, Context.MODE_PRIVATE)
+            .edit()
+            .putBoolean(LOCATION_PERMISSION_REQUESTED, true)
+            .apply()
 }
 private const val ON_BOARDING_SHOULD_BE_DISPLAYED = "on_boarding_should_be_displayed"
 private const val DATABASE_LOADED_IDENTIFIER = "database_loaded_identifier"
+private const val LOCATION_PERMISSION_REQUESTED = "location_permission_requested"

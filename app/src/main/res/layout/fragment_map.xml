@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
         <variable name="viewModel" type="hackovid.vens.features.map.MapViewModel" />
@@ -35,6 +34,18 @@
             android:drawableRight="@drawable/ic_filter_map"
             bind:cornerRadius="@dimen/button_corner_radius"
             style="@style/RoundedButton"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/location_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_my_location"
+            android:layout_marginEnd="@dimen/map_location_margin"
+            android:layout_marginBottom="@dimen/map_location_margin"
+            android:layout_gravity="end|bottom"
+            android:onClick="@{()-> viewModel.onLocationClicked()}"
+            app:backgroundTint="@color/white"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,6 +127,7 @@
                     android:layout_height="@dimen/list_card_icon_size"
                     android:src="@drawable/ic_person"
                     android:layout_gravity="center_vertical"
+                    android:visibility="gone"
                     />
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,6 +137,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     style="@style/TextAppearance.Custom.ListCardSecondaryText"
+                    android:visibility="gone"
                     tools:text="Baixa"
                     />
 

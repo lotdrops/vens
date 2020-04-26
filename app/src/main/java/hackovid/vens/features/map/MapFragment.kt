@@ -1,10 +1,9 @@
 package hackovid.vens.features.map
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.doOnLayout
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,7 +19,9 @@ import hackovid.vens.common.ui.DEFAULT_LAT
 import hackovid.vens.common.ui.DEFAULT_LONG
 import hackovid.vens.common.ui.FilterBaseFragment
 import hackovid.vens.common.ui.SharedViewModel
+import hackovid.vens.common.utils.hasLocationPermission
 import hackovid.vens.common.utils.observe
+import hackovid.vens.common.utils.observeOnce
 import hackovid.vens.databinding.FragmentMapBinding
 import kotlin.math.roundToInt
 import kotlinx.android.synthetic.main.fragment_map.mapFilterButton
@@ -41,10 +42,14 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
     private lateinit var clusterManager: ClusterManager<ClusterStoreItem>
     private lateinit var renderer: ClusterStoreRenderer
 
+    private val fabMargin by lazy {
+        resources.getDimension(R.dimen.map_location_margin).roundToInt()
+    }
+
     override fun setupBinding(binding: FragmentMapBinding) {
         binding.viewModel = viewModel
         binding.setupViews()
-        subscribeUi()
+        subscribeUi(binding)
         setupMap()
     }
 
@@ -62,21 +67,37 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
         }
     }
 
-    private fun subscribeUi() {
+    private fun subscribeUi(binding: FragmentMapBinding) {
         observe(viewModel.mapBottomPadding) { padding ->
-            if (padding != null && this::googleMap.isInitialized) {
+            if (this::googleMap.isInitialized) {
                 googleMap.setBottomPadding(padding)
+                (binding.locationFab.layoutParams as ViewGroup.MarginLayoutParams).setMargins(
+                    0, 0, fabMargin, padding + fabMargin
+                )
             }
         }
-
-        observe(sharedViewModel.location) {
-            if (this::googleMap.isInitialized) {
-                locateUserOnMap()
+        observe(viewModel.locateUserEvent) {
+            if (context?.hasLocationPermission() == true) {
+                locateUser()
+            } else {
+                sharedViewModel.userRequestsLocationEvent.call()
             }
         }
         observe(viewModel.navigateToDetail) { storeId ->
             NavHostFragment.findNavController(this)
                 .navigate(MapFragmentDirections.navToAdDetail(storeId))
+        }
+        observe(sharedViewModel.onLocationAccepted) {
+            googleMap.isMyLocationEnabled = context?.hasLocationPermission() == true
+            observeOnce(sharedViewModel.location) {
+                locateUser()
+            }
+        }
+    }
+
+    private fun locateUser() {
+        sharedViewModel.location.value?.let { location ->
+            googleMap.animateCamera(CameraUpdateFactory.newLatLng(location))
         }
     }
 
@@ -97,10 +118,18 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(17f))
         val location = sharedViewModel.location.value ?: LatLng(DEFAULT_LAT, DEFAULT_LONG)
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        if (sharedViewModel.location.value == null) {
+            observeOnce(sharedViewModel.location) {
+                googleMap.isMyLocationEnabled = context?.hasLocationPermission() == true
+                locateUser()
+            }
+        }
         googleMap.uiSettings.isMapToolbarEnabled = false
         setUpClusterer()
         observeStores()
-        locateUserOnMap()
+        googleMap.isMyLocationEnabled = context?.hasLocationPermission() == true
+        googleMap.setOnMapClickListener(this)
+        googleMap.uiSettings.isMyLocationButtonEnabled = false
     }
 
     private fun GoogleMap.styleMap() {
@@ -109,22 +138,6 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
         } catch (e: Exception) {
             Log.e("MapFragment", "Error loading map style: $e")
         }
-    }
-
-    private fun locateUserOnMap() {
-        if (context?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED &&
-            context?.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ==
-            PackageManager.PERMISSION_GRANTED
-        )
-            if (this::googleMap.isInitialized) {
-                googleMap.isMyLocationEnabled = true
-                googleMap.setOnMapClickListener(this)
-                googleMap.uiSettings.isMyLocationButtonEnabled = false
-                googleMap.animateCamera(
-                    CameraUpdateFactory.newLatLng(sharedViewModel.location.value)
-                )
-            }
     }
 
     private fun observeStores() {

@@ -22,8 +22,10 @@ class MapViewModel(
     private val storeDao: StoreDao
 ) : ViewModel() {
     val navigateToDetail = SingleLiveEvent<Long>()
+    val locateUserEvent = SingleLiveEvent<Unit>()
 
     val location = sharedViewModel.location.map { it.toLocation() }
+
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
     }
@@ -65,6 +67,10 @@ class MapViewModel(
         viewModelScope.launch {
             selectedStore.value?.let { st -> storeDao.setFavourite(st.id, !st.isFavourite) }
         }
+    }
+
+    fun onLocationClicked() {
+        locateUserEvent.call()
     }
 
     private fun Pair<FilterParams, Location?>?.noSorting() = if (this == null) null

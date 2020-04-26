@@ -3,6 +3,7 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="android.view.View" />
         <variable name="viewModel" type="hackovid.vens.features.filter.FilterBottomSheetViewModel" />
     </data>
 
@@ -17,7 +18,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="12dp"
                 android:orientation="vertical"
                 >
 
@@ -25,6 +25,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_marginHorizontal="12dp"
                     android:layout_marginVertical="16dp"
                     >
                     <View
@@ -54,10 +55,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
-                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     android:layout_marginBottom="16dp"
                     android:text="@string/filter_priority_title"
                     style="@style/TextAppearance.Custom.Subtitle"
+                    android:visibility="gone"
                     />
 
                 <include
@@ -75,13 +77,14 @@
                     bind:onClick1="@{v -> viewModel.onPrioritySelected(1)}"
                     bind:onClick2="@{v -> viewModel.onPrioritySelected(2)}"
                     bind:imagesVisible="@{true}"
+                    bind:visibility="@{View.GONE}"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
-                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     android:layout_marginBottom="16dp"
                     android:text="@string/filter_distance_title"
                     style="@style/TextAppearance.Custom.Subtitle"
@@ -108,7 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
-                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     android:layout_marginBottom="16dp"
                     android:text="@string/filter_categories_title"
                     style="@style/TextAppearance.Custom.Subtitle"
@@ -118,16 +121,18 @@
                     android:id="@+id/categories_chipgroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
-                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     android:layout_marginBottom="16dp"
                     android:text="@string/filter_must_have_title"
                     style="@style/TextAppearance.Custom.Subtitle"
+                    android:visibility="gone"
                     />
 
                 <include
@@ -145,16 +150,18 @@
                     bind:onClick1="@{v -> viewModel.onMustHaveSelected(1)}"
                     bind:onClick2="@{v -> viewModel.onMustHaveSelected(2)}"
                     bind:imagesVisible="@{true}"
+                    bind:visibility="@{View.GONE}"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="16dp"
-                    android:paddingStart="8dp"
+                    android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                     android:layout_marginBottom="16dp"
                     android:text="@string/filter_crowded_title"
                     style="@style/TextAppearance.Custom.Subtitle"
+                    android:visibility="gone"
                     />
 
                 <include
@@ -172,6 +179,7 @@
                     bind:onClick1="@{v -> viewModel.onCrowdSelected(1)}"
                     bind:onClick2="@{v -> viewModel.onCrowdSelected(2)}"
                     bind:imagesVisible="@{true}"
+                    bind:visibility="@{View.GONE}"
                     />
 
                 <Space

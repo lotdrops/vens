@@ -102,7 +102,7 @@
     <string name="store_subtype_dry_cleaner">Dry cleaner</string>
     <string name="store_subtype_vet_store">Vet store</string>
 
-    <string name="on_boarding_screen_skip_text">Next</string>
+    <string name="on_boarding_screen_skip_text">Skip</string>
     <string name="on_boarding_screen_title_slide_one">Your trust commerce</string>
     <string name="on_boarding_screen_body_slide_one">Support local stores, save time and explore around you, while helping your neighbourhood.</string>
     <string name="on_boarding_screen_title_slide_two">Reduce waiting time</string>
