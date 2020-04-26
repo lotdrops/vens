@@ -89,8 +89,8 @@
 
                 <include
                     layout="@layout/layout_filter_row"
-                    bind:text0="@{@string/filter_distance_near}"
-                    bind:text1="@{@string/filter_distance_mid}"
+                    bind:text0="@{@string/filter_distance(viewModel.shortDistance)}"
+                    bind:text1="@{@string/filter_distance(viewModel.mediumDistance)}"
                     bind:text2="@{@string/filter_distance_far}"
                     bind:selected0="@{viewModel.distance == 0}"
                     bind:selected1="@{viewModel.distance == 1}"

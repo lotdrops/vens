@@ -25,7 +25,7 @@ class StoresUseCase(
     }
 
     private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
-        storesDataSource.getData(params).map {
+        storesDataSource.getUnorderedData(params).map {
             val location = params?.second
             if (location != null) it.filterByDistance(params.first.distance, location)
             else it
@@ -40,7 +40,13 @@ class StoresUseCase(
                 .filterByDistance(params.first.distance, params.second)
                 .sortedBy { it.distance(params.second) }
         }
-        val emitIfFirst: (List<Store>) -> Unit = { if (!sentFirstValue) emit(it) }
+        val emitIfFirst: (List<Store>) -> Unit = { stores ->
+            if (!sentFirstValue) {
+                sentFirstValue = true
+                emit(stores)
+            }
+        }
+
         if (params.shouldFastLoadByDistance()) {
             res.addSource(
                 storesDataSource.getDataByDistance(params, FIRST_RESULTS_SIZE),
@@ -62,9 +68,16 @@ class StoresUseCase(
         val emitIfFirst: (List<Store>) -> Unit = { if (!sentFirstValue) emit(it) }
 
         if (fastLoadFirstResults) {
-            res.addSource(storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE), emitIfFirst)
+            if(params != null)
+                res.addSource(storesDataSource.getDataByName(params,FIRST_RESULTS_SIZE), emitIfFirst)
+            else
+                res.addSource(storesDataSource.getDataByName(FIRST_RESULTS_SIZE), emitIfFirst)
         }
-        res.addSource(storesDataSource.getDataByName(params), emit)
+        if(params != null)
+            res.addSource(storesDataSource.getDataByName(params, -1), emit)
+        else
+            res.addSource(storesDataSource.getDataByName(-1), emit)
+
         return res
     }
 
@@ -72,8 +85,8 @@ class StoresUseCase(
         fastLoadFirstResults && first.distance == FilterParams.ANY_DISTANCE
 
     private fun List<Store>.filterByDistance(distance: Int, location: Location) = when (distance) {
-        FilterParams.SHORT_DISTANCE -> filter { it.distance(location) <= SHORT_DISTANCE }
-        FilterParams.MEDIUM_DISTANCE -> filter { it.distance(location) <= MEDIUM_DISTANCE }
+        FilterParams.SHORT_DISTANCE -> filter { it.distance(location) <= SHORT_DISTANCE_METERS }
+        FilterParams.MEDIUM_DISTANCE -> filter { it.distance(location) <= MEDIUM_DISTANCE_METERS }
         else -> this
     }
 
@@ -87,6 +100,6 @@ class StoresUseCase(
     private fun Store.distance(location: Location) = location.distance(latitude, longitude)
 }
 
-private const val FIRST_RESULTS_SIZE = 20
-private const val SHORT_DISTANCE = 100
-private const val MEDIUM_DISTANCE = 250
+const val FIRST_RESULTS_SIZE = 20
+const val SHORT_DISTANCE_METERS = 250
+const val MEDIUM_DISTANCE_METERS = 500

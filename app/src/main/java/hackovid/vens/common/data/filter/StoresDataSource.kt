@@ -2,7 +2,6 @@ package hackovid.vens.common.data.filter
 
 import android.location.Location
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
@@ -10,52 +9,88 @@ import java.lang.Math.PI
 import kotlin.math.cos
 
 class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
-    fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
-        // TODO return appropriate but without sorting
-        params?.let { notNullParams ->
-            val orderCriteria = if (notNullParams.second != null) {
-                buildOrderByDistance(notNullParams)
-            } else {
-                "ORDER BY name"
-            }
-            val query = "SELECT * FROM Stores${buildWhereClause(notNullParams)} $orderCriteria"
-            return storeDao.getByQuery(SimpleSQLiteQuery(query))
+    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+        return if (params != null) {
+            val whereClause = buildWhereClause(params)
+            val distanceFilter = buildDistanceFilter(params)
+            buildQuery(whereClause, distanceFilter)
+        } else {
+            storeDao.getAllStores()
         }
-        return MutableLiveData()
     }
 
     fun getDataByDistance(
         params: Pair<FilterParams, Location>,
-        limit: Int = 0
+        limit: Int = -1
     ): LiveData<List<Store>> {
-        val orderCriteria = buildOrderByDistance(params)
+        val whereClause = buildWhereClause(params)
         val distanceFilter = buildDistanceFilter(params)
-        val query = "SELECT * FROM Stores ${buildWhereClause(params)} $distanceFilter $orderCriteria"
-        return storeDao.getByQuery(SimpleSQLiteQuery(query))
+        val orderCriteria = buildOrderByDistance(params)
+        return buildQuery(whereClause, distanceFilter, orderCriteria, limit)
     }
 
-    private fun buildDistanceFilter(params: Pair<FilterParams, Location>): String {
-        val latitude = params.second.latitude
-        val longitude = params.second.longitude
-        val distance = 1000//TODO: params.first.distance or whatever the correct distance is
+    fun getDataByName(
+        params: Pair<FilterParams, Location?>,
+        limit: Int = -1
+    ): LiveData<List<Store>> {
+        val whereClause = buildWhereClause(params)
+        val distanceFilter = buildDistanceFilter(params)
+        val orderCriteria = "ORDER BY name"
+        return buildQuery(whereClause, distanceFilter, orderCriteria, limit)
+    }
+
+    fun getDataByName(limit: Int = -1) = storeDao.getAllByName(limit)
+
+    private fun buildQuery(
+        whereClause: String,
+        distanceFilter: String,
+        orderCriteria: String = "",
+        limit: Int = -1
+    ): LiveData<List<Store>> {
+        val query =
+            "SELECT * from STORES $whereClause ${applyDistanceFilter(whereClause, distanceFilter)}"
+        return getByQuery("$query $orderCriteria LIMIT($limit)")
+    }
+    private fun getByQuery(query: String) = storeDao.getByQuery(SimpleSQLiteQuery(query))
+
+    private fun buildDistanceFilter(params: Pair<FilterParams, Location?>): String {
+        return if (shouldBuildDistanceFilter(params))
+            calculateDistanceFilter(params.first.distance, params.second as Location)
+        else ""
+    }
+
+    private fun shouldBuildDistanceFilter(params: Pair<FilterParams, Location?>) =
+        params.second != null && params.first.distance != FilterParams.ANY_DISTANCE
+
+    private fun applyDistanceFilter(
+        whereClause: String,
+        distanceFilter: String
+    ): String {
+        if (whereClause != " ") {
+            if (distanceFilter.isNotEmpty())
+                return "AND $distanceFilter"
+        } else {
+            if (distanceFilter.isNotEmpty())
+                return "WHERE $distanceFilter"
+        }
+        return ""
+    }
+
+    private fun calculateDistanceFilter(distanceType: Int, location: Location): String {
+        val latitude = location.latitude
+        val longitude =location.longitude
+        val distance = getDistanceFromType(distanceType)
         val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 /PI) / cos(latitude * PI / 180)
         val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
         val latitudeNorth = latitude + (distance/ EARTH_RADIUS) * 180 / PI
         val latitudeSouth = latitude - ((distance/ EARTH_RADIUS) * 180 / PI)
-        
-        return " AND (latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
+
+        return "(latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
     }
 
-    fun getDataByName(
-        params: Pair<FilterParams, Location?>?,
-        limit: Int = 0
-    ): LiveData<List<Store>> {
-        params?.let {
-            val orderCriteria = "ORDER BY name"
-            val query = "SELECT * FROM Stores $orderCriteria LIMIT($limit)"
-            return storeDao.getByQuery(SimpleSQLiteQuery(query))
-        }
-        return MutableLiveData()
+    private fun getDistanceFromType(distanceType: Int) = when (distanceType) {
+        FilterParams.MEDIUM_DISTANCE -> MEDIUM_DISTANCE_METERS * MULTIPLIER
+        else -> SHORT_DISTANCE_METERS * MULTIPLIER
     }
 
     private fun buildOrderByDistance(params: Pair<FilterParams, Location?>): String {
@@ -83,10 +118,11 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
             }
         }.filterNotNull()
         if (filterOut.isNotEmpty()) {
-            query += " (type NOT IN (${filterOut.joinToString { it.toString() }}))"
+            query += " type NOT IN (${filterOut.joinToString { it.toString() }})"
         }
         return query
     }
 }
 
 private const val EARTH_RADIUS = 6378000.0
+private const val MULTIPLIER = 1.1

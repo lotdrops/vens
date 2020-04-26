@@ -32,9 +32,8 @@
     <string name="filter_priority_orders">Acepta pedidos</string>
     <string name="filter_priority_open">Está abierto</string>
     <string name="filter_priority_delivers">Entrega a domicilio</string>
-    <string name="filter_distance_title">Distancia (próximamente)</string>
-    <string name="filter_distance_near">100m</string>
-    <string name="filter_distance_mid">250m</string>
+    <string name="filter_distance_title">Distancia</string>
+    <string name="filter_distance">%sm</string>
     <string name="filter_distance_far">Todo</string>
     <string name="filter_categories_title">Categorias</string>
     <string name="filter_must_have_title">Medidas de higiene (próximamente)</string>

@@ -32,9 +32,8 @@
     <string name="filter_priority_orders">Takes orders</string>
     <string name="filter_priority_open">Is open</string>
     <string name="filter_priority_delivers">Delivers home</string>
-    <string name="filter_distance_title">Distance (coming soon)</string>
-    <string name="filter_distance_near">100m</string>
-    <string name="filter_distance_mid">250m</string>
+    <string name="filter_distance_title">Distance</string>
+    <string name="filter_distance">%sm</string>
     <string name="filter_distance_far">All</string>
     <string name="filter_categories_title">Categories</string>
     <string name="filter_must_have_title">Must have (coming soon)</string>
