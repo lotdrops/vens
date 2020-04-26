@@ -103,7 +103,7 @@
     <string name="store_subtype_dry_cleaner">Tintoreries</string>
     <string name="store_subtype_vet_store">Veterinaris / Mascotes</string>
 
-    <string name= "on_boarding_screen_skip_text">Següent</string>
+    <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">El teu comerç de confiança</string>
     <string name= "on_boarding_screen_body_slide_one">Recolza el comerç de proximitat, estalvia temps i explora al teu voltant, donant vida al teu barri.</string>
     <string name= "on_boarding_screen_title_slide_two">Reduïr el temps d\'espera</string>
