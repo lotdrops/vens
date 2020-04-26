@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val favouritesModule = module {
     viewModel { (sharedViewModel: SharedViewModel) ->
-        FavouritesViewModel(sharedViewModel, get { parametersOf(true) }, get())
+        FavouritesViewModel(sharedViewModel, get { parametersOf(true, true) }, get())
     }
 }

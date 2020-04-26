@@ -61,7 +61,7 @@ fun setDistance(view: TextView, distance: Int?) {
         val textDistance = if (isMeters) {
             distance.toString()
         } else {
-            "${distance / 1000}.${(distance / 10000).rem(10)}"
+            "${distance / 1000}.${(distance / 100).rem(10)}"
         }
         val textId = if (isMeters) R.string.list_distance_m else R.string.list_distance_km
         val minutes = distance.distanceToMinutes()
@@ -78,7 +78,7 @@ fun setFullDistance(view: TextView, distance: Int?) {
         val textDistance = if (isMeters) {
             distance.toString()
         } else {
-            "${distance / 1000}.${(distance / 10000).rem(10)}"
+            "${distance / 1000}.${(distance / 100).rem(10)}"
         }
         val textId = if (isMeters) R.string.detail_distance_m else R.string.detail_distance_km
         val minutes = distance.distanceToMinutes()

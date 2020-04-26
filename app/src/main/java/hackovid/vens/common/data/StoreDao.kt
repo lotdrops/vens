@@ -9,8 +9,8 @@ import hackovid.vens.common.data.core.BaseDao
 
 @Dao
 interface StoreDao : BaseDao<Store> {
-    @Query("SELECT * FROM Stores ORDER BY name")
-    fun getAllByName(): LiveData<List<Store>>
+    @Query("SELECT * FROM Stores ORDER BY name LIMIT(:limit)")
+    fun getAllByName(limit: Int = -1): LiveData<List<Store>>
 
     @Query("SELECT * FROM Stores WHERE isFavourite ORDER BY name")
     fun getFavouritesByName(): LiveData<List<Store>>
@@ -23,4 +23,10 @@ interface StoreDao : BaseDao<Store> {
 
     @RawQuery(observedEntities = [Store::class])
     fun getByQuery(query: SupportSQLiteQuery): LiveData<List<Store>>
+
+    @Query("SELECT * FROM Stores")
+    suspend fun getAll(): List<Store>
+
+    @Query("SELECT * FROM Stores")
+    fun getAllStores(): LiveData<List<Store>>
 }

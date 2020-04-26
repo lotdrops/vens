@@ -4,6 +4,7 @@ import android.location.Location
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
+import hackovid.vens.common.data.core.distance
 import kotlin.math.roundToInt
 
 data class StoreListUi(
@@ -39,12 +40,7 @@ fun Store.toListUi(location: Location?) = StoreListUi(
     web = web,
     email = email,
     crowd = null,
-    distance = location?.distance(latitude, longitude),
+    distance = location?.distance(latitude, longitude)?.roundToInt(),
     acceptsOrders = acceptsOrders,
     delivers = delivers
 )
-
-private fun Location.distance(latitude: Double, longitude: Double) = Location("").apply {
-    setLatitude(latitude)
-    setLongitude(longitude)
-}.distanceTo(this).roundToInt()

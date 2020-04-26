@@ -1,14 +1,11 @@
 package hackovid.vens.features.favourites
 
 import android.location.Location
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.FilterParams
-import hackovid.vens.common.data.filter.StoresDataSource
+import hackovid.vens.common.data.filter.SortStrategy
+import hackovid.vens.common.data.filter.StoresUseCase
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.ui.StoreListUi
 import hackovid.vens.common.ui.toListUi
@@ -18,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class FavouritesViewModel(
     sharedViewModel: SharedViewModel,
-    private val storesDataSource: StoresDataSource,
+    private val storesUseCase: StoresUseCase,
     private val storeDao: StoreDao
 ) : ViewModel() {
     private val location = sharedViewModel.location.map { it.toLocation() }
@@ -26,8 +23,7 @@ class FavouritesViewModel(
         filter?.let { Pair(it, location) }
     }
     val stores = queryParams.switchMap {
-        // Remove location to sort by name
-        storesDataSource.getData(it.removeLocation()).map { stores ->
+        storesUseCase.getData(it.byName()).map { stores ->
             stores.map { store -> store.toListUi(location.value) }
         }
     }
@@ -40,6 +36,6 @@ class FavouritesViewModel(
         }
     }
 
-    private fun Pair<FilterParams, Location?>?.removeLocation() = if (this == null) null
-    else Pair(this.first, null)
+    private fun Pair<FilterParams, Location?>?.byName() = if (this == null) null
+    else Pair(this.first.copy(sortStrategy = SortStrategy.NAME), second)
 }

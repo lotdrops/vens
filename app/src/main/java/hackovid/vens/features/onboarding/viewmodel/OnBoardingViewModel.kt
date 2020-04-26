@@ -43,7 +43,6 @@ class OnBoardingViewModel(
                 database.storeDao().insertList(
                     localDataSource.readLocalStoreData()?.map { it.toStore() } ?: emptyList()
                 )
-                Log.i("Parse json", "Database processed")
                 withContext(Dispatchers.Main) {
                     localStorage.setDataBaseAlreadyLoaded(true)
                     isDatabaseLoaded.value = true

@@ -7,7 +7,9 @@ import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import hackovid.vens.common.data.StoreDao
-import hackovid.vens.common.data.filter.StoresDataSource
+import hackovid.vens.common.data.filter.FilterParams
+import hackovid.vens.common.data.filter.SortStrategy
+import hackovid.vens.common.data.filter.StoresUseCase
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.ui.toLocation
 import hackovid.vens.common.utils.SingleLiveEvent
@@ -16,19 +18,19 @@ import kotlinx.coroutines.launch
 
 class MapViewModel(
     private val sharedViewModel: SharedViewModel,
-    private val storesDataSource: StoresDataSource,
+    private val storesUseCase: StoresUseCase,
     private val storeDao: StoreDao
 ) : ViewModel() {
     val navigateToDetail = SingleLiveEvent<Long>()
-
     val locateUserEvent = SingleLiveEvent<Unit>()
 
-    val location = MutableLiveData<Location?>()
+    val location = sharedViewModel.location.map { it.toLocation() }
+
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
         filter?.let { Pair(it, location) }
     }
     val stores = queryParams.switchMap {
-        storesDataSource.getData(it).map {
+        storesUseCase.getData(it.noSorting()).map {
                 stores -> stores.map { store -> store.toClusterStoreItem(it?.second) } }
     }
 
@@ -70,4 +72,7 @@ class MapViewModel(
     fun onLocationClicked() {
         locateUserEvent.call()
     }
+
+    private fun Pair<FilterParams, Location?>?.noSorting() = if (this == null) null
+    else Pair(this.first.copy(sortStrategy = SortStrategy.NONE), second)
 }

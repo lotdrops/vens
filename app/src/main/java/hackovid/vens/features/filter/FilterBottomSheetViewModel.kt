@@ -3,6 +3,8 @@ package hackovid.vens.features.filter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import hackovid.vens.common.data.filter.FilterParams
+import hackovid.vens.common.data.filter.MEDIUM_DISTANCE_METERS
+import hackovid.vens.common.data.filter.SHORT_DISTANCE_METERS
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.SingleLiveEvent
 
@@ -20,6 +22,9 @@ class FilterBottomSheetViewModel(private val sharedViewModel: SharedViewModel) :
     )
 
     val closeFilter = SingleLiveEvent<Unit>()
+
+    val shortDistance = SHORT_DISTANCE_METERS
+    val mediumDistance = MEDIUM_DISTANCE_METERS
 
     fun onCategorySelected(position: Int, isSelected: Boolean) {
         categories.value = (categories.value ?: FilterParams.defaultCategories())
