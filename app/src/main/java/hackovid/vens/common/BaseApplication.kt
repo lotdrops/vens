@@ -33,6 +33,7 @@ class BaseApplication : Application() {
         onBoardingModule,
         filterModule,
         commonUiModule,
-        commonFilterModule
+        commonFilterModule,
+        updateDataModule
     )
 }

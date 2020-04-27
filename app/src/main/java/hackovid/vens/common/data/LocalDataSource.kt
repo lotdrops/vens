@@ -13,4 +13,6 @@ interface LocalStorage {
     fun setDataBaseAlreadyLoaded(alreadyLoaded: Boolean)
     fun wasLocationPermissionRequested(): Boolean
     fun setLocationPermissionRequested()
+    fun getLastUpdateTimestamp(): Long
+    fun setLastUpdateTimestamp(timestamp: Long)
 }

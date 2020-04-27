@@ -1,5 +1,7 @@
 package hackovid.vens.common.di
 
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import hackovid.vens.common.data.LocalDataSource
 import hackovid.vens.common.data.core.StoresDatabase
 import hackovid.vens.common.data.json.LocalJsonPersistency
@@ -15,6 +17,7 @@ val dataModule = module {
     factory {
         LocalJsonPersistency(get(), MoshiFactory.getInstance()) as LocalDataSource<RemoteStore>
     }
+    factory { Firebase.firestore }
 }
 
 val utilitiesModule = module {

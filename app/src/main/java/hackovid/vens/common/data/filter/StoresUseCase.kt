@@ -68,12 +68,12 @@ class StoresUseCase(
         val emitIfFirst: (List<Store>) -> Unit = { if (!sentFirstValue) emit(it) }
 
         if (fastLoadFirstResults) {
-            if(params != null)
-                res.addSource(storesDataSource.getDataByName(params,FIRST_RESULTS_SIZE), emitIfFirst)
+            if (params != null)
+                res.addSource(storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE), emitIfFirst)
             else
                 res.addSource(storesDataSource.getDataByName(FIRST_RESULTS_SIZE), emitIfFirst)
         }
-        if(params != null)
+        if (params != null)
             res.addSource(storesDataSource.getDataByName(params, -1), emit)
         else
             res.addSource(storesDataSource.getDataByName(-1), emit)

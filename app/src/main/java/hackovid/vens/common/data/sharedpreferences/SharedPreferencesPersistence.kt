@@ -34,7 +34,18 @@ class SharedPreferencesPersistence(val context: Context) : LocalStorage {
             .edit()
             .putBoolean(LOCATION_PERMISSION_REQUESTED, true)
             .apply()
+
+    override fun getLastUpdateTimestamp() =
+        context.getSharedPreferences(LAST_UPDATE_TIMESTAMP, Context.MODE_PRIVATE)
+            .getLong(LAST_UPDATE_TIMESTAMP, 0)
+
+    override fun setLastUpdateTimestamp(timestamp: Long) =
+        context.getSharedPreferences(LAST_UPDATE_TIMESTAMP, Context.MODE_PRIVATE)
+            .edit()
+            .putLong(LAST_UPDATE_TIMESTAMP, timestamp)
+            .apply()
 }
 private const val ON_BOARDING_SHOULD_BE_DISPLAYED = "on_boarding_should_be_displayed"
 private const val DATABASE_LOADED_IDENTIFIER = "database_loaded_identifier"
 private const val LOCATION_PERMISSION_REQUESTED = "location_permission_requested"
+private const val LAST_UPDATE_TIMESTAMP = "last_update_timestamp"
