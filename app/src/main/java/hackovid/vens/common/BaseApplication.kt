@@ -2,6 +2,7 @@ package hackovid.vens.common
 
 import android.app.Application
 import hackovid.vens.common.data.filter.commonFilterModule
+import hackovid.vens.common.data.updatedata.updateDataModule
 import hackovid.vens.common.di.dataModule
 import hackovid.vens.common.di.utilitiesModule
 import hackovid.vens.common.ui.di.commonUiModule
@@ -9,8 +10,10 @@ import hackovid.vens.features.detail.di.detailModule
 import hackovid.vens.features.favourites.di.favouritesModule
 import hackovid.vens.features.filter.di.filterModule
 import hackovid.vens.features.list.di.listModule
+import hackovid.vens.features.login.di.loginModule
 import hackovid.vens.features.map.di.mapModule
 import hackovid.vens.features.onboarding.di.onBoardingModule
+import hackovid.vens.features.register.di.registerModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -34,6 +37,8 @@ class BaseApplication : Application() {
         filterModule,
         commonUiModule,
         commonFilterModule,
-        updateDataModule
+        updateDataModule,
+        loginModule,
+        registerModule
     )
 }

@@ -86,6 +86,9 @@ dependencies {
     implementation libs.firebase
     implementation libs.firestore
     implementation libs.firestoreKtx
+    implementation libs.firebaseAuth
+    implementation libs.authPlayServices
+    implementation libs.ktxCoroutines
     implementation libs.googleMaps
     implementation libs.playLocation
     implementation libs.mapsUtils

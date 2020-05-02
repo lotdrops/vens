@@ -13,12 +13,30 @@
                 android:id="@+id/nav_to_onboarding_fragment"
                 app:destination="@id/onBoardingFragment">
         </action>
+        <action
+            android:id="@+id/nav_to_login_fragment"
+            app:destination="@id/loginFragment">
+        </action>
     </fragment>
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="hackovid.vens.features.login.LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/nav_to_register_fragment"
+            app:destination="@id/registerFragment">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="hackovid.vens.features.register.RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
 
     <fragment
             android:id="@+id/onBoardingFragment"
             android:name="hackovid.vens.features.onboarding.ui.OnBoardingFragment"
-            tools:layout="@layout/fragment_onboarding" />
+            tools:layout="@layout/fragment_onboarding"/>
 
 </navigation>
