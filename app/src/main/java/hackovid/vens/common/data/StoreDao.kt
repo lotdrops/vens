@@ -8,25 +8,28 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import hackovid.vens.common.data.core.BaseDao
 
 @Dao
-interface StoreDao : BaseDao<Store> {
+abstract class StoreDao : BaseDao<Store>() {
+    @Query("DELETE FROM Stores WHERE id = :id")
+    abstract suspend fun deleteStore(id: Long)
+
     @Query("SELECT * FROM Stores ORDER BY name LIMIT(:limit)")
-    fun getAllByName(limit: Int = -1): LiveData<List<Store>>
+    abstract fun getAllByName(limit: Int = -1): LiveData<List<Store>>
 
     @Query("SELECT * FROM Stores WHERE isFavourite ORDER BY name")
-    fun getFavouritesByName(): LiveData<List<Store>>
+    abstract fun getFavouritesByName(): LiveData<List<Store>>
 
     @Query("SELECT * FROM Stores WHERE id = :storeId")
-    fun getStoreById(storeId: Int): LiveData<Store>
+    abstract fun getStoreById(storeId: Int): LiveData<Store>
 
     @Query("UPDATE Stores SET isFavourite = :newIsFavourite WHERE id = :id")
-    suspend fun setFavourite(id: Long, newIsFavourite: Boolean)
+    abstract suspend fun setFavourite(id: Long, newIsFavourite: Boolean)
 
     @RawQuery(observedEntities = [Store::class])
-    fun getByQuery(query: SupportSQLiteQuery): LiveData<List<Store>>
+    abstract fun getByQuery(query: SupportSQLiteQuery): LiveData<List<Store>>
 
     @Query("SELECT * FROM Stores")
-    suspend fun getAll(): List<Store>
+    abstract suspend fun getAll(): List<Store>
 
     @Query("SELECT * FROM Stores")
-    fun getAllStores(): LiveData<List<Store>>
+    abstract fun getAllStores(): LiveData<List<Store>>
 }

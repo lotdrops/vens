@@ -8,7 +8,6 @@ interface LocalDataSource<T> {
 }
 
 interface LocalStorage {
-
     fun shouldBeDisplayedOnBoardScreen(): Boolean
     fun setOnboardScreenVisibility(shouldBeDisplayed: Boolean)
     fun isDataBaseAlreadyLoaded(): Boolean

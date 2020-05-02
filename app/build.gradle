@@ -87,12 +87,16 @@ dependencies {
     implementation libs.roomRuntime
     implementation libs.roomKtx
     implementation libs.firebase
+    implementation libs.firebaseConfig
     implementation libs.firestore
     implementation libs.firestoreKtx
     implementation libs.googleMaps
     implementation libs.playLocation
     implementation libs.mapsUtils
+
     testImplementation libs.junit
+    testImplementation libs.coroutinesTest
+    testImplementation libs.mockk
     androidTestImplementation libs.androidJunit
     androidTestImplementation libs.espressoCore
 }

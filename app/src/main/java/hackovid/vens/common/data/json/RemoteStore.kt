@@ -37,7 +37,7 @@ fun RemoteStore.toStore() = Store(
     delivers = null
 )
 
-private fun String.toStoreType() = when (this.toLowerCase()) {
+fun String.toStoreType() = when (this.toLowerCase()) {
     "alimentació" -> StoreType.GROCERY
     "bellesa" -> StoreType.BEAUTY
     "centre comercial" -> StoreType.MALL
@@ -54,7 +54,7 @@ private fun String.toStoreType() = when (this.toLowerCase()) {
     }
 }
 
-private fun String.toStoreSubtype() = when (this.toLowerCase()) {
+fun String.toStoreSubtype() = when (this.toLowerCase()) {
     "Altres".toLowerCase() -> StoreSubtype.OTHERS
     "Autoservei / supermercat".toLowerCase() -> StoreSubtype.SELF_SERVICE_SUPERMARKET
     "Begudes".toLowerCase() -> StoreSubtype.DRINKS

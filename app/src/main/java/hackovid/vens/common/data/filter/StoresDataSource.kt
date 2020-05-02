@@ -5,10 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
+import hackovid.vens.common.data.updatedata.UpdateStoresDataSource
 import java.lang.Math.PI
 import kotlin.math.cos
 
-class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
+class StoresDataSource(
+    private val favouritesOnly: Boolean,
+    private val storeDao: StoreDao
+) : UpdateStoresDataSource {
+    override suspend fun deleteStore(id: Long) = storeDao.deleteStore(id)
+    override suspend fun upsertStore(store: Store) = storeDao.upsert(store)
+
     fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
         return if (params != null) {
             val whereClause = buildWhereClause(params)

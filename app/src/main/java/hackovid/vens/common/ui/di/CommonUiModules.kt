@@ -5,5 +5,5 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val commonUiModule = module {
-    viewModel { SharedViewModel(get()) }
+    viewModel { SharedViewModel(get(), get(), get()) }
 }
