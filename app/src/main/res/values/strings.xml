@@ -17,6 +17,9 @@
     <string name="list_distance_m">%sm, about %d min</string>
     <string name="list_distance_km">%skm, about %d min</string>
 
+    <string name="list_empty_title">We have not found shops with this filter</string>
+    <string name="list_empty_message">Please, select another filter and find great shops</string>
+
     <string name="detail_distance_no_permission">Location permission needed</string>
     <string name="detail_distance_m">Distance of %sm, about %d min</string>
     <string name="detail_distance_km">Distance of %skm, about %d min</string>

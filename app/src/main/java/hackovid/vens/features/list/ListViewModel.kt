@@ -26,6 +26,8 @@ class ListViewModel(
         storesUseCase.getData(it).map { it.map { store -> store.toListUi(location.value) } }
     }
 
+    val showEmpty = stores.map { it.isEmpty() }
+
     fun onFavouriteClicked(item: StoreListUi) {
         viewModelScope.launch {
             storeDao.setFavourite(item.id, !item.isFavourite)

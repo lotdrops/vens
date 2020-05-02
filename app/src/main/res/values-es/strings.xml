@@ -22,6 +22,9 @@
     <string name="list_distance_m">%sm, unos %d min</string>
     <string name="list_distance_km">%skm, unos %d min</string>
 
+    <string name="list_empty_title">No se han encontrado tiendas con el filtro seleccionado</string>
+    <string name="list_empty_message">Por favor, modifica tu búsqueda y encuentra tiendas más cerca de lo que crees</string>
+
     <string name="detail_distance_no_permission">El permiso de localización es necesario</string>
     <string name="detail_distance_m">Distancia de %sm, unos %d min</string>
     <string name="detail_distance_km">Distancia de %skm, unos %d min</string>
