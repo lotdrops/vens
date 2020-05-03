@@ -122,6 +122,10 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
         }
         return query
     }
+
+    fun findStoreByName(name: String = ""): LiveData<List<Store>> {
+       return storeDao.getStoreByName("%$name%")
+    }
 }
 
 private const val EARTH_RADIUS = 6378000.0
