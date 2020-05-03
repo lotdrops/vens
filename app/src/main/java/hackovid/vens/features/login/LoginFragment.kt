@@ -47,8 +47,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun setupLogin() {
         binding.loginButton.setOnClickListener {
             val loginFieldsErrorMessage = validateLoginFields()
-            if(loginFieldsErrorMessage == NO_LOGIN_ERRORS_MESSAGE) {
-                val user = User("","", binding.username.text.toString(), binding.password.text.toString())
+            if (loginFieldsErrorMessage == NO_LOGIN_ERRORS_MESSAGE) {
+                val user = User(
+                    "", "", binding.username.text.toString(), binding.password.text.toString()
+                )
                 loginViewModel.login(user)
             } else {
                 Snackbar.make(root_view, loginFieldsErrorMessage, Snackbar.LENGTH_SHORT).show();
@@ -57,12 +59,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun setupGoogleLogin() {
-        binding.loginWithGoogle.setOnClickListener{
-            val mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            val mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), mGoogleSignInOptions)
+        binding.loginWithGoogle.setOnClickListener {
+            val mGoogleSignInOptions =
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(getString(R.string.default_web_client_id))
+                    .requestEmail()
+                    .build()
+            val mGoogleSignInClient =
+                GoogleSignIn.getClient(requireActivity(), mGoogleSignInOptions)
             val signInIntent: Intent = mGoogleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN_CODE)
         }
@@ -94,12 +98,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun handleSignInResult( singIn:  Task<GoogleSignInAccount>) {
+    private fun handleSignInResult(singIn: Task<GoogleSignInAccount>) {
         try {
             val account = singIn.getResult(ApiException::class.java)
             firebaseGoogleAuthentication(account!!)
-        } catch(exception: ApiException ) {
-            Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show();
+        } catch (exception: ApiException) {
+            Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -113,11 +117,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         activity?.finish()
     }
 
-    private fun validateLoginFields(): Int {
-        if(binding.username.text.isNullOrEmpty())return R.string.register_some_empty_field
-        if(binding.password.text.isNullOrEmpty())return R.string.register_some_empty_field
-        if(!binding.password.passwordHaveLessThanSixCharacters()) return R.string.register_mail_have_less_than_six_caracters
-        return NO_LOGIN_ERRORS_MESSAGE
+    private fun validateLoginFields() = when {
+        binding.username.text.isNullOrEmpty() -> R.string.register_some_empty_field
+        binding.password.text.isNullOrEmpty() -> R.string.register_some_empty_field
+        !binding.password.passwordHaveLessThanSixCharacters() ->
+            R.string.register_mail_have_less_than_six_characters
+        else -> NO_LOGIN_ERRORS_MESSAGE
     }
 
 

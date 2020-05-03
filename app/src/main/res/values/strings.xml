@@ -113,20 +113,20 @@
         chat, receive alerts, see schedule changes, check product availability, find out about new services, promotions…</string>
     <string name= "on_boarding_discover_text">Discover</string>
 
-    <string name= "login_generic_error">Some error ocurred, try again</string>
+    <string name= "login_generic_error">Some error occurred, try again</string>
     <string name= "login_incorrect_user_or_password">User or password not correct</string>
     <string name= "login_user_not_valid">User not valid</string>
     <string name= "login_incorrect_mail">Incorrect Mail</string>
     <string name= "login_too_many_times">You have tried to login with wrong credentials many times, please try again later</string>
-    <string name= "login_write_your_user">Name: </string>
+    <string name= "login_write_your_user">Email: </string>
     <string name= "login_write_your_password">Password: </string>
     <string name= "login_message">Login</string>
 
-    <string name= "register_generic_error">Some error ocurred, try again</string>
-    <string name= "register_mail_have_less_than_six_caracters">Password must have 6 caracters or more</string>
+    <string name= "register_generic_error">An error occurred, please try again</string>
+    <string name= "register_mail_have_less_than_six_characters">Password must have at least 6 characters</string>
     <string name= "register_user_already_exist">This user already exists</string>
-    <string name= "register_mail_is_incorrect">email not have the correct format</string>
-    <string name= "register_some_empty_field">some fields are empty</string>
+    <string name= "register_mail_is_incorrect">Please check the email format</string>
+    <string name= "register_some_empty_field">Some fields are empty</string>
     <string name= "register_click_here">Register</string>
     <string name= "register_name">Name</string>
     <string name= "register_surname">Surname</string>

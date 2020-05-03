@@ -7,7 +7,7 @@ import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.UIState
 import hackovid.vens.common.ui.UIState.Error
-import hackovid.vens.common.utils.IsValidEmailField
+import hackovid.vens.common.utils.isValidEmailField
 import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.passwordHaveLessThanSixCharacters
 import hackovid.vens.databinding.FragmentRegisterBinding
@@ -30,11 +30,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     private fun doRegistration() {
         binding.registerButton.setOnClickListener {
             val registerFieldsErrorMessage = validateRegisterFields()
-            if(registerFieldsErrorMessage == NO_REGISTER_ERRORS_MESSAGE) {
-                val user = User(binding.registerFirstName.text.toString(),
+            if (registerFieldsErrorMessage == NO_REGISTER_ERRORS_MESSAGE) {
+                val user = User(
+                    binding.registerFirstName.text.toString(),
                     binding.registerLastName.text.toString(),
                     binding.registerMail.text.toString(),
-                    binding.registerPassword.text.toString())
+                    binding.registerPassword.text.toString()
+                )
                 registerViewModel.registerUser(user)
             } else {
                 Snackbar.make(root_view, registerFieldsErrorMessage, Snackbar.LENGTH_SHORT).show();
@@ -60,11 +62,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
 
     private fun validateRegisterFields(): Int {
-        if(binding.registerFirstName.text.isNullOrEmpty())return R.string.register_some_empty_field
-        if(binding.registerLastName.text.isNullOrEmpty())return R.string.register_some_empty_field
-        if(binding.registerPassword.text.isNullOrEmpty())return R.string.register_some_empty_field
-        if(!binding.registerMail.IsValidEmailField()) return R.string.register_mail_is_incorrect
-        if(!binding.registerPassword.passwordHaveLessThanSixCharacters()) return R.string.register_mail_have_less_than_six_caracters
+        if (binding.registerFirstName.text.isNullOrEmpty()) return R.string.register_some_empty_field
+        if (binding.registerLastName.text.isNullOrEmpty()) return R.string.register_some_empty_field
+        if (binding.registerPassword.text.isNullOrEmpty()) return R.string.register_some_empty_field
+        if (!binding.registerMail.isValidEmailField()) return R.string.register_mail_is_incorrect
+        if (!binding.registerPassword.passwordHaveLessThanSixCharacters()) return R.string.register_mail_have_less_than_six_characters
         return NO_REGISTER_ERRORS_MESSAGE
     }
 

@@ -40,7 +40,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     private fun navigateToLoginIfUserIsNotLogged() {
         FirebaseAuth.getInstance().signOut()
-        if(loginViewModel.isUserAlreadyLoged()) {
+        if(loginViewModel.isUserAlreadyLogged()) {
             navigateToMapScreen()
         } else {
             NavHostFragment.findNavController(this)

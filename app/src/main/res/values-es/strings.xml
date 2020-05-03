@@ -123,12 +123,12 @@
     <string name= "login_write_your_password">Contrasenya: </string>
     <string name= "login_message">Login</string>
 
-    <string name= "register_generic_error">Ha ocurrido un error, vuelve a intentarlo</string>
-    <string name= "register_mail_have_less_than_six_caracters">El password necessita tener como mínimo 6 caracteres</string>
-    <string name= "register_user_already_exist">Aquest usuari ja existeix</string>
-    <string name= "register_mail_is_incorrect">El email no tiene el formato correcto</string>
-    <string name= "register_some_empty_field">Algunos campos estan vacios</string>
-    <string name= "register_click_here">Registrate</string>
+    <string name= "register_generic_error">Ha ocurrido un error, por favor, vuelve a intentarlo</string>
+    <string name="register_mail_have_less_than_six_characters">La contraseña debe tener al menos 6 caracteres</string>
+    <string name= "register_user_already_exist">Este usuario ya existe</string>
+    <string name= "register_mail_is_incorrect">Por favor, revisa el formato del email</string>
+    <string name= "register_some_empty_field">Algunos campos están vacíos</string>
+    <string name= "register_click_here">Regístrate</string>
     <string name= "register_name">Nombre</string>
     <string name= "register_surname">Apellido</string>
     <string name= "register_email">Correo electrónico</string>

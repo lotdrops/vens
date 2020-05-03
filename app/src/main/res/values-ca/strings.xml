@@ -117,14 +117,14 @@
     <string name= "login_user_not_valid">Usuari no vàlid</string>
     <string name= "login_incorrect_mail">Mail incorrecte</string>
     <string name= "login_too_many_times">Has intentat fer login amb credencials incorrectes masses vegades, intenta-ho més tard</string>
-    <string name= "login_write_your_user">Nom: </string>
+    <string name= "login_write_your_user">Email: </string>
     <string name= "login_write_your_password">Contraseña: </string>
     <string name= "login_message">Login</string>
 
-    <string name= "register_generic_error">Hi ha hagut un error, torna a intentar-ho</string>
-    <string name= "register_mail_have_less_than_six_caracters">El password necessita com a mínim tenir 6 caràcters</string>
+    <string name= "register_generic_error">Hi ha hagut un error, siusplau, torna a intentar-ho</string>
+    <string name="register_mail_have_less_than_six_characters">La contrassenya ha de tenir 6 caràcters com a mínim</string>
     <string name= "register_user_already_exist">Este usuario ya existe</string>
-    <string name= "register_mail_is_incorrect">El email no té el format correcte</string>
+    <string name= "register_mail_is_incorrect">Siusplau revisa el format de l\'email</string>
     <string name= "register_some_empty_field">Alguns camps estan buits</string>
     <string name= "register_click_here">Registra\'t</string>
     <string name= "register_name">Nom</string>
