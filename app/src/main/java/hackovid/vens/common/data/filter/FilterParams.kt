@@ -21,7 +21,6 @@ data class FilterParams(
     }
 }
 private const val NUMBER_OF_SELECTABLE = 3
-private fun listOfTrue(size: Int): List<Boolean> = arrayOfNulls<Unit>(size).map { true }
 private fun listOfFalse(size: Int): List<Boolean> = arrayOfNulls<Unit>(size).map { false }
 
 enum class SortStrategy { NAME, DISTANCE, NONE }

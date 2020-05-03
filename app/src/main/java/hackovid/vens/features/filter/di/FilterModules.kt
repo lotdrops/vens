@@ -6,5 +6,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val filterModule = module {
-    viewModel { (sharedViewModel: SharedViewModel) -> FilterBottomSheetViewModel(sharedViewModel) }
+    viewModel { (sharedViewModel: SharedViewModel) ->
+        FilterBottomSheetViewModel(sharedViewModel, get())
+    }
 }

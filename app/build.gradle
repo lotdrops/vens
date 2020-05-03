@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
 
@@ -66,6 +67,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.kotlinStdLib
+    implementation libs.ktSerializationRun
     implementation libs.appCompat
     implementation libs.ktxCore
     implementation libs.materialDesign
@@ -77,6 +79,7 @@ dependencies {
     implementation libs.koin
     implementation libs.koinViewmodel
     implementation libs.liveData
+    implementation libs.preference
     implementation libs.moshi
     kapt libs.moshiKapt
     implementation libs.liveData

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.common.data.LocalStorage
-import hackovid.vens.common.data.filter.FilterParams
 import hackovid.vens.common.utils.SingleLiveEvent
 
 class SharedViewModel(localStorage: LocalStorage) : ViewModel() {
@@ -18,11 +17,7 @@ class SharedViewModel(localStorage: LocalStorage) : ViewModel() {
     val userRequestsLocationEvent = SingleLiveEvent<Unit>()
     val onLocationAccepted = SingleLiveEvent<Unit>()
 
-    val filter = MutableLiveData(
-        FilterParams(
-            FilterParams.defaultCategories()
-        )
-    )
+    val filter = MutableLiveData(localStorage.getFilterParams())
 
     init {
         if (!localStorage.wasLocationPermissionRequested()) {

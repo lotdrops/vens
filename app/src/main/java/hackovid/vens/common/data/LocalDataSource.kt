@@ -1,5 +1,7 @@
 package hackovid.vens.common.data
 
+import hackovid.vens.common.data.filter.FilterParams
+
 interface LocalDataSource<T> {
 
     fun readLocalStoreData(): List<T>?
@@ -13,4 +15,6 @@ interface LocalStorage {
     fun setDataBaseAlreadyLoaded(alreadyLoaded: Boolean)
     fun wasLocationPermissionRequested(): Boolean
     fun setLocationPermissionRequested()
+    fun setFilterParams(params: FilterParams)
+    fun getFilterParams(): FilterParams
 }
