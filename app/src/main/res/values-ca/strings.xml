@@ -48,6 +48,8 @@
     <string name="filter_crowded_medium">Mitja</string>
     <string name="filter_crowded_large">Alta</string>
     <string name="filter_crowded_unknown">Desconegut</string>
+    <string name="filter_snackbar_map">No s\'han trobat botigues amb el filtre sel·leccionat</string>
+    <string name="filter_snackbar_map_action">@string/title_filter</string>
 
     <string name="store_type_grocery">Alimentació</string>
     <string name="store_type_beauty">Bellesa</string>

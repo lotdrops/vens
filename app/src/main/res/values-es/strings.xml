@@ -48,6 +48,8 @@
     <string name="filter_crowded_medium">Mediana</string>
     <string name="filter_crowded_large">Alta</string>
     <string name="filter_crowded_unknown">Desconocido</string>
+    <string name="filter_snackbar_map">No hemos encontrado tiendas con el filtro seleccionado</string>
+    <string name="filter_snackbar_map_action">@string/title_filter</string>
 
     <string name="store_type_grocery">Alimentación</string>
     <string name="store_type_beauty">Belleza</string>
