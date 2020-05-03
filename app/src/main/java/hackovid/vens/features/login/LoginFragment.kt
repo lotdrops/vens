@@ -36,12 +36,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         this.binding = binding
         setupLogin()
         setupGoogleLogin()
+        observeViewModels()
 
         binding.registerView.setOnClickListener {
             NavHostFragment.findNavController(this)
                 .navigate(R.id.nav_to_register_fragment)
         }
-        observeViewModels()
+        binding.forgotPasswordView.setOnClickListener {
+            forgotPassword()
+        }
     }
 
     private fun setupLogin() {
@@ -115,6 +118,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun navigateToMain() {
         startActivity(Intent(activity, MainActivity::class.java))
         activity?.finish()
+    }
+
+    private fun forgotPassword() {
+        NavHostFragment.findNavController(this)
+            .navigate(R.id.nav_to_forgot_password_fragment)
     }
 
     private fun validateLoginFields() = when {

@@ -1,5 +1,7 @@
 package hackovid.vens.features.register
 
+import android.opengl.Visibility
+import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
@@ -12,6 +14,7 @@ import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.passwordHaveLessThanSixCharacters
 import hackovid.vens.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -49,6 +52,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             when (it) {
                 UIState.Success -> {
                     this.binding.loadingView.visibility = View.GONE
+                    this.binding.verifyMail.visibility = View.VISIBLE
+                    this.binding.verifyMail.text = resources.getString(R.string.register_user_mail_sended)
                 }
                 is Error -> {
                     this.binding.loadingView.visibility = View.GONE

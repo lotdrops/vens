@@ -1,16 +1,11 @@
 package hackovid.vens.features.register
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import hackovid.vens.common.data.login.FireBaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.UIState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RegisterViewModel(private val dataSource: RemoteDataSource<FireBaseResponse>) : ViewModel() {
 

@@ -40,4 +40,16 @@ class LoginViewModel(private val dataSource: RemoteDataSource<FireBaseResponse>)
             }
         }
     }
+
+    fun forgotPassword(email: String) = viewModelScope.launch {
+        loginResult.value = UIState.Loading
+        val result = dataSource.forgotPassword(email)
+        if (result.success) {
+            loginResult.value = UIState.Success
+        } else {
+            loginResult.value = result.error?.errorMessage?.let {
+                UIState.Error(it)
+            }
+        }
+    }
 }
