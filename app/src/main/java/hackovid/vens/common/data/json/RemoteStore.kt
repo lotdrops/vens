@@ -26,7 +26,6 @@ fun RemoteStore.toStore() = Store(
     name = name,
     type = type.toStoreType(),
     subtype = subtype.toStoreSubtype(),
-    isFavourite = false,
     phone = null,
     mobilePhone = null,
     address = adress,

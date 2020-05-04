@@ -4,6 +4,7 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreAndFavourite
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.updatedata.UpdateStoresDataSource
 import java.lang.Math.PI
@@ -16,7 +17,7 @@ class StoresDataSource(
     override suspend fun deleteStore(id: Long) = storeDao.deleteStore(id)
     override suspend fun upsertStore(store: Store) = storeDao.upsert(store)
 
-    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> {
         return if (params != null) {
             val whereClause = buildWhereClause(params)
             val distanceFilter = buildDistanceFilter(params)
@@ -29,7 +30,7 @@ class StoresDataSource(
     fun getDataByDistance(
         params: Pair<FilterParams, Location>,
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val whereClause = buildWhereClause(params)
         val distanceFilter = buildDistanceFilter(params)
         val orderCriteria = buildOrderByDistance(params)
@@ -39,7 +40,7 @@ class StoresDataSource(
     fun getDataByName(
         params: Pair<FilterParams, Location?>,
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val whereClause = buildWhereClause(params)
         val distanceFilter = buildDistanceFilter(params)
         val orderCriteria = "ORDER BY name"
@@ -53,7 +54,7 @@ class StoresDataSource(
         distanceFilter: String,
         orderCriteria: String = "",
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val query =
             "SELECT * from STORES $whereClause ${applyDistanceFilter(whereClause, distanceFilter)}"
         return getByQuery("$query $orderCriteria LIMIT($limit)")
@@ -107,7 +108,8 @@ class StoresDataSource(
     }
 
     private fun buildWhereClause(params: Pair<FilterParams, Location?>): String {
-        val favsClause = if (favouritesOnly) " WHERE isFavourite" else ""
+        val favsClause =
+            if (favouritesOnly) " INNER JOIN Favourites ON Favourites.storeId = Stores.id" else ""
         val catCondition = params.first.categories.categoriesInCondition()
         val beforeCatClause = if (favouritesOnly && catCondition.isNotEmpty()) " AND "
         else if (catCondition.isNotEmpty()) " WHERE " else ""

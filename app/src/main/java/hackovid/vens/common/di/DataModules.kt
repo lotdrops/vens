@@ -19,6 +19,7 @@ import org.koin.dsl.module
 val dataModule = module {
     single { StoresDatabase.getInstance(androidApplication()) }
     factory { get<StoresDatabase>().storeDao() }
+    factory { get<StoresDatabase>().favouriteDao() }
     factory {
         LocalJsonPersistency(get(), MoshiFactory.getInstance()) as LocalDataSource<RemoteStore>
     }

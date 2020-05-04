@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import hackovid.vens.common.data.Favourite
+import hackovid.vens.common.data.FavouriteDao
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.FilterParams
 import hackovid.vens.common.data.filter.SortStrategy
@@ -20,7 +22,8 @@ import kotlinx.coroutines.launch
 class FavouritesViewModel(
     sharedViewModel: SharedViewModel,
     private val storesUseCase: StoresUseCase,
-    private val storeDao: StoreDao
+    private val storeDao: StoreDao,
+    private val favouriteDao: FavouriteDao
 ) : ViewModel() {
     private val location = sharedViewModel.location.map { it.toLocation() }
     private val queryParams = sharedViewModel.filter.combineWith(location) { filter, location ->
@@ -36,7 +39,8 @@ class FavouritesViewModel(
 
     fun onFavouriteClicked(item: StoreListUi) {
         viewModelScope.launch {
-            storeDao.setFavourite(item.id, !item.isFavourite)
+            val fab = Favourite( item.id)
+            if(item.isFavourite) favouriteDao.removeFavourite(fab) else favouriteDao.addFavourite(fab)
         }
     }
 

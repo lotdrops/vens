@@ -44,7 +44,6 @@ class UpdateDataDataSource(private val db: FirebaseFirestore) {
             name = name,
             type = type.toStoreType(),
             subtype = subtype.toStoreSubtype(),
-            isFavourite = false,
             phone = phone,
             mobilePhone = mobilePhone,
             address = address,
