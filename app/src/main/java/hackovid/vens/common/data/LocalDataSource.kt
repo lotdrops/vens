@@ -17,4 +17,6 @@ interface LocalStorage {
     fun setLocationPermissionRequested()
     fun setFilterParams(params: FilterParams)
     fun getFilterParams(): FilterParams
+    fun getLastUpdateTimestamp(): Long
+    fun setLastUpdateTimestamp(timestamp: Long)
 }

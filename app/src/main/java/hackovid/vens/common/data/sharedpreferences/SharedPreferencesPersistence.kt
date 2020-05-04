@@ -9,6 +9,7 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
+
 class SharedPreferencesPersistence(private val preferences: SharedPreferences) : LocalStorage {
     override fun shouldBeDisplayedOnBoardScreen() = preferences
         .getBoolean(ON_BOARDING_SHOULD_BE_DISPLAYED, true)
@@ -38,6 +39,13 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
         edit { putInt(FILTER_PARAMS_DISTANCE, params.distance) }
     }
 
+    override fun getLastUpdateTimestamp() = preferences
+            .getLong(LAST_UPDATE_TIMESTAMP, 0)
+
+    override fun setLastUpdateTimestamp(timestamp: Long) = preferences.run {
+        edit { putLong(LAST_UPDATE_TIMESTAMP, timestamp) }
+    }
+
     private fun List<Boolean>.serialize() =
         Json(JsonConfiguration.Stable).stringify(Boolean.serializer().list, this)
 
@@ -53,3 +61,4 @@ private const val DATABASE_LOADED_IDENTIFIER = "database_loaded_identifier"
 private const val LOCATION_PERMISSION_REQUESTED = "location_permission_requested"
 private const val FILTER_PARAMS_CATEGORIES = "filter_params_categories"
 private const val FILTER_PARAMS_DISTANCE = "filter_params_distance"
+private const val LAST_UPDATE_TIMESTAMP = "last_update_timestamp"

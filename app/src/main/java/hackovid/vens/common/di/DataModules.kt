@@ -1,6 +1,8 @@
 package hackovid.vens.common.di
 
 import androidx.preference.PreferenceManager
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import hackovid.vens.common.data.LocalDataSource
 import hackovid.vens.common.data.core.StoresDatabase
 import hackovid.vens.common.data.json.LocalJsonPersistency
@@ -18,6 +20,7 @@ val dataModule = module {
         LocalJsonPersistency(get(), MoshiFactory.getInstance()) as LocalDataSource<RemoteStore>
     }
     factory { PreferenceManager.getDefaultSharedPreferences(androidContext()) }
+    factory { Firebase.firestore }
 }
 
 val utilitiesModule = module {

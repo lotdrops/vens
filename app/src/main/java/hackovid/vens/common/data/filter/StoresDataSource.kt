@@ -78,12 +78,12 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
 
     private fun calculateDistanceFilter(distanceType: Int, location: Location): String {
         val latitude = location.latitude
-        val longitude =location.longitude
+        val longitude = location.longitude
         val distance = getDistanceFromType(distanceType)
-        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 /PI) / cos(latitude * PI / 180)
+        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180)
         val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
-        val latitudeNorth = latitude + (distance/ EARTH_RADIUS) * 180 / PI
-        val latitudeSouth = latitude - ((distance/ EARTH_RADIUS) * 180 / PI)
+        val latitudeNorth = latitude + (distance / EARTH_RADIUS) * 180 / PI
+        val latitudeSouth = latitude - ((distance / EARTH_RADIUS) * 180 / PI)
 
         return "(latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
     }

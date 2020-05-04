@@ -2,6 +2,7 @@ package hackovid.vens.common
 
 import android.app.Application
 import hackovid.vens.common.data.filter.commonFilterModule
+import hackovid.vens.common.data.updatedata.updateDataModule
 import hackovid.vens.common.di.dataModule
 import hackovid.vens.common.di.utilitiesModule
 import hackovid.vens.common.ui.di.commonUiModule
@@ -33,6 +34,7 @@ class BaseApplication : Application() {
         onBoardingModule,
         filterModule,
         commonUiModule,
-        commonFilterModule
+        commonFilterModule,
+        updateDataModule
     )
 }
