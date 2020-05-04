@@ -118,9 +118,13 @@
     <string name= "login_user_not_valid">User not valid</string>
     <string name= "login_incorrect_mail">Incorrect Mail</string>
     <string name= "login_too_many_times">You have tried to login with wrong credentials many times, please try again later</string>
-    <string name= "login_write_your_user">Email: </string>
-    <string name= "login_write_your_password">Password: </string>
+    <string name= "login_write_your_user">Email</string>
+    <string name= "login_write_your_password">Password</string>
+    <string name= "select_login_title">Join Vens</string>
     <string name= "login_message">Login</string>
+    <string name= "login_google_button">Sign in with Google</string>
+    <string name= "skip_login_button">Skip login</string>
+    <string name= "skip_login_message">You will not have access to all functionality</string>
 
     <string name= "register_generic_error">An error occurred, please try again</string>
     <string name= "register_mail_have_less_than_six_characters">Password must have at least 6 characters</string>

@@ -2,34 +2,38 @@ package hackovid.vens.common.data.login
 
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuthActionCodeException
+import com.google.firebase.auth.FirebaseAuthEmailException
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import hackovid.vens.R
-import hackovid.vens.common.ui.UIState
+import hackovid.vens.common.ui.UiState
 
 class FirebaseErrorMapper {
 
-    fun mapToUiError(firebaseException: FirebaseException): UIState.Error {
+    fun mapToUiError(firebaseException: FirebaseException): UiState.Error {
         when (firebaseException) {
             is FirebaseAuthInvalidCredentialsException -> {
-                return UIState.Error(R.string.login_incorrect_user_or_password)
+                return UiState.Error(R.string.login_incorrect_user_or_password)
             }
             is FirebaseAuthEmailException -> {
-                return UIState.Error(R.string.login_incorrect_mail)
+                return UiState.Error(R.string.login_incorrect_mail)
             }
             is FirebaseAuthActionCodeException -> {
-                return UIState.Error(R.string.login_incorrect_user_or_password)
+                return UiState.Error(R.string.login_incorrect_user_or_password)
             }
             is FirebaseAuthInvalidUserException -> {
-                return UIState.Error(R.string.login_user_not_valid)
+                return UiState.Error(R.string.login_user_not_valid)
             }
             is FirebaseTooManyRequestsException -> {
-                return UIState.Error(R.string.login_too_many_times)
+                return UiState.Error(R.string.login_too_many_times)
             }
             is FirebaseAuthUserCollisionException -> {
-                return UIState.Error(R.string.register_user_already_exist)
+                return UiState.Error(R.string.register_user_already_exist)
             }
             else -> {
-                return UIState.Error(R.string.login_generic_error)
+                return UiState.Error(R.string.login_generic_error)
             }
         }
     }

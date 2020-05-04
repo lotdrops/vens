@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="hackovid.vens.features.login.SelectLoginViewModel" />
+    </data>
+    <LinearLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_logo_rounded_corners"
+            android:src="@drawable/icon_app"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:gravity="center"
+            android:layout_marginVertical="16dp"
+            android:text="@string/select_login_title"
+            style="@style/TextAppearance.Custom.Title"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            />
+
+        <Button
+            android:id="@+id/login_button"
+            android:gravity="center"
+            android:text="@string/login_message"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:enabled="@{viewModel.enableButtons}"
+            bind:cornerRadius="@dimen/login_button_corner_radius"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp"
+            style="@style/LoginOutlinedActionButton"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_marginHorizontal="@dimen/login_button_horizontal_margin"
+            >
+            <ProgressBar
+                android:id="@+id/loading_view"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start|center_vertical"
+                android:elevation="20dp"
+                android:visibility="@{viewModel.showProgress ? View.VISIBLE : View.GONE}"
+                style="?android:attr/progressBarStyleLarge"
+                />
+            <Button
+                android:id="@+id/login_with_google"
+                android:gravity="center"
+                android:text="@string/login_google_button"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:backgroundTint="@color/white"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:enabled="@{viewModel.enableButtons}"
+                bind:cornerRadius="@dimen/login_button_corner_radius"
+                app:icon="@drawable/ic_google_colored_g"
+                app:iconTint="@null"
+                style="@style/LoginActionButtonIcon"
+                />
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            />
+
+        <Button
+            android:id="@+id/register_view"
+            android:background="@drawable/purple_rounded_bg"
+            android:gravity="center"
+            android:text="@string/register_click_here"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:enabled="@{viewModel.enableButtons}"
+            bind:cornerRadius="@dimen/login_button_corner_radius"
+            style="@style/LoginActionButton"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/very_light_purple"
+            android:orientation="vertical"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                />
+            <Button
+                android:id="@+id/skip_login"
+                android:background="@drawable/purple_rounded_bg"
+                android:gravity="center"
+                android:text="@string/skip_login_button"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:enabled="@{viewModel.enableButtons}"
+                bind:cornerRadius="@dimen/login_button_corner_radius"
+                android:backgroundTint="@color/main_purple"
+                style="@style/LoginActionButton"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/skip_login_message"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                style="@style/BaseBodyStyle"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

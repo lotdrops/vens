@@ -24,10 +24,10 @@
     <color name="dark_on_white">#161F3D</color>
     <color name="selected_gray">#C8CAD7</color>
     <color name="unselected_text">#6B030B37</color>
-    <color name="lightPurple">#E3E5FC</color>
     <color name="on_board_yellow_primary">#fdc510</color>
+    <color name="light_purple">#E3E5FC</color>
     <color name="main_purple">#A7AEF9</color>
-    <color name="light_purple">#E3E5FA</color>
+    <color name="very_light_purple">#F3F3FE</color>
 
 
 </resources>

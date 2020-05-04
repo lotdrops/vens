@@ -37,4 +37,7 @@
     <dimen name="on_board_body_text_font_size">16sp</dimen>
     <dimen name="on_board_skip_font_size">14sp</dimen>
 
+    <dimen name="login_button_height">56dp</dimen>
+    <dimen name="login_button_horizontal_margin">64dp</dimen>
+    <dimen name="login_button_corner_radius">28dp</dimen>
 </resources>

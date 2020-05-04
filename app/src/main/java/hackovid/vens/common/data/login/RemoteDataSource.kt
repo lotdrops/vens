@@ -14,44 +14,41 @@ interface RemoteDataSource<T> {
     suspend fun registerUser(user: User): T
 }
 
-
 class FirebaseDataSource(
     private val auth: FirebaseAuth,
     private val firebaseErrorMapper: FirebaseErrorMapper
-) : RemoteDataSource<FireBaseResponse> {
+) : RemoteDataSource<FirebaseResponse> {
 
-    override suspend fun login(user: User): FireBaseResponse = withContext(Dispatchers.IO) {
+    override suspend fun login(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
         try {
             auth.signInWithEmailAndPassword(user.email, user.password).await()
-            FireBaseResponse(success = true)
+            FirebaseResponse(success = true)
         } catch (e: FirebaseException) {
-            FireBaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
+            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
         }
     }
 
-    override fun isUserAlreadyLoged(): FireBaseResponse {
-        return if (auth.currentUser == null) FireBaseResponse(success = false)
-        else FireBaseResponse(success = true)
+    override fun isUserAlreadyLoged(): FirebaseResponse {
+        return if (auth.currentUser == null) FirebaseResponse(success = false)
+        else FirebaseResponse(success = true)
     }
 
-    override suspend fun registerUser(user: User): FireBaseResponse = withContext(Dispatchers.IO) {
+    override suspend fun registerUser(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
         try {
             auth.createUserWithEmailAndPassword(user.email, user.password).await()
-            FireBaseResponse(success = true)
+            FirebaseResponse(success = true)
         } catch (e: FirebaseException) {
-            FireBaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
+            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
         }
     }
 
-    override suspend fun loginWithGoogle(credentials: AuthCredential): FireBaseResponse =
+    override suspend fun loginWithGoogle(credentials: AuthCredential): FirebaseResponse =
         withContext(Dispatchers.IO) {
             try {
                 auth.signInWithCredential(credentials).await()
-                FireBaseResponse(success = true)
+                FirebaseResponse(success = true)
             } catch (e: FirebaseException) {
-                FireBaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
+                FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
             }
         }
-
 }
-

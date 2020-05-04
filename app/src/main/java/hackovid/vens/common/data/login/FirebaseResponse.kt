@@ -1,6 +1,5 @@
 package hackovid.vens.common.data.login
 
-import hackovid.vens.common.ui.UIState
+import hackovid.vens.common.ui.UiState
 
-data class FireBaseResponse(val success: Boolean = false, var error: UIState.Error? = null)
-
+data class FirebaseResponse(val success: Boolean = false, var error: UiState.Error? = null)

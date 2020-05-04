@@ -5,19 +5,19 @@ import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
-import hackovid.vens.common.ui.UIState
-import hackovid.vens.common.ui.UIState.Error
+import hackovid.vens.common.ui.UiState
+import hackovid.vens.common.ui.UiState.Error
 import hackovid.vens.common.utils.isValidEmailField
 import hackovid.vens.common.utils.observe
-import hackovid.vens.common.utils.passwordHaveLessThanSixCharacters
+import hackovid.vens.common.utils.passwordHasLessThanSixCharacters
 import hackovid.vens.databinding.FragmentRegisterBinding
-import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.android.ext.android.inject
+import kotlinx.android.synthetic.main.fragment_select_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     override val layoutRes = R.layout.fragment_register
 
-    private val registerViewModel: RegisterViewModel by inject()
+    private val registerViewModel: RegisterViewModel by viewModel()
     private lateinit var binding: FragmentRegisterBinding
     private val NO_REGISTER_ERRORS_MESSAGE = 0
 
@@ -39,7 +39,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 )
                 registerViewModel.registerUser(user)
             } else {
-                Snackbar.make(root_view, registerFieldsErrorMessage, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(root_view, registerFieldsErrorMessage, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -47,28 +47,27 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     private fun observeViewModels() {
         observe(registerViewModel.registerResult) {
             when (it) {
-                UIState.Success -> {
+                UiState.Success -> {
                     this.binding.loadingView.visibility = View.GONE
                 }
                 is Error -> {
                     this.binding.loadingView.visibility = View.GONE
-                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show()
                 }
-                UIState.Loading -> {
+                UiState.Loading -> {
                     this.binding.loadingView.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    private fun validateRegisterFields(): Int {
-        if (binding.registerFirstName.text.isNullOrEmpty()) return R.string.register_some_empty_field
-        if (binding.registerLastName.text.isNullOrEmpty()) return R.string.register_some_empty_field
-        if (binding.registerPassword.text.isNullOrEmpty()) return R.string.register_some_empty_field
-        if (!binding.registerMail.isValidEmailField()) return R.string.register_mail_is_incorrect
-        if (!binding.registerPassword.passwordHaveLessThanSixCharacters()) return R.string.register_mail_have_less_than_six_characters
-        return NO_REGISTER_ERRORS_MESSAGE
+    private fun validateRegisterFields() = when {
+        binding.registerFirstName.text.isNullOrEmpty() -> R.string.register_some_empty_field
+        binding.registerLastName.text.isNullOrEmpty() -> R.string.register_some_empty_field
+        binding.registerPassword.text.isNullOrEmpty() -> R.string.register_some_empty_field
+        !binding.registerMail.isValidEmailField() -> R.string.register_mail_is_incorrect
+        !binding.registerPassword.passwordHasLessThanSixCharacters() ->
+            R.string.register_mail_have_less_than_six_characters
+        else -> NO_REGISTER_ERRORS_MESSAGE
     }
-
-
 }

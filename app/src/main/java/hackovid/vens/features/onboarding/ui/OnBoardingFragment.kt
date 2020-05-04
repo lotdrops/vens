@@ -1,11 +1,9 @@
 package hackovid.vens.features.onboarding.ui
 
-import android.content.Intent
-import android.os.Bundle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.viewpager2.widget.ViewPager2
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
-import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentOnboardingBinding
 import hackovid.vens.features.onboarding.OnboardingModel
@@ -20,10 +18,6 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     private val nextButtonClicked = this::onNextButtonClicked
     private val discoverButtonClicked = this::onDiscoverButtonClicked
     private val skipButtonClicked = this::onSkipButtonClicked
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun setupBinding(binding: FragmentOnboardingBinding) {
         onBoardBinding = binding
@@ -49,23 +43,22 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
     private fun onNextButtonClicked(onboardingModel: OnboardingModel, position: Int) {
         if (!onboardingModel.hasNextScreen) {
-            navigateToMain()
+            navigateToSelectLogin()
         } else {
             onBoardBinding.viewpager.currentItem = position
         }
     }
 
     private fun onDiscoverButtonClicked() {
-        navigateToMain()
+        navigateToSelectLogin()
     }
 
     private fun onSkipButtonClicked() {
-        navigateToMain()
+        navigateToSelectLogin()
     }
 
-    private fun navigateToMain() {
+    private fun navigateToSelectLogin() {
         viewModel.hideDashBoard()
-        startActivity(Intent(activity, MainActivity::class.java))
-        activity?.finish()
+        NavHostFragment.findNavController(this).navigate(R.id.nav_to_login_fragment)
     }
 }

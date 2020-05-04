@@ -3,29 +3,25 @@ package hackovid.vens.features.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import hackovid.vens.common.data.login.FireBaseResponse
+import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
-import hackovid.vens.common.ui.UIState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import hackovid.vens.common.ui.UiState
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class RegisterViewModel(private val dataSource: RemoteDataSource<FireBaseResponse>) : ViewModel() {
+class RegisterViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>) : ViewModel() {
 
-    var registerResult = MutableLiveData<UIState>()
+    var registerResult = MutableLiveData<UiState>()
 
     fun registerUser(user: User) = viewModelScope.launch {
-        registerResult.value = UIState.Loading
+        registerResult.value = UiState.Loading
         val result = dataSource.registerUser(user)
         if (result.success) {
-            registerResult.value = UIState.Success
+            registerResult.value = UiState.Success
         } else {
             registerResult.value = result.error?.errorMessage?.let {
-                UIState.Error(it)
+                UiState.Error(it)
             }
         }
     }
-
 }

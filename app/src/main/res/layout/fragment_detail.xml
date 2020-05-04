@@ -20,7 +20,7 @@
             android:layout_height="@dimen/detail_image_height"
             app:imageResource="@{viewModel.image.intValue()}"
             android:scaleType="centerCrop"
-            android:background="@color/lightPurple"
+            android:background="@color/light_purple"
             bind:layout_constraintTop_toTopOf="parent"
             bind:layout_constraintStart_toStartOf="parent"
             bind:layout_constraintEnd_toEndOf="parent"
