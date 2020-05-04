@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         observe(viewModel.requestLocationEvent) {
             if (!hasLocationPermission()) requestLocationPermission(FIRST_TIME_LOCATION)
         }
+        observe(viewModel.onObserverActive) {}
     }
 
     private fun onLocationRequestedByUser() {

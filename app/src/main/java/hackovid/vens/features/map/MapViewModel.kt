@@ -1,11 +1,9 @@
 package hackovid.vens.features.map
 
 import android.location.Location
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import hackovid.vens.common.data.Favourite
+import hackovid.vens.common.data.FavouriteDao
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.filter.FilterParams
 import hackovid.vens.common.data.filter.SortStrategy
@@ -19,7 +17,8 @@ import kotlinx.coroutines.launch
 class MapViewModel(
     private val sharedViewModel: SharedViewModel,
     private val storesUseCase: StoresUseCase,
-    private val storeDao: StoreDao
+    private val storeDao: StoreDao,
+    private val favouriteDao: FavouriteDao
 ) : ViewModel() {
     val navigateToDetail = SingleLiveEvent<Long>()
     val locateUserEvent = SingleLiveEvent<Unit>()
@@ -65,7 +64,9 @@ class MapViewModel(
     }
     fun onFavouriteClicked() {
         viewModelScope.launch {
-            selectedStore.value?.let { st -> storeDao.setFavourite(st.id, !st.isFavourite) }
+            selectedStore.value?.let { st ->
+                val fav = Favourite(st.id)
+                if (st.isFavourite) favouriteDao.removeFavourite(fav) else favouriteDao.addFavourite(fav)}
         }
     }
 

@@ -36,9 +36,13 @@ buildscript {
         locationServicesVersion = '17.0.0'
         googleServicesVersion = '4.3.3'
         firebaseVersion = '17.3.0'
+        firebaseRemoteConfigVersion = '18.0.0'
+        firestoreVersion = '21.2.1'
+        firestoreKtxVersion = '21.2.1'
         mapsUtilsVersion = '1.1.0'
         // Testing
         junitVersion = '4.13'
+        mockkVersion = '1.9.3'
         androidJunitVersion = '1.1.1'
         testRunnerVersion = '1.2.0'
         espressoVersion = '3.2.0'
@@ -87,9 +91,14 @@ buildscript {
                 playLocation        : ('com.google.android.gms:play-services-location:' + locationServicesVersion),
                 services            : ('com.google.gms:google-services:' + googleServicesVersion),
                 firebase            : ('com.google.firebase:firebase-analytics:' + firebaseVersion),
+                firebaseConfig      : ('com.google.firebase:firebase-config:' + firebaseRemoteConfigVersion),
+                firestore           : ('com.google.firebase:firebase-firestore:' + firestoreVersion),
+                firestoreKtx        : ('com.google.firebase:firebase-firestore-ktx:' + firestoreKtxVersion),
                 mapsUtils           : ('com.google.maps.android:android-maps-utils:' + mapsUtilsVersion),
                 // Testing
                 junit               : ('junit:junit:' + junitVersion),
+                mockk               : ('io.mockk:mockk:' + mockkVersion),
+                coroutinesTest      : ('org.jetbrains.kotlinx:kotlinx-coroutines-test:' + coroutinesVersion),
                 androidJunit        : ('androidx.test.ext:junit:' + androidJunitVersion),
                 testRunner          : ('androidx.test:runner:' + testRunnerVersion),
                 espressoCore        : ('androidx.test.espresso:espresso-core:' + espressoVersion),

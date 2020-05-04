@@ -8,5 +8,5 @@ import org.koin.dsl.module
 
 val mapModule = module {
     viewModel { (sharedViewModel: SharedViewModel) ->
-        MapViewModel(sharedViewModel, get { parametersOf(true, false) }, get())
+        MapViewModel(sharedViewModel, get { parametersOf(true, false) }, get(), get())
     } }

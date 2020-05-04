@@ -2,19 +2,27 @@ package hackovid.vens.common.data.core
 
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Transaction
 import androidx.room.Update
 
-interface BaseDao<T> {
+abstract class BaseDao<T> {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insert(obj: T): Long
 
     @Insert
-    fun insert(obj: T): Long
-
-    @Insert
-    fun insertList(obj: List<T>)
+    abstract fun insertList(obj: List<T>)
 
     @Update
-    fun update(obj: T)
+    abstract fun update(obj: T)
 
     @Delete
-    fun delete(obj: T)
+    abstract fun delete(obj: T)
+
+    @Transaction
+    open fun upsert(obj: T) {
+        val id = insert(obj)
+        if (id == -1L) update(obj)
+    }
 }
