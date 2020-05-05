@@ -24,6 +24,10 @@ class StoresUseCase(
         else -> getStoresByName(params)
     }
 
+    fun findStoreByName(name: String = ""): LiveData<List<Store>>  {
+        return storesDataSource.findStoreByName(name)
+    }
+
     private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> =
         storesDataSource.getUnorderedData(params).map {
             val location = params?.second
