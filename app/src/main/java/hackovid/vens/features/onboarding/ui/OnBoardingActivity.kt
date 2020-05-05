@@ -11,7 +11,7 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_on_boarding)
     }
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         finish()
-    }
+    }*/
 }

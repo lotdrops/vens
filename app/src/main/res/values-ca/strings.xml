@@ -126,14 +126,20 @@
     <string name= "skip_login_message">No tindràs accés a algunes funcionalitats</string>
 
     <string name= "register_generic_error">Hi ha hagut un error, siusplau, torna a intentar-ho</string>
-    <string name="register_mail_have_less_than_six_characters">La contrassenya ha de tenir 6 caràcters com a mínim</string>
+    <string name="register_password_too_short">La contrassenya ha de tenir 6 caràcters com a mínim</string>
+    <string name= "register_passwords_do_not_match">Les contrassenes has de ser iguals</string>
     <string name= "register_user_already_exist">Este usuario ya existe</string>
     <string name= "register_mail_is_incorrect">Siusplau revisa el format de l\'email</string>
     <string name= "register_some_empty_field">Alguns camps estan buits</string>
-    <string name= "register_click_here">Registra\'t</string>
+    <string name= "register_empty_field_error">El camp no ha d\'estar buit</string>
+    <string name="register_title">Registra\'t</string>
     <string name= "register_name">Nom</string>
     <string name= "register_surname">Cognom</string>
     <string name= "register_email">Correu electrònic</string>
     <string name= "register_password">Contrasenya</string>
+    <string name= "register_repeat_password">Repeteix la contrassenya</string>
+    <string name= "register_select_consumer">Sóc un consumidor</string>
+    <string name= "register_select_owner">Sóc un comerciant</string>
+    <string name= "register_select_store_button">Tria la teva botiga</string>
 
 </resources>

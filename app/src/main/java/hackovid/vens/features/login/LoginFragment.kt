@@ -9,7 +9,6 @@ import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
-import hackovid.vens.common.utils.passwordHasLessThanSixCharacters
 import hackovid.vens.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -68,8 +67,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun validateLoginFields() = when {
         binding.username.text.isNullOrEmpty() -> R.string.register_some_empty_field
         binding.password.text.isNullOrEmpty() -> R.string.register_some_empty_field
-        !binding.password.passwordHasLessThanSixCharacters() ->
-            R.string.register_mail_have_less_than_six_characters
+        binding.password.text?.length ?: 0 < 6 -> R.string.register_password_too_short
         else -> NO_LOGIN_ERRORS_MESSAGE
     }
 }

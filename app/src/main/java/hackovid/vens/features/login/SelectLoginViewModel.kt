@@ -11,7 +11,9 @@ import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.UiState
 import kotlinx.coroutines.launch
 
-class SelectLoginViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>) : ViewModel() {
+class SelectLoginViewModel(
+    private val dataSource: RemoteDataSource<FirebaseResponse>
+) : ViewModel() {
 
     val loginState = MutableLiveData<UiState>(UiState.Idle)
     val showProgress = loginState.map { it == UiState.Loading }

@@ -1,68 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/root_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable name="viewModel" type="hackovid.vens.features.register.RegisterViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:orientation="vertical">
-            <EditText
-                android:id="@+id/register_first_name"
-                android:layout_width="wrap_content"
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/register_title"
+                style="@style/TextAppearance.Custom.Title"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                 android:hint="@string/register_name"
-                android:inputType="textPersonName" />
-            <EditText
-                android:id="@+id/register_last_name"
-                android:layout_width="wrap_content"
+                app:boxBackgroundColor="@color/light_purple"
+                app:hintTextColor="@color/textPrimary"
+                app:errorEnabled="true"
+                bind:errorText="@{viewModel.nameError}"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.name}"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    style="@style/LoginEditTextStyle"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastname_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/register_password"
-                android:inputType="textPersonName" />
-            <EditText
-                android:id="@+id/register_mail"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+                android:hint="@string/register_surname"
+                app:boxBackgroundColor="@color/light_purple"
+                app:hintTextColor="@color/textPrimary"
+                app:errorEnabled="true"
+                bind:errorText="@{viewModel.lastNameError}"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.lastName}"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    style="@style/LoginEditTextStyle"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                 android:hint="@string/register_email"
-                android:inputType="textEmailAddress" />
-            <EditText
-                android:id="@+id/register_password"
-                android:layout_width="wrap_content"
+                app:boxBackgroundColor="@color/light_purple"
+                app:hintTextColor="@color/textPrimary"
+                app:errorEnabled="true"
+                bind:errorText="@{viewModel.emailError}"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.email}"
+                    android:inputType="textEmailAddress"
+                    style="@style/LoginEditTextStyle"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
                 android:hint="@string/register_password"
-                android:inputType="textPassword" />
-            <Button
-                android:id="@+id/register_button"
-                android:layout_width="wrap_content"
+                app:boxBackgroundColor="@color/light_purple"
+                app:hintTextColor="@color/textPrimary"
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true"
+                bind:errorText="@{viewModel.passwordError}"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.password}"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    style="@style/LoginEditTextPasswordStyle"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/repeat_password_container"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+                android:hint="@string/register_repeat_password"
+                app:boxBackgroundColor="@color/light_purple"
+                app:hintTextColor="@color/textPrimary"
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true"
+                bind:errorText="@{viewModel.repeatPasswordError}"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repeat_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.repeatPassword}"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    style="@style/LoginEditTextPasswordStyle"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                android:background="@drawable/bg_section_outline"
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp"
+                    >
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_select_consumer"
+                        android:checked="@{!viewModel.isShopOwner()}"
+                        android:onClick="@{view -> viewModel.onBuyerClicked()}"
+                        style="@style/BaseBodyStyle"
+                        />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/register_select_owner"
+                        android:checked="@{viewModel.isShopOwner()}"
+                        android:onClick="@{view -> viewModel.onOwnerClicked()}"
+                        style="@style/BaseBodyStyle"
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:tint="@color/main_purple"
+                    bind:image="@{viewModel.shopOwnerIcon}"
+                    />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login_button"
+                android:background="@drawable/purple_rounded_bg"
+                android:gravity="center"
+                android:text="@{viewModel.buttonText}"
                 android:layout_gravity="center"
-                android:text="@string/register_click_here"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="@{view -> viewModel.onButtonClick()}"
+                bind:cornerRadius="@dimen/login_button_corner_radius"
+                style="@style/LoginActionButton"
+                tools:text="Register"
+                />
+
         </LinearLayout>
-        <ProgressBar
-            android:id="@+id/loading_view"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:visibility="gone"/>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

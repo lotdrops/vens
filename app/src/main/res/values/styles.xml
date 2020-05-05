@@ -60,6 +60,16 @@
         <item name="android:layout_marginEnd">@dimen/login_button_horizontal_margin</item>
     </style>
 
+    <style name="LoginEditTextStyle" parent="@style/BaseBodyStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLength">30</item>
+    </style>
+
+    <style name="LoginEditTextPasswordStyle" parent="@style/LoginEditTextStyle">
+        <item name="android:inputType">textPassword</item>
+    </style>
+
     <!--    TEXT STYLES-->
     <!--    Base    -->
     <style name="BaseTitleStyle" parent="android:Widget.Material.TextView">

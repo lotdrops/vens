@@ -127,15 +127,21 @@
     <string name= "skip_login_message">You will not have access to all functionality</string>
 
     <string name= "register_generic_error">An error occurred, please try again</string>
-    <string name= "register_mail_have_less_than_six_characters">Password must have at least 6 characters</string>
+    <string name= "register_password_too_short">Password must have at least 6 characters</string>
+    <string name= "register_passwords_do_not_match">Passwords must match</string>
     <string name= "register_user_already_exist">This user already exists</string>
     <string name= "register_mail_is_incorrect">Please check the email format</string>
     <string name= "register_some_empty_field">Some fields are empty</string>
-    <string name= "register_click_here">Register</string>
+    <string name= "register_empty_field_error">It should not be empty</string>
+    <string name= "register_title">Register</string>
     <string name= "register_name">Name</string>
     <string name= "register_surname">Surname</string>
     <string name= "register_email">Email</string>
     <string name= "register_password">Password</string>
+    <string name= "register_repeat_password">Repeat password</string>
+    <string name= "register_select_consumer">I am a buyer</string>
+    <string name= "register_select_owner">I am a shop owner</string>
+    <string name= "register_select_store_button">Select your store</string>
 
 
 </resources>

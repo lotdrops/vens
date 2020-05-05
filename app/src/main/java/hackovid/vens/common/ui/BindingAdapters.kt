@@ -2,8 +2,11 @@ package hackovid.vens.common.ui
 
 import android.content.res.Resources
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textfield.TextInputLayout
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
@@ -120,4 +123,16 @@ private fun TextView.setPhones(phone: String?, mobilePhone: String?) {
     } else {
         visibility = View.GONE
     }
+}
+
+@BindingAdapter("bind:errorText")
+fun setErrorText(view: TextInputLayout, errorId: Int?) {
+    if (errorId == null || errorId == 0) view.error = null
+    else view.error = view.resources.getText(errorId)
+}
+
+@BindingAdapter("bind:image")
+fun setImage(view: ImageView, imageId: Int?) {
+    if (imageId == null || imageId == 0) view.setImageDrawable(null)
+    else view.setImageDrawable(ContextCompat.getDrawable(view.context, imageId))
 }
