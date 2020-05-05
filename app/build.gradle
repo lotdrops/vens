@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlinx-serialization'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
@@ -86,6 +88,7 @@ dependencies {
     kapt libs.roomCompiler
     implementation libs.roomRuntime
     implementation libs.roomKtx
+    implementation libs.firebaseCrashlytics
     implementation libs.firebase
     implementation libs.firebaseConfig
     implementation libs.firestore
