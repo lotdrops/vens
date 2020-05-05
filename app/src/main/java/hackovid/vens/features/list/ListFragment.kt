@@ -55,7 +55,8 @@ class ListFragment : FilterBaseFragment<FragmentListBinding>() {
 
     private fun onStoreClick(item: StoreListUi) {
         NavHostFragment.findNavController(this)
-                .navigate(ListFragmentDirections.navToAdDetail(item.id)) }
+                .navigate(ListFragmentDirections.navToAdDetail(item.id))
+    }
 
     private fun onListItemBind(item: StoreListUi, binding: ViewDataBinding) {
         (binding as? ItemStoreBinding)?.let { itemBinding ->

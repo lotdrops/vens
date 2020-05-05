@@ -36,7 +36,7 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
         binding.registerView.setOnClickListener {
             findNavController(this).navigate(SelectLoginFragmentDirections.navToRegisterFragment())
         }
-        binding.loginButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             findNavController(this).navigate(SelectLoginFragmentDirections.navToLoginFragment())
         }
         binding.skipLogin.setOnClickListener {

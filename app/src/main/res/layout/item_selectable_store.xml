@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable name="item" type="hackovid.vens.features.register.SelectableStore" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.store.name}"
+                android:layout_marginBottom="8dp"
+                style="@style/TextAppearance.Custom.ListCardDescription"
+                tools:text="Fusteria Genis"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{item.store.address}"
+                android:visibility="@{(item.store.address == null || item.store.address.length()==0) ? View.GONE : View.VISIBLE}"
+                style="@style/TextAppearance.Custom.Body"
+                tools:text="Mare de Deu de Port, 252"
+                />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="@{item.selected ? View.VISIBLE : View.INVISIBLE}"
+            android:src="@drawable/ic_done"
+            />
+
+    </LinearLayout>
+    
+</layout>

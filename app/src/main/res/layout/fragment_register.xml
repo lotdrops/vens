@@ -202,7 +202,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/register_button"
                 android:background="@drawable/purple_rounded_bg"
                 android:gravity="center"
                 android:text="@{viewModel.buttonText}"
