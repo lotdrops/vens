@@ -4,12 +4,20 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreAndFavourite
 import hackovid.vens.common.data.StoreDao
+import hackovid.vens.common.data.updatedata.UpdateStoresDataSource
 import java.lang.Math.PI
 import kotlin.math.cos
 
-class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao: StoreDao) {
-    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
+class StoresDataSource(
+    private val favouritesOnly: Boolean,
+    private val storeDao: StoreDao
+) : UpdateStoresDataSource {
+    override suspend fun deleteStore(id: Long) = storeDao.deleteStore(id)
+    override suspend fun upsertStore(store: Store) = storeDao.upsert(store)
+
+    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> {
         return if (params != null) {
             val whereClause = buildWhereClause(params)
             val distanceFilter = buildDistanceFilter(params)
@@ -22,7 +30,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     fun getDataByDistance(
         params: Pair<FilterParams, Location>,
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val whereClause = buildWhereClause(params)
         val distanceFilter = buildDistanceFilter(params)
         val orderCriteria = buildOrderByDistance(params)
@@ -32,7 +40,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     fun getDataByName(
         params: Pair<FilterParams, Location?>,
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val whereClause = buildWhereClause(params)
         val distanceFilter = buildDistanceFilter(params)
         val orderCriteria = "ORDER BY name"
@@ -46,7 +54,7 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
         distanceFilter: String,
         orderCriteria: String = "",
         limit: Int = -1
-    ): LiveData<List<Store>> {
+    ): LiveData<List<StoreAndFavourite>> {
         val query =
             "SELECT * from STORES $whereClause ${applyDistanceFilter(whereClause, distanceFilter)}"
         return getByQuery("$query $orderCriteria LIMIT($limit)")
@@ -78,12 +86,12 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
 
     private fun calculateDistanceFilter(distanceType: Int, location: Location): String {
         val latitude = location.latitude
-        val longitude =location.longitude
+        val longitude = location.longitude
         val distance = getDistanceFromType(distanceType)
-        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 /PI) / cos(latitude * PI / 180)
+        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180)
         val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
-        val latitudeNorth = latitude + (distance/ EARTH_RADIUS) * 180 / PI
-        val latitudeSouth = latitude - ((distance/ EARTH_RADIUS) * 180 / PI)
+        val latitudeNorth = latitude + (distance / EARTH_RADIUS) * 180 / PI
+        val latitudeSouth = latitude - ((distance / EARTH_RADIUS) * 180 / PI)
 
         return "(latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
     }
@@ -100,7 +108,8 @@ class StoresDataSource(private val favouritesOnly: Boolean, private val storeDao
     }
 
     private fun buildWhereClause(params: Pair<FilterParams, Location?>): String {
-        val favsClause = if (favouritesOnly) " WHERE isFavourite" else ""
+        val favsClause =
+            if (favouritesOnly) " INNER JOIN Favourites ON Favourites.storeId = Stores.id" else ""
         val catCondition = params.first.categories.categoriesInCondition()
         val beforeCatClause = if (favouritesOnly && catCondition.isNotEmpty()) " AND "
         else if (catCondition.isNotEmpty()) " WHERE " else ""

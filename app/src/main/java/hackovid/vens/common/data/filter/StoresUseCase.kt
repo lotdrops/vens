@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreAndFavourite
 import hackovid.vens.common.data.core.distance
 
 /**
@@ -16,7 +17,7 @@ class StoresUseCase(
     private val storesDataSource: StoresDataSource,
     private val fastLoadFirstResults: Boolean = true
 ) {
-    fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> = when {
+    fun getData(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> = when {
         params == null -> MutableLiveData()
         params.first.sortStrategy == SortStrategy.NONE -> getStoresNoOrder(params)
         params.second != null && params.first.sortStrategy == SortStrategy.DISTANCE ->
@@ -24,6 +25,7 @@ class StoresUseCase(
         else -> getStoresByName(params)
     }
 
+    private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> =
     fun findStoreByName(name: String = ""): LiveData<List<Store>>  {
         return storesDataSource.findStoreByName(name)
     }
@@ -35,16 +37,16 @@ class StoresUseCase(
             else it
         }
 
-    private fun getStoresByDistance(params: Pair<FilterParams, Location>): LiveData<List<Store>> {
-        val res = MediatorLiveData<List<Store>>()
+    private fun getStoresByDistance(params: Pair<FilterParams, Location>): LiveData<List<StoreAndFavourite>> {
+        val res = MediatorLiveData<List<StoreAndFavourite>>()
         var sentFirstValue = false
-        val emit: (List<Store>) -> Unit = { stores ->
+        val emit: (List<StoreAndFavourite>) -> Unit = { stores ->
             sentFirstValue = true
             res.value = stores
                 .filterByDistance(params.first.distance, params.second)
-                .sortedBy { it.distance(params.second) }
+                .sortedBy { it.store.distance(params.second) }
         }
-        val emitIfFirst: (List<Store>) -> Unit = { stores ->
+        val emitIfFirst: (List<StoreAndFavourite>) -> Unit = { stores ->
             if (!sentFirstValue) {
                 sentFirstValue = true
                 emit(stores)
@@ -62,22 +64,22 @@ class StoresUseCase(
         return res
     }
 
-    private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<Store>> {
-        val res = MediatorLiveData<List<Store>>()
+    private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> {
+        val res = MediatorLiveData<List<StoreAndFavourite>>()
         var sentFirstValue = false
-        val emit: (List<Store>) -> Unit = { stores ->
+        val emit: (List<StoreAndFavourite>) -> Unit = { stores ->
             sentFirstValue = true
             res.value = stores.filtered(params)
         }
-        val emitIfFirst: (List<Store>) -> Unit = { if (!sentFirstValue) emit(it) }
+        val emitIfFirst: (List<StoreAndFavourite>) -> Unit = { if (!sentFirstValue) emit(it) }
 
         if (fastLoadFirstResults) {
-            if(params != null)
-                res.addSource(storesDataSource.getDataByName(params,FIRST_RESULTS_SIZE), emitIfFirst)
+            if (params != null)
+                res.addSource(storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE), emitIfFirst)
             else
                 res.addSource(storesDataSource.getDataByName(FIRST_RESULTS_SIZE), emitIfFirst)
         }
-        if(params != null)
+        if (params != null)
             res.addSource(storesDataSource.getDataByName(params, -1), emit)
         else
             res.addSource(storesDataSource.getDataByName(-1), emit)
@@ -88,13 +90,13 @@ class StoresUseCase(
     private fun Pair<FilterParams, Location>.shouldFastLoadByDistance() =
         fastLoadFirstResults && first.distance == FilterParams.ANY_DISTANCE
 
-    private fun List<Store>.filterByDistance(distance: Int, location: Location) = when (distance) {
-        FilterParams.SHORT_DISTANCE -> filter { it.distance(location) <= SHORT_DISTANCE_METERS }
-        FilterParams.MEDIUM_DISTANCE -> filter { it.distance(location) <= MEDIUM_DISTANCE_METERS }
+    private fun List<StoreAndFavourite>.filterByDistance(distance: Int, location: Location) = when (distance) {
+        FilterParams.SHORT_DISTANCE -> filter { it.store.distance(location) <= SHORT_DISTANCE_METERS }
+        FilterParams.MEDIUM_DISTANCE -> filter { it.store.distance(location) <= MEDIUM_DISTANCE_METERS }
         else -> this
     }
 
-    private fun List<Store>.filtered(params: Pair<FilterParams, Location?>?) =
+    private fun List<StoreAndFavourite>.filtered(params: Pair<FilterParams, Location?>?) =
         if (params?.second != null) {
             filterByDistance(params.first.distance, params.second!!)
         } else {

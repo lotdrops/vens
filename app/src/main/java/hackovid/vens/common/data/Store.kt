@@ -14,7 +14,6 @@ data class Store(
     val name: String,
     @TypeConverters(Converters::class) val type: StoreType,
     @TypeConverters(Converters::class) val subtype: StoreSubtype,
-    val isFavourite: Boolean = false,
     val phone: String? = null,
     val mobilePhone: String? = null,
     val address: String? = null,

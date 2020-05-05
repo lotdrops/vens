@@ -8,7 +8,6 @@ interface LocalDataSource<T> {
 }
 
 interface LocalStorage {
-
     fun shouldBeDisplayedOnBoardScreen(): Boolean
     fun setOnboardScreenVisibility(shouldBeDisplayed: Boolean)
     fun isDataBaseAlreadyLoaded(): Boolean
@@ -17,4 +16,6 @@ interface LocalStorage {
     fun setLocationPermissionRequested()
     fun setFilterParams(params: FilterParams)
     fun getFilterParams(): FilterParams
+    fun getLastUpdateTimestamp(): Long
+    fun setLastUpdateTimestamp(timestamp: Long)
 }

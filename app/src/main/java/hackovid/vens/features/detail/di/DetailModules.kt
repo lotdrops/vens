@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val detailModule = module {
     viewModel { (sharedViewModel: SharedViewModel, storeId: Int) ->
-        DetailViewModel(sharedViewModel, get(), storeId)
+        DetailViewModel(sharedViewModel, get(), get(), storeId)
     }
 }

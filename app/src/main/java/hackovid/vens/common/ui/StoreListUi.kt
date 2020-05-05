@@ -1,7 +1,7 @@
 package hackovid.vens.common.ui
 
 import android.location.Location
-import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreAndFavourite
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.core.distance
@@ -26,21 +26,21 @@ data class StoreListUi(
     val delivers: Boolean? = null
 )
 
-fun Store.toListUi(location: Location?) = StoreListUi(
-    id = id,
-    latitude = latitude,
-    longitude = longitude,
-    name = name,
-    type = type,
-    subtype = subtype,
-    isFavourite = isFavourite,
-    phone = phone,
-    mobilePhone = mobilePhone,
-    address = address,
-    web = web,
-    email = email,
+fun StoreAndFavourite.toListUi(location: Location?) = StoreListUi(
+    id = store.id,
+    latitude = store.latitude,
+    longitude = store.longitude,
+    name = store.name,
+    type = store.type,
+    subtype = store.subtype,
+    isFavourite = userStore != null,
+    phone = store.phone,
+    mobilePhone = store.mobilePhone,
+    address = store.address,
+    web = store.web,
+    email = store.email,
     crowd = null,
-    distance = location?.distance(latitude, longitude)?.roundToInt(),
-    acceptsOrders = acceptsOrders,
-    delivers = delivers
+    distance = location?.distance(store.latitude, store.longitude)?.roundToInt(),
+    acceptsOrders = store.acceptsOrders,
+    delivers = store.delivers
 )
