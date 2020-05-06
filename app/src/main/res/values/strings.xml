@@ -143,5 +143,13 @@
     <string name= "register_select_owner">I am a shop owner</string>
     <string name= "register_select_store_button">Select your store</string>
 
+    <string name= "select_store_screen_title">Select your store</string>
+    <string name= "select_store_search_title">Search your store</string>
+    <string name= "select_store_button_select">Select this store</string>
+    <string name= "select_store_button_create">Add store information</string>
+    <string name= "select_store_store_not_found">My store is not in the list</string>
+    <string name= "select_store_store_not_found_message">Please, send us the store info in the next step</string>
+    <string name= "select_store_no_store_message">No store was found with this search</string>
+
 
 </resources>

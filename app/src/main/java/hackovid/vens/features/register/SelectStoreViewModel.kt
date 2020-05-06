@@ -1,62 +1,60 @@
 package hackovid.vens.features.register
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
-import hackovid.vens.common.data.login.FirebaseResponse
-import hackovid.vens.common.data.login.RemoteDataSource
-import hackovid.vens.common.data.login.User
-import hackovid.vens.common.ui.UiState
-import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.common.utils.combineWith
-import kotlinx.coroutines.launch
 
 class SelectStoreViewModel : ViewModel() {
     val query = MutableLiveData("")
-    private val queryList = query.switchMap { query ->
-        Log.d("asddd","query changed:$query")
-        if (query.isBlank()) MutableLiveData(emptyList<Store>())
-        else MutableLiveData(listOf(
-            Store(id = 1, latitude = 0.0, longitude = 0.0, name = "Shop 1",
-                type = StoreType.FASHION, subtype = StoreSubtype.BAZAAR, address = "address 1"),
-            Store(id = 2, latitude = 0.0, longitude = 0.0, name = "Shop 2",
-                type = StoreType.FASHION, subtype = StoreSubtype.BAZAAR, address = "address 2")
-        )) // query list
+    private val queryList: LiveData<List<Store>> = query.switchMap { query ->
+        val stores = (1..20).map { id ->
+            Store(id = id.toLong(), latitude = 0.0, longitude = 0.0, name = "Shop $id",
+                type = StoreType.FASHION, subtype = StoreSubtype.BAZAAR, address = "address $id")
+        }
+        val list = if (query.isBlank()) emptyList<Store>()
+        else stores // query list
+        val selectedStore = selectedStore.value
+        if (selectedStore != null && !list.contains(selectedStore)) {
+            MutableLiveData(list + selectedStore)
+        } else {
+            MutableLiveData(list)
+        }
     }
-    val showEmptyQuery = query.map { it.isEmpty() }
-    val showNoResults = queryList.combineWith(showEmptyQuery) { stores, emptyQuery ->
-        emptyQuery == false && stores?.isEmpty() == true
+    val showClearQuery = query.map { it.isNotEmpty() }
+    val showNoResults = queryList.combineWith(query) { stores, query ->
+        query?.isNotEmpty() == true && stores?.isEmpty() == true
     }
-    private val selectedStoreId = MutableLiveData<Long?>()
+    val selectedStoreId = MutableLiveData<Long?>(null)
+    val storeNotFoundSelected = selectedStoreId.map { it == NO_STORE_ID }
     val selectedStore = selectedStoreId.combineWith(queryList) { id, stores ->
-        if (id == null || stores == null) null
+        if (id == null || id <= 0 || stores == null) null
         else stores.first { it.id == id }
     }
-    val showStoreInfo = selectedStore.map { it != null }
     val stores = queryList.combineWith(selectedStoreId) { stores, selectedId ->
         stores?.map { SelectableStore(it, it.id == selectedId) }
     }
+    val buttonText = storeNotFoundSelected.map { storeNotFoundSelected ->
+        if (storeNotFoundSelected) R.string.select_store_button_create
+        else R.string.select_store_button_select
+    }
+    val buttonEnabled = selectedStoreId.map { it != null }
 
     fun onStoreClicked(id: Long) {
         selectedStoreId.value = if (id == selectedStoreId.value) null else id
     }
 
-    fun onClearSelection() {
-        selectedStoreId.value = null
+    fun onClearQuery() {
+        query.value = ""
     }
 
-    fun onSelectStoreClicked() {
-
-    }
-
-    fun onCreateStoreClicked() {
-
+    fun onButtonClicked() {
     }
 }
+private const val NO_STORE_ID = -1L

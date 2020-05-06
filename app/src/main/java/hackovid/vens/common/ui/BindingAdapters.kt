@@ -27,6 +27,13 @@ fun setStoreType(view: TextView, store: Store?) {
     }
 }
 
+@BindingAdapter("bind:textId")
+fun setTextId(view: TextView, textId: Int?) {
+    if (textId != null && textId > 0) {
+        view.text = view.resources.getText(textId)
+    }
+}
+
 @BindingAdapter("bind:store_types")
 fun setStoreType(view: TextView, store: ClusterStoreItem?) {
     if (store != null) {

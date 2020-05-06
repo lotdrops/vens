@@ -24,7 +24,7 @@ class StoresUseCase(
         else -> getStoresByName(params)
     }
 
-    fun findStoreByName(name: String = ""): LiveData<List<Store>>  {
+    fun findStoreByName(name: String = ""): LiveData<List<Store>> {
         return storesDataSource.findStoreByName(name)
     }
 

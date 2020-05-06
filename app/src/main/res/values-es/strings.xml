@@ -143,4 +143,12 @@
     <string name= "register_select_consumer">Soy un consumidor</string>
     <string name= "register_select_owner">Soy un comerciante</string>
     <string name= "register_select_store_button">Selecciona tu tienda</string>
+
+    <string name= "select_store_screen_title">Selecciona tu tienda</string>
+    <string name= "select_store_search_title">Busca tu tienda</string>
+    <string name= "select_store_button_select">Selecciona esta tienda</string>
+    <string name= "select_store_button_create">Añade información de la tienda</string>
+    <string name= "select_store_store_not_found">Mi tienda no está en esta lista</string>
+    <string name= "select_store_store_not_found_message">Por favor, envíanos la información de la tienda en el próximo paso</string>
+    <string name= "select_store_no_store_message">No hemos encontrado ninguna tienda con esta búsqueda</string>
 </resources>

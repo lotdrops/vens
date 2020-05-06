@@ -1,9 +1,9 @@
 package hackovid.vens.features.register
 
-import androidx.appcompat.widget.SearchView
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.GenericListAdapter
+import hackovid.vens.common.utils.hideKeyboard
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSelectStoreBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +19,7 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
         this.binding = binding
         binding.viewModel = viewModel
         setupList(binding)
-        setupSearchView(binding.searchView)
+        handleKeyboard()
     }
 
     private fun setupList(binding: FragmentSelectStoreBinding) {
@@ -52,13 +52,7 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
         observe(viewModel.stores) { it.let(adapter::submitList) }
     }
 
-    private fun setupSearchView(searchView: SearchView) {
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?) = false
-            override fun onQueryTextChange(query: String?): Boolean {
-                viewModel.query.value = query
-                return true
-            }
-        })
+    private fun handleKeyboard() {
+        observe(viewModel.selectedStoreId) { hideKeyboard() }
     }
 }

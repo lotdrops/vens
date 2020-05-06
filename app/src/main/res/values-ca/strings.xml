@@ -142,4 +142,12 @@
     <string name= "register_select_owner">Sóc un comerciant</string>
     <string name= "register_select_store_button">Tria la teva botiga</string>
 
+    <string name= "select_store_screen_title">Selecciona la teva botiga</string>
+    <string name= "select_store_search_title">Busca la teva botiga</string>
+    <string name= "select_store_button_select">Selecciona aquesta botiga</string>
+    <string name= "select_store_button_create">Afegeix informació de la botiga</string>
+    <string name= "select_store_store_not_found">La meva botiga no es troba a la llista</string>
+    <string name= "select_store_store_not_found_message">Siusplau, envia\'ns la informació de la botiga al proper pas</string>
+    <string name= "select_store_no_store_message">No hem trobat cap botiga amb aquesta cerca</string>
+
 </resources>
