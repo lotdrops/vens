@@ -1,31 +1,18 @@
 package hackovid.vens.features.register
-
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import hackovid.vens.R
-import hackovid.vens.common.data.Store
-import hackovid.vens.common.data.StoreSubtype
-import hackovid.vens.common.data.StoreType
+import hackovid.vens.common.data.filter.StoresUseCase
 import hackovid.vens.common.utils.combineWith
 
-class SelectStoreViewModel : ViewModel() {
+class SelectStoreViewModel(private val storesUseCase: StoresUseCase) : ViewModel() {
     val query = MutableLiveData("")
-    private val queryList: LiveData<List<Store>> = query.switchMap { query ->
-        val stores = (1..20).map { id ->
-            Store(id = id.toLong(), latitude = 0.0, longitude = 0.0, name = "Shop $id",
-                type = StoreType.FASHION, subtype = StoreSubtype.BAZAAR, address = "address $id")
-        }
-        val list = if (query.isBlank()) emptyList<Store>()
-        else stores // query list
-        val selectedStore = selectedStore.value
-        if (selectedStore != null && !list.contains(selectedStore)) {
-            MutableLiveData(list + selectedStore)
-        } else {
-            MutableLiveData(list)
-        }
+
+    private val queryList = query.switchMap { query ->
+        if (query.isBlank()) MutableLiveData(emptyList())
+        else storesUseCase.findStoreByName(query)
     }
     val showClearQuery = query.map { it.isNotEmpty() }
     val showNoResults = queryList.combineWith(query) { stores, query ->
