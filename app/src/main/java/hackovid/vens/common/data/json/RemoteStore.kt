@@ -37,67 +37,73 @@ fun RemoteStore.toStore() = Store(
 )
 
 fun String.toStoreType() = when (this.toLowerCase()) {
-    "alimentació" -> StoreType.GROCERY
-    "bellesa" -> StoreType.BEAUTY
-    "centre comercial" -> StoreType.MALL
-    "galeria" -> StoreType.GALLERY
-    "llar" -> StoreType.HOME
-    "mercat" -> StoreType.MARKET
-    "moda" -> StoreType.FASHION
-    "oci i cultura" -> StoreType.LEISURE
-    "quotidià" -> StoreType.EVERYDAY
-    "serveis" -> StoreType.SERVICES
-    "altres" -> StoreType.OTHER
+    "Bakery,Pastry and Dairy" -> StoreType.BAKERY_PASTRY_DAIRY
+    "Drinks" -> StoreType.DRINKS
+    "Eggs and birds" -> StoreType.EGGS_AND_BIRDS
+    "Fashion" -> StoreType.FASHION
+    "Fish and seafood" -> StoreType.FISH_AND_SEA_FOOD
+    "Food" -> StoreType.FOOD
+    "Fruit and vegetables" -> StoreType.FASHION
+    "Health" -> StoreType.HEALTH
+    "Home" -> StoreType.HOME
+    "Leisure and culture" -> StoreType.LEISURE_AND_CULTURE
+    "Look" -> StoreType.LOOK
+    "Market" -> StoreType.MARKET
+    "Meat" -> StoreType.MEAT
+    "Others" -> StoreType.OTHER
+    "Prepared dishes" -> StoreType.PREPARED_DISHES
+    "Services" -> StoreType.SERVICES
+    "Shopping centre" -> StoreType.SHOPPING_CENTER
+    "Shopping gallery" -> StoreType.SHOPPING_GALLERY
+    "Supermarket" -> StoreType.SUPERMARKET
     else -> StoreType.OTHER.also {
         Log.d("Parse json", "Type (${this@toStoreType}) not classified!")
     }
 }
 
 fun String.toStoreSubtype() = when (this.toLowerCase()) {
-    "Altres".toLowerCase() -> StoreSubtype.OTHERS
-    "Autoservei / supermercat".toLowerCase() -> StoreSubtype.SELF_SERVICE_SUPERMARKET
-    "Begudes".toLowerCase() -> StoreSubtype.DRINKS
-    "Carn i porc".toLowerCase() -> StoreSubtype.MEAT_PORK
-    "Fruites i verdures".toLowerCase() -> StoreSubtype.FRUITS_VEGGIES
-    "Ous i aus".toLowerCase() -> StoreSubtype.POULTRY
-    "Pa, pastisseria i làctics".toLowerCase() -> StoreSubtype.BREAD_DAIRY
-    "Peix i marisc".toLowerCase() -> StoreSubtype.FISH
-    "Plats preparats (no degustació)".toLowerCase() -> StoreSubtype.READY_MEALS
-    "Basars".toLowerCase() -> StoreSubtype.BAZAAR
-    "Fotografia".toLowerCase() -> StoreSubtype.PHOTO
-    "Souvenirs".toLowerCase() -> StoreSubtype.MEMORIES
-    "Souvenirs i basars".toLowerCase() -> StoreSubtype.MEMORIES_BAZAARS
-    "Òptiques ".toLowerCase() -> StoreSubtype.OPTICS
-    "Òptiques i fotografia".toLowerCase() -> StoreSubtype.OPTICS_PHOTO
-    "Centres d'estètica".toLowerCase() -> StoreSubtype.AESTHETICS
-    "Perruqueries".toLowerCase() -> StoreSubtype.HAIRDRESSER
-    "Centre comercial".toLowerCase() -> StoreSubtype.MALL
-    "Galeria".toLowerCase() -> StoreSubtype.GALLERY
-    "Aparells domèstics".toLowerCase() -> StoreSubtype.APPLIANCES
-    "Floristeries".toLowerCase() -> StoreSubtype.FLOWER
-    "Material equipament llar".toLowerCase() -> StoreSubtype.HOME_EQUIPMENT
-    "Mobles i articles fusta i metall".toLowerCase() -> StoreSubtype.WOODEN_FURNITURE
-    "Parament ferreteria".toLowerCase() -> StoreSubtype.HARDWARE
-    "Segells, monedes i antiguitats".toLowerCase() -> StoreSubtype.STAMPS_SHOP
-    "Mercat".toLowerCase() -> StoreSubtype.MARKET
-    "Calçat i pell".toLowerCase() -> StoreSubtype.SHOE_SHOP
-    "Joieria, rellotgeria i bijuteria".toLowerCase() -> StoreSubtype.JEWELRY_STORE
-    "Merceria".toLowerCase() -> StoreSubtype.HABERDASHERY
-    "Vestir".toLowerCase() -> StoreSubtype.DRESS
-    "Informàtica".toLowerCase() -> StoreSubtype.COMPUTER_STORE
-    "Joguines i esports".toLowerCase() -> StoreSubtype.TOYS_AND_SPORTS
-    "Llibres, diaris i revistes".toLowerCase() -> StoreSubtype.BOOKS
-    "Música".toLowerCase() -> StoreSubtype.MUSIC
-    "Drogueria i perfumeria".toLowerCase() -> StoreSubtype.DRUGSTORE_PERFUMERY
-    "Farmàcies i Parafarmàcies".toLowerCase() -> StoreSubtype.PHARMACY
-    "Herbolaris, dietètica i Nutrició".toLowerCase() -> StoreSubtype.DIETETICS
-    "Tabac i articles fumadors".toLowerCase() -> StoreSubtype.TOBACCO_SHOP
-    "Manteniment, neteja i similars".toLowerCase() -> StoreSubtype.MAINTENANCE_CLEANING
-    "Reparacions (Electrodomèstics i automòbils)".toLowerCase() ->
-        StoreSubtype.CAR_APPLIANCE_REPAIRING
-    "Sanitat i assistència".toLowerCase() -> StoreSubtype.HEALTH
-    "Tintoreries".toLowerCase() -> StoreSubtype.DRY_CLEANER
-    "Veterinaris / Mascotes".toLowerCase() -> StoreSubtype.VET_STORE
+    "Bakery, Pastry and Dairy".toLowerCase() -> StoreSubtype.BAKERY_PASTRY_DAIRY
+    "Drinks".toLowerCase() -> StoreSubtype.DRINKS
+    "Eggs and birds".toLowerCase() -> StoreSubtype.EGGS_AND_BIRDS
+    "Dress up".toLowerCase() -> StoreSubtype.DRESS
+    "Footwear and leather".toLowerCase() -> StoreSubtype.FOOTWEAR_AND_LEATHER
+    "Haberdashery".toLowerCase() -> StoreSubtype.HABERDASHERY
+    "Jewelry and Watches".toLowerCase() -> StoreSubtype.JEWLERY_AND_WATCHES
+    "Repairs".toLowerCase() -> StoreSubtype.REPAIRS
+    "Fish and seafood".toLowerCase() -> StoreSubtype.FISH_AND_SEAFOOD
+    "Others".toLowerCase() -> StoreSubtype.OTHERS
+    "Fruits and vegetables".toLowerCase() -> StoreSubtype.FRUITS_VEGGIES
+    "Health and Care".toLowerCase() -> StoreSubtype.HEALTH_AND_CARE
+    "Herbalists, Dietetics and Nutrition".toLowerCase() -> StoreSubtype.DIETETICS_NUTRITION
+    "Pharmacy and Parapharmacy".toLowerCase() -> StoreSubtype.PHARMACY_AND_PHARAFARMACY
+    "Appliances".toLowerCase() -> StoreSubtype.APPLIANCES
+    "Equipment".toLowerCase() -> StoreSubtype.EQUIPMENT
+    "Flower shop".toLowerCase() -> StoreSubtype.FLOWER_SHOP
+    "Furniture and Articles".toLowerCase() -> StoreSubtype.FURNITURE_AND_ARTICLES
+    "Hardware store".toLowerCase() -> StoreSubtype.HARDWARE
+    "Stamps, Coins and Antiques".toLowerCase() -> StoreSubtype.STAMPS_COINS_ANTIQUES
+    "Bookshop, Newspapers and Magazines".toLowerCase() -> StoreSubtype.BOOKSHOP_NEWSPAPER_MAGAZINES
+    "Computers".toLowerCase() -> StoreSubtype.COMPUTER_STORE
+    "Music".toLowerCase() -> StoreSubtype.MUSIC
+    "Toys and Sports".toLowerCase() -> StoreSubtype.TOYS_AND_SPORTS
+    "Beauty Center".toLowerCase() -> StoreSubtype.BEAUTY_CENTER
+    "Hair Salon".toLowerCase() -> StoreSubtype.HAIR_SALON
+    "Market".toLowerCase() -> StoreSubtype.MARKET
+    "Meat".toLowerCase() -> StoreSubtype.MEAT
+    "Bazaar and Souvenirs".toLowerCase() -> StoreSubtype.BAZAAR_AND_SOUVENIRS
+    "Drugstore and Perfumery".toLowerCase() -> StoreSubtype.DRUGSTORE_PERFUMERY
+    "Optics".toLowerCase() -> StoreSubtype.OPTICS
+    "Photography".toLowerCase() -> StoreSubtype.PHOTO
+    "Tobacco and Smoking Articles".toLowerCase() -> StoreSubtype.TOBACCO_SMOKING_ARTICLES
+    "Prepared dishes".toLowerCase() -> StoreSubtype.PREPARED_DISHES
+    "Dry cleaner".toLowerCase() -> StoreSubtype.DRY_CLEANER
+    "Maintenance, Cleaning, Similar".toLowerCase() -> StoreSubtype.MAINTENANCE_CLEANING
+    "Repairs (Appliances and Cars)".toLowerCase() -> StoreSubtype.CAR_APPLIANCE_REPAIRING
+    "Veterinarian and Pets".toLowerCase() -> StoreSubtype.VETERINARIANS_AND_PETS
+    "Shopping Centre".toLowerCase() -> StoreSubtype.SHOPPING_CENTER
+    "Shopping Gallery".toLowerCase() -> StoreSubtype.SHOPPING_GALLERY
+    "Supermarket".toLowerCase() -> StoreSubtype.SHOPPING_CENTER
+
     else -> StoreSubtype.OTHERS.also {
         Log.d("Parse json", "Subtype (${this@toStoreSubtype}) not classified!")
     }

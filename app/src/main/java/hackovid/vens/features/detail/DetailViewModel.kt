@@ -46,18 +46,18 @@ class DetailViewModel(
 
     private fun StoreType.imageDetail(): Int {
         return when (store.value?.store?.type) {
-            StoreType.GROCERY -> R.drawable.grocery
-            StoreType.BEAUTY -> R.drawable.beauty
-            StoreType.MALL -> R.drawable.mall
-            StoreType.GALLERY -> R.drawable.mall
+            StoreType.SUPERMARKET -> R.drawable.grocery
+            StoreType.LOOK -> R.drawable.beauty
+            StoreType.SHOPPING_CENTER -> R.drawable.mall
+            StoreType.SHOPPING_GALLERY -> R.drawable.mall
             StoreType.HOME -> R.drawable.home
             StoreType.MARKET -> R.drawable.market
             StoreType.FASHION -> R.drawable.fashion
-            StoreType.LEISURE -> R.drawable.leisure
-            StoreType.EVERYDAY -> R.drawable.everyday
+            StoreType.LEISURE_AND_CULTURE -> R.drawable.leisure
             StoreType.SERVICES -> R.drawable.services
             StoreType.OTHER -> R.drawable.other
             null -> R.drawable.grocery
+            else -> R.drawable.grocery
         }
     }
 }
