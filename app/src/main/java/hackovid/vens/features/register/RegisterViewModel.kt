@@ -12,7 +12,10 @@ import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>) : ViewModel() {
+class RegisterViewModel(
+    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val validator: RegisterFieldsValidator
+) : ViewModel() {
 
     val selectStoreEvent = SingleLiveEvent<Unit>()
     val registerEvent = SingleLiveEvent<Unit>()
@@ -49,25 +52,27 @@ class RegisterViewModel(private val dataSource: RemoteDataSource<FirebaseRespons
     }
 
     fun onButtonClick() {
-        validateFields()
+        selectStoreEvent.call()
+        /*validateFields()
         if (!anyErrorRemaining()) {
             if (isShopOwner.value == true) {
                 selectStoreEvent.call()
             } else {
                 registerEvent.call()
             }
-        }
+        }*/
     }
 
     private fun validateFields() {
         nameError.value =
-            if (name.value.isNullOrBlank()) R.string.register_empty_field_error else null
+            if (validator.isValidName(name.value)) R.string.register_empty_field_error else null
         lastNameError.value =
-            if (lastName.value.isNullOrBlank()) R.string.register_empty_field_error else null
+            if (validator.isValidName(lastName.value)) R.string.register_empty_field_error else null
         emailError.value =
-            if (!email.value.isValidEmail()) R.string.register_mail_is_incorrect else null
+            if (!validator.isValidEmail(email.value)) R.string.register_mail_is_incorrect else null
         passwordError.value =
-            if (!password.value.isValidPassword()) R.string.register_password_too_short else null
+            if (!validator.isValidPassword(password.value)) R.string.register_password_too_short
+            else null
         repeatPasswordError.value =
             if (password.value != repeatPassword.value) R.string.register_passwords_do_not_match
             else null
@@ -88,11 +93,4 @@ class RegisterViewModel(private val dataSource: RemoteDataSource<FirebaseRespons
             }
         }
     }
-
-    private fun String?.isValidEmail() =
-        !this.isNullOrBlank() && MAIL_REGEX.toRegex().matches(this)
-
-    private fun String?.isValidPassword() = this != null && this.length >= MIN_PWD_LENGTH
 }
-private const val MAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
-private const val MIN_PWD_LENGTH = 6

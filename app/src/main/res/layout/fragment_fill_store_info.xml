@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="hackovid.vens.common.ui.BindingConverter"/>
+        <variable name="viewModel" type="hackovid.vens.features.register.FillStoreInfoViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="@{viewModel.title}"
+                style="@style/TextAppearance.Custom.Title"
+                tools:text="@string/store_info_edit_title"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_store"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_store_name"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.name}"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <View
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_type"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={BindingConverter.INSTANCE.storeTypePositionToString(context, viewModel.type)}"
+                        style="@style/LoginEditTextStyle"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <View
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_subtype"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    >
+
+                    <AutoCompleteTextView
+                        android:id="@+id/subtype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={BindingConverter.INSTANCE.storeSubtypePositionToString(context, viewModel.subtype)}"
+                        style="@style/LoginEditTextStyle"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                android:onClick="@{view -> viewModel.onLocationClicked()}"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:src="@drawable/ic_place"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_form_location"
+                    >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@string/store_info_location"
+                            android:textColor="@color/textPrimary"
+                            android:layout_marginBottom="8dp"
+                            style="@style/TextAppearance.Custom.Body"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@{viewModel.latitude}"
+                            style="@style/TextAppearance.Custom.Body"
+                            tools:text="1.2345678 N"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@{viewModel.longitude}"
+                            style="@style/TextAppearance.Custom.Body"
+                            tools:text="1.2345678 E"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_location_outline"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/address_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_address"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.address}"
+                        android:maxLines="1"
+                        android:inputType="textPostalAddress"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_whatsapp"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobile_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_mobilephone"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.mobilePhone}"
+                        android:inputType="phone"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_phone_rounded"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phone_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_phone"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.phone}"
+                        android:maxLines="1"
+                        android:inputType="phone"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_email"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_email"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    bind:errorText="@{viewModel.emailError}"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.email}"
+                        android:inputType="textEmailAddress"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_language"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/web_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_web"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/web"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.web}"
+                        android:inputType="textWebEditText"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_schedule"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/schedule_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="@string/store_info_schedule"
+                    app:boxBackgroundColor="@color/light_purple"
+                    app:hintTextColor="@color/textPrimary"
+                    app:errorEnabled="true"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/schedule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.schedule}"
+                        style="@style/LoginEditTextStyle"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:src="@drawable/ic_list_alt"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/store_info_accepts_preorders"
+                    android:checked="@{viewModel.acceptsOrders}"
+                    style="@style/LoginEditTextStyle"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginBottom="8dp"
+                >
+
+                <ImageView
+                    android:layout_width="@dimen/edit_store_info_form_icon_size"
+                    android:layout_height="@dimen/edit_store_info_form_icon_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/edit_store_info_form_icon_marginh"
+                    android:src="@drawable/ic_local_shipping"
+                    />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/store_info_delivers"
+                    android:checked="@{viewModel.delivers}"
+                    style="@style/LoginEditTextStyle"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/register_button"
+                android:background="@drawable/purple_rounded_bg"
+                android:gravity="center"
+                bind:textId="@{viewModel.buttonText}"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:onClick="@{view -> viewModel.onButtonClick()}"
+                bind:cornerRadius="@dimen/login_button_corner_radius"
+                style="@style/LoginActionButton"
+                tools:text="Register"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

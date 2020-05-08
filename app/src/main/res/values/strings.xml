@@ -151,5 +151,22 @@
     <string name= "select_store_store_not_found_message">Please, send us the store info in the next step</string>
     <string name= "select_store_no_store_message">No store was found with this search</string>
 
+    <string name= "store_info_edit_title">Update store information</string>
+    <string name= "store_info_edit_button">Update</string>
+    <string name= "store_info_create_title">Add store</string>
+    <string name= "store_info_create_button">Add</string>
+    <string name= "store_info_store_name">Store name</string>
+    <string name= "store_info_location">Store location</string>
+    <string name= "store_info_type">Type</string>
+    <string name= "store_info_subtype">Subtype</string>
+    <string name= "store_info_phone">Phone</string>
+    <string name= "store_info_mobilephone">Mobile phone</string>
+    <string name= "store_info_address">Address</string>
+    <string name= "store_info_web">Website</string>
+    <string name= "store_info_email">Email</string>
+    <string name= "store_info_schedule">Schedule</string>
+    <string name= "store_info_accepts_preorders">Accepts pre-orders</string>
+    <string name= "store_info_delivers">Has delivery</string>
+
 
 </resources>

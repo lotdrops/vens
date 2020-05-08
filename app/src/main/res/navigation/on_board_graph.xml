@@ -42,7 +42,17 @@
     <fragment
         android:id="@+id/selectStoreFragment"
         android:name="hackovid.vens.features.register.SelectStoreFragment"
-        tools:layout="@layout/fragment_select_store" />
+        tools:layout="@layout/fragment_select_store"
+        >
+        <action
+            android:id="@+id/nav_to_fill_store_info"
+            app:destination="@id/fillStoreInfo"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fillStoreInfo"
+        android:name="hackovid.vens.features.register.FillStoreInfoFragment"
+        tools:layout="@layout/fragment_fill_store_info" />
 
     <fragment
         android:id="@+id/loginFragment"

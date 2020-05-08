@@ -5,10 +5,13 @@ import androidx.lifecycle.map
 import androidx.lifecycle.switchMap
 import hackovid.vens.R
 import hackovid.vens.common.data.filter.StoresUseCase
+import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.common.utils.combineWith
 
 class SelectStoreViewModel(private val storesUseCase: StoresUseCase) : ViewModel() {
     val query = MutableLiveData("")
+
+    val storeSelectedEvent = SingleLiveEvent<Unit>()
 
     private val queryList = query.switchMap { query ->
         if (query.isBlank()) MutableLiveData(emptyList())
@@ -42,6 +45,7 @@ class SelectStoreViewModel(private val storesUseCase: StoresUseCase) : ViewModel
     }
 
     fun onButtonClicked() {
+        storeSelectedEvent.call()
     }
 }
 private const val NO_STORE_ID = -1L

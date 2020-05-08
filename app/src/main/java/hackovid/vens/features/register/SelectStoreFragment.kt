@@ -1,5 +1,6 @@
 package hackovid.vens.features.register
 
+import androidx.navigation.fragment.NavHostFragment
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.GenericListAdapter
@@ -20,6 +21,7 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
         binding.viewModel = viewModel
         setupList(binding)
         handleKeyboard()
+        subscribeToVm()
     }
 
     private fun setupList(binding: FragmentSelectStoreBinding) {
@@ -54,5 +56,13 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
 
     private fun handleKeyboard() {
         observe(viewModel.selectedStoreId) { hideKeyboard() }
+    }
+
+    private fun subscribeToVm() {
+        observe(viewModel.storeSelectedEvent) {
+            NavHostFragment.findNavController(this).navigate(
+                SelectStoreFragmentDirections.navToFillStoreInfo()
+            )
+        }
     }
 }

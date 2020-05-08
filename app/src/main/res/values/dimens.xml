@@ -40,4 +40,7 @@
     <dimen name="login_button_height">56dp</dimen>
     <dimen name="login_button_horizontal_margin">64dp</dimen>
     <dimen name="login_button_corner_radius">28dp</dimen>
+
+    <dimen name="edit_store_info_form_icon_size">24dp</dimen>
+    <dimen name="edit_store_info_form_icon_marginh">12dp</dimen>
 </resources>

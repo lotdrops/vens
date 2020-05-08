@@ -18,7 +18,7 @@ fun <T, K, R> LiveData<T>.combineWith(
 }
 
 fun <T> combineLiveDatas(
-    vararg liveDatas: LiveData<out Any>,
+    vararg liveDatas: LiveData<out Any?>,
     block: () -> T
 ): LiveData<T> {
     val result = MediatorLiveData<T>()
