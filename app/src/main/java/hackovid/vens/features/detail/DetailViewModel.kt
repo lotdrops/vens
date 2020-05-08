@@ -46,18 +46,26 @@ class DetailViewModel(
 
     private fun StoreType.imageDetail(): Int {
         return when (store.value?.store?.type) {
-            StoreType.SUPERMARKET -> R.drawable.grocery
-            StoreType.LOOK -> R.drawable.beauty
-            StoreType.SHOPPING_CENTER -> R.drawable.mall
-            StoreType.SHOPPING_GALLERY -> R.drawable.mall
-            StoreType.HOME -> R.drawable.home
-            StoreType.MARKET -> R.drawable.market
-            StoreType.FASHION -> R.drawable.fashion
-            StoreType.LEISURE_AND_CULTURE -> R.drawable.leisure
-            StoreType.SERVICES -> R.drawable.services
-            StoreType.OTHER -> R.drawable.other
-            null -> R.drawable.grocery
-            else -> R.drawable.grocery
+            StoreType.BAKERY_PASTRY_DAIRY -> R.drawable.bakery
+            StoreType.DRINKS -> R.drawable.drinks
+            StoreType.EGGS_AND_BIRDS-> R.drawable.eggs_birds
+            StoreType.FASHION-> R.drawable.fashion
+            StoreType.FISH_AND_SEA_FOOD-> R.drawable.fish_sea_food
+            StoreType. FOOD-> R.drawable.food
+            StoreType.FRUIT_AND_VEGETABLES-> R.drawable.fruits_and_vegetables
+            StoreType.HEALTH-> R.drawable.health
+            StoreType.HOME-> R.drawable.others
+            StoreType.LEISURE_AND_CULTURE-> R.drawable.leisure_culture
+            StoreType.LOOK-> R.drawable.look
+            StoreType. MARKET-> R.drawable.market
+            StoreType.MEAT-> R.drawable.meat
+            StoreType. OTHER-> R.drawable.others
+            StoreType.PREPARED_DISHES-> R.drawable.prepared_dishes
+            StoreType. SERVICES-> R.drawable.services
+            StoreType.SHOPPING_CENTER-> R.drawable.comercial_gallery
+            StoreType. SHOPPING_GALLERY-> R.drawable.comercial_gallery
+            StoreType. SUPERMARKET-> R.drawable.supermarket
+            else -> R.drawable.others
         }
     }
 }

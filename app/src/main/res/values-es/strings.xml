@@ -47,6 +47,7 @@
     <string name="filter_crowded_unknown">Desconocido</string>
 
     <string name="store_type_grocery">Alimentación</string>
+    <string name="store_type_eggs_and_birds">Huevos y pajaros</string>
     <string name="store_type_beauty">Belleza</string>
     <string name="store_type_mall">Centro comercial</string>
     <string name="store_type_gallery">Galería</string>
@@ -57,7 +58,14 @@
     <string name="store_type_everyday">Cotidiano</string>
     <string name="store_type_services">Servicios</string>
     <string name="store_type_other">Otros</string>
+    <string name="store_type_fruits_veggies">Fruitas y verduras</string>
+    <string name="store_type_prepared_dishes">Platos preparados</string>
+    <string name="store_type_look">Apariencia</string>
+    <string name="store_type_food">Comida</string>
+    <string name="store_type_leisure_and_culture">Ocio y cultura</string>
+    <string name="store_type_bakery_pastry">Panaderías, pastelerías y lácteos</string>
 
+    <string name="store_subtype_eggs_and_birds">Huevos y pájaros</string>
     <string name="store_subtype_others">Otros</string>
     <string name="store_subtype_self_service_supermarket">Autoservicio / supermercado</string>
     <string name="store_subtype_drinks">Bebidas</string>
@@ -101,6 +109,16 @@
     <string name="store_subtype_health">Sanidad y asistencia</string>
     <string name="store_subtype_dry_cleaner">Tintorerias</string>
     <string name="store_subtype_vet_store">Veterinario / Mascotas</string>
+    <string name="store_subtype_prepared_dishes">Platos preparados</string>
+    <string name="store_subtype_equipment">Equipamiento</string>
+    <string name="store_subtype_repairs">Reparaciones</string>
+    <string name="store_subtype_beauty_center">Centro de belleza</string>
+    <string name="store_subtype_furnitures_and_moblement">Mobiliario</string>
+    <string name="store_subtype_stamps_coins_antiques">Sellos, monedas y antigüedades</string>
+    <string name="store_subtype_footwear_leather">Calzado y piel</string>
+    <string name="store_subtype_shopping_center">Centro comercial</string>
+    <string name="store_subtype_shopping_gallery">Galería comercial</string>
+
 
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">Tu comercio de confianza</string>
