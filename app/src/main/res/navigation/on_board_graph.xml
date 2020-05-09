@@ -118,4 +118,9 @@
             app:destination="@id/selectLoginFragment"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/locateStoreOnMap"
+        android:name="hackovid.vens.features.register.LocateStoreOnMapFragment"
+        tools:layout="@layout/fragment_locate_store_on_map"/>
+
 </navigation>
