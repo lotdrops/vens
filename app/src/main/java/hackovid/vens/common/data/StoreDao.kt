@@ -18,6 +18,9 @@ interface StoreDao : BaseDao<Store> {
     @Query("SELECT * FROM Stores WHERE id = :storeId")
     fun getStoreById(storeId: Int): LiveData<Store>
 
+    @Query("SELECT * FROM Stores WHERE id = :storeId")
+    suspend fun getStoreByIdSuspend(storeId: Long): Store
+
     @Query("SELECT * FROM Stores WHERE name LIKE :name")
     fun getStoreByName(name: String): LiveData<List<Store>>
 

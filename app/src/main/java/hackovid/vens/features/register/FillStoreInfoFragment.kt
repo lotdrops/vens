@@ -1,25 +1,42 @@
 package hackovid.vens.features.register
 
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import hackovid.vens.R
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.DEFAULT_LAT
+import hackovid.vens.common.ui.DEFAULT_LONG
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentFillStoreInfoBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
-class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>() {
+class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMapReadyCallback {
     override val layoutRes = R.layout.fragment_fill_store_info
 
-    private val viewModel: FillStoreInfoViewModel by viewModel()
+    private val args: FillStoreInfoFragmentArgs by navArgs()
+    private val viewModel: FillStoreInfoViewModel by viewModel { parametersOf(args.storeId) }
+
+    private var marker: Marker? = null
 
     override fun setupBinding(binding: FragmentFillStoreInfoBinding) {
         binding.viewModel = viewModel
         binding.setupViews()
-        subscribeToVm()
+        subscribeToVm(binding)
+        setupMap()
     }
 
     private fun FragmentFillStoreInfoBinding.setupViews() {
@@ -35,7 +52,7 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>() {
         }
     }
 
-    private fun subscribeToVm() {
+    private fun subscribeToVm(binding: FragmentFillStoreInfoBinding) {
         observe(viewModel.selectStoreEvent) {
             NavHostFragment.findNavController(this).navigate(
                 RegisterFragmentDirections.navToSelectStoreFragment()
@@ -47,6 +64,58 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>() {
         observe(viewModel.registerEvent) {
             // TODO create screen and navigate
         }
+        observe(viewModel.scrollToTopEvent) {
+            binding.scrollview.smoothScrollTo(0, 0)
+        }
+    }
+
+    private fun setupMap() {
+        val mapFragment = SupportMapFragment()
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.add(R.id.mapContainerView, mapFragment)
+            ?.commit()
+        mapFragment.getMapAsync(this)
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.styleMap()
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        val storeLocation = viewModel.location.value
+        val location = storeLocation ?: LatLng(DEFAULT_LAT, DEFAULT_LONG)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        if (storeLocation != null) googleMap.setMarker(storeLocation)
+        observe(viewModel.location) { latLng ->
+            if (latLng != null) googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            googleMap.setMarker(latLng)
+        }
+        googleMap.uiSettings.isMapToolbarEnabled = false
+        googleMap.isMyLocationEnabled = false
+        googleMap.uiSettings.isScrollGesturesEnabled = false
+        googleMap.uiSettings.isMyLocationButtonEnabled = false
+        googleMap.setOnMapClickListener { viewModel.onLocationClicked() }
+    }
+
+    private fun GoogleMap.styleMap() {
+        try {
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.google_map_style))
+        } catch (e: Exception) {
+            Log.e("MapFragment", "Error loading map style: $e")
+        }
+    }
+
+    private fun GoogleMap.setMarker(latLng: LatLng?) {
+        if (latLng == null) {
+            marker?.remove()
+            marker = null
+        } else {
+            if (marker == null) {
+                val markerOptions = MarkerOptions().position(latLng)
+                marker = addMarker(markerOptions)
+            } else {
+                marker!!.position = latLng
+            }
+        }
+
     }
 }
 

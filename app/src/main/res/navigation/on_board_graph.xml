@@ -46,13 +46,23 @@
         >
         <action
             android:id="@+id/nav_to_fill_store_info"
-            app:destination="@id/fillStoreInfo"/>
+            app:destination="@id/fillStoreInfo">
+            <argument
+                android:name="storeId"
+                app:argType="long"
+                app:nullable="false" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/fillStoreInfo"
         android:name="hackovid.vens.features.register.FillStoreInfoFragment"
-        tools:layout="@layout/fragment_fill_store_info" />
+        tools:layout="@layout/fragment_fill_store_info" >
+        <argument
+            android:name="storeId"
+            app:argType="long"
+            app:nullable="false" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"

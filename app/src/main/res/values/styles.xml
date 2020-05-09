@@ -26,9 +26,9 @@
 
     <!--    WIDGETS-->
     <style name="RoundedButton" parent="@style/Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/yellow</item>
+        <item name="backgroundTint">@color/button_bg_color</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/button_text_color</item>
         <item name="android:fontFamily">@font/vag_rounded_std_bold</item>
     </style>
 

@@ -4,6 +4,8 @@
     <color name="black">#000</color>
     <color name="transparent">#0000</color>
     <color name="text_error">#B00020</color>
+    <color name="disabled_button_background">#CCCCCC</color>
+    <color name="disabled_button_text">#909090</color>
 
     <color name="colorPrimary">@color/yellow</color>
     <color name="colorPrimaryDark">#3700B3</color>

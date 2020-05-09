@@ -5,8 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.R
+import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreDao
+import hackovid.vens.common.data.StoreSubtype
+import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.utils.SingleLiveEvent
@@ -14,18 +19,21 @@ import hackovid.vens.common.utils.combineLiveDatas
 import hackovid.vens.common.utils.combineWith
 import hackovid.vens.features.register.RegisterFieldsValidator.Companion.MIN_ADDRESS_LENGTH
 import hackovid.vens.features.register.RegisterFieldsValidator.Companion.MIN_NAME_LENGTH
+import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 class FillStoreInfoViewModel(
-    private val storeId: Long?,
+    private val storeId: Long,
+    private val storeDao: StoreDao,
     private val dataSource: RemoteDataSource<FirebaseResponse>,
     private val validator: RegisterFieldsValidator
 ) : ViewModel() {
-    private val isEditing = storeId != null
+    private val isEditing = storeId > 0L
 
     val selectStoreEvent = SingleLiveEvent<Unit>()
     val selectLocationEvent = SingleLiveEvent<Unit>()
     val registerEvent = SingleLiveEvent<Unit>()
+    val scrollToTopEvent = SingleLiveEvent<Unit>()
 
     val title =
         if (isEditing) R.string.store_info_edit_title
@@ -64,12 +72,26 @@ class FillStoreInfoViewModel(
     val longitude = location.map { it?.longitude?.formatDecimals() ?: "" }
 
     init {
-        name.observeForever {
-            Log.d("asddd", "name:$it")
+        if (isEditing) {
+            viewModelScope.launch {
+                setInitialValues(storeDao.getStoreByIdSuspend(storeId))
+            }
         }
-        address.observeForever {
-            Log.d("asddd", "address:$it")
-        }
+    }
+
+    private fun setInitialValues(store: Store) {
+        name.value = store.name
+        location.value = LatLng(store.latitude, store.longitude)
+        type.value = StoreType.values().indexOf(store.type)
+        subtype.value = StoreSubtype.values().indexOf(store.subtype)
+        address.value = store.address
+        phone.value = store.phone
+        mobilePhone.value = store.mobilePhone
+        web.value = store.web
+        email.value = store.email
+        schedule.value = store.schedule
+        acceptsOrders.value = store.acceptsOrders
+        delivers.value = store.delivers
     }
 
     fun onLocationClicked() {
@@ -78,8 +100,10 @@ class FillStoreInfoViewModel(
 
     fun onButtonClick() {
         validateFields()
-        if (!anyErrorRemaining()) {
-            // TODO
+        if (anyErrorRemaining()) {
+            scrollToTopEvent.call()
+        } else {
+            // TODO nav
         }
     }
 

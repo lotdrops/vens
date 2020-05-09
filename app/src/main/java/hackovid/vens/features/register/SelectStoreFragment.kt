@@ -61,7 +61,9 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
     private fun subscribeToVm() {
         observe(viewModel.storeSelectedEvent) {
             NavHostFragment.findNavController(this).navigate(
-                SelectStoreFragmentDirections.navToFillStoreInfo()
+                SelectStoreFragmentDirections.navToFillStoreInfo(
+                    viewModel.selectedStoreId.value ?: -1L
+                )
             )
         }
     }

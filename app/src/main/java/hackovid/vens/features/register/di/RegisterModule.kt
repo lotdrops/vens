@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val registerModule = module {
     viewModel { RegisterViewModel(get(), get()) }
-    viewModel { FillStoreInfoViewModel(null, get(), get()) }
+    viewModel { (storeId: Long) -> FillStoreInfoViewModel(storeId, get(), get(), get()) }
     viewModel { SelectStoreViewModel(get { parametersOf(true, false) }) }
 
     factory { RegisterFieldsValidator() }
