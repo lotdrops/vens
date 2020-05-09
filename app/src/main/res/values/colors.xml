@@ -3,6 +3,7 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="transparent">#0000</color>
+    <color name="text_error">#B00020</color>
 
     <color name="colorPrimary">@color/yellow</color>
     <color name="colorPrimaryDark">#3700B3</color>

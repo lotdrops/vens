@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <import type="hackovid.vens.common.ui.BindingConverter"/>
         <variable name="viewModel" type="hackovid.vens.features.register.FillStoreInfoViewModel" />
     </data>
@@ -63,6 +64,7 @@
                     app:boxBackgroundColor="@color/light_purple"
                     app:hintTextColor="@color/textPrimary"
                     app:errorEnabled="true"
+                    bind:errorText="@{viewModel.nameError}"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/name"
@@ -70,6 +72,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.name}"
                         android:maxLines="1"
+                        android:maxLength="40"
                         android:inputType="text"
                         style="@style/LoginEditTextStyle"
                         />
@@ -101,6 +104,7 @@
                     app:boxBackgroundColor="@color/light_purple"
                     app:hintTextColor="@color/textPrimary"
                     app:errorEnabled="true"
+                    bind:errorText="@{viewModel.typeError}"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     >
 
@@ -139,6 +143,7 @@
                     app:boxBackgroundColor="@color/light_purple"
                     app:hintTextColor="@color/textPrimary"
                     app:errorEnabled="true"
+                    bind:errorText="@{viewModel.subtypeError}"
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     >
 
@@ -177,7 +182,7 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center_vertical"
                     android:padding="8dp"
-                    android:background="@drawable/bg_form_location"
+                    android:background="@{viewModel.showLocationError ? @drawable/bg_form_location_error : @drawable/bg_form_location}"
                     >
                     <LinearLayout
                         android:layout_width="0dp"
@@ -193,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@string/store_info_location"
-                            android:textColor="@color/textPrimary"
+                            android:textColor="@{viewModel.showLocationError ? @color/text_error : @color/textPrimary}"
                             android:layout_marginBottom="8dp"
                             style="@style/TextAppearance.Custom.Body"
                             />
@@ -203,6 +208,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@{viewModel.latitude}"
+                            android:visibility="@{viewModel.location != null ? View.VISIBLE : View.GONE}"
                             style="@style/TextAppearance.Custom.Body"
                             tools:text="1.2345678 N"
                             />
@@ -212,8 +218,32 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
                             android:text="@{viewModel.longitude}"
+                            android:visibility="@{viewModel.location != null ? View.VISIBLE : View.GONE}"
                             style="@style/TextAppearance.Custom.Body"
                             tools:text="1.2345678 E"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@string/store_info_location_not_set"
+                            android:visibility="@{viewModel.showLocationNotSet ? View.VISIBLE : View.GONE}"
+                            android:minLines="2"
+                            android:maxLines="2"
+                            style="@style/TextAppearance.Custom.Body"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="@string/store_info_location_error"
+                            android:textColor="@color/text_error"
+                            android:visibility="@{viewModel.showLocationError ? View.VISIBLE : View.GONE}"
+                            android:minLines="2"
+                            android:maxLines="2"
+                            style="@style/TextAppearance.Custom.Body"
                             />
 
                     </LinearLayout>
@@ -247,6 +277,7 @@
                     app:boxBackgroundColor="@color/light_purple"
                     app:hintTextColor="@color/textPrimary"
                     app:errorEnabled="true"
+                    bind:errorText="@{viewModel.addressError}"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -255,6 +286,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.address}"
                         android:maxLines="1"
+                        android:maxLength="60"
                         android:inputType="textPostalAddress"
                         style="@style/LoginEditTextStyle"
                         />
@@ -297,6 +329,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.mobilePhone}"
                         android:inputType="phone"
+                        android:maxLength="15"
                         style="@style/LoginEditTextStyle"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -338,6 +371,7 @@
                         android:text="@={viewModel.phone}"
                         android:maxLines="1"
                         android:inputType="phone"
+                        android:maxLength="15"
                         style="@style/LoginEditTextStyle"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -370,7 +404,6 @@
                     app:boxBackgroundColor="@color/light_purple"
                     app:hintTextColor="@color/textPrimary"
                     app:errorEnabled="true"
-                    bind:errorText="@{viewModel.emailError}"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -379,6 +412,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.email}"
                         android:inputType="textEmailAddress"
+                        android:maxLength="50"
                         style="@style/LoginEditTextStyle"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -419,6 +453,7 @@
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.web}"
                         android:inputType="textWebEditText"
+                        android:maxLength="100"
                         style="@style/LoginEditTextStyle"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -458,6 +493,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@={viewModel.schedule}"
+                        android:maxLength="100"
+                        android:maxLines="10"
+                        android:inputType="none"
                         style="@style/LoginEditTextStyle"
                         />
                 </com.google.android.material.textfield.TextInputLayout>

@@ -151,4 +151,28 @@
     <string name= "select_store_store_not_found">Mi tienda no está en esta lista</string>
     <string name= "select_store_store_not_found_message">Por favor, envíanos la información de la tienda en el próximo paso</string>
     <string name= "select_store_no_store_message">No hemos encontrado ninguna tienda con esta búsqueda</string>
+
+    <string name= "store_info_edit_title">Actualiza la información del comercio</string>
+    <string name= "store_info_edit_button">Actualiza</string>
+    <string name= "store_info_create_title">Añade el comercio</string>
+    <string name= "store_info_create_button">Añade</string>
+    <string name= "store_info_store_name">Nombre del comercio</string>
+    <string name= "store_info_location">Localización del comercio</string>
+    <string name= "store_info_type">Tipo</string>
+    <string name= "store_info_subtype">Subtipo</string>
+    <string name= "store_info_phone">Teléfono</string>
+    <string name= "store_info_mobilephone">Número de móvil</string>
+    <string name= "store_info_address">Dirección</string>
+    <string name= "store_info_web">Web</string>
+    <string name= "store_info_email">Email</string>
+    <string name= "store_info_schedule">Horario</string>
+    <string name= "store_info_accepts_preorders">Acepta pedidos</string>
+    <string name= "store_info_delivers">Reparte pedidos</string>
+    <string name= "store_info_location_not_set">Pulsa para seleccionar un valor</string>
+    <string name= "store_info_location_error">La localización es necesaria</string>
+
+    <string name= "location_latitude_north">l: %.7d N</string>
+    <string name= "location_latitude_south">l: %.7d S</string>
+    <string name= "location_longitude_east">L: %.7d E</string>
+    <string name= "location_longitude_west">L: %.7d O</string>
 </resources>

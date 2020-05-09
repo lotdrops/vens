@@ -167,6 +167,13 @@
     <string name= "store_info_schedule">Schedule</string>
     <string name= "store_info_accepts_preorders">Accepts pre-orders</string>
     <string name= "store_info_delivers">Has delivery</string>
+    <string name= "store_info_location_not_set">Tap to set a value</string>
+    <string name= "store_info_location_error">Location is needed</string>
+
+    <string name= "location_latitude_north">l: %.7d N</string>
+    <string name= "location_latitude_south">l: %.7d S</string>
+    <string name= "location_longitude_east">L: %.7d E</string>
+    <string name= "location_longitude_west">L: %.7d W</string>
 
 
 </resources>

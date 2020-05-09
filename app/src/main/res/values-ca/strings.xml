@@ -150,4 +150,28 @@
     <string name= "select_store_store_not_found_message">Siusplau, envia\'ns la informació de la botiga al proper pas</string>
     <string name= "select_store_no_store_message">No hem trobat cap botiga amb aquesta cerca</string>
 
+    <string name= "store_info_edit_title">Actualitza la informació del comerç</string>
+    <string name= "store_info_edit_button">Actualitza</string>
+    <string name= "store_info_create_title">Afegeix el comerç</string>
+    <string name= "store_info_create_button">Afegeix</string>
+    <string name= "store_info_store_name">Nom del comerç</string>
+    <string name= "store_info_location">Localització del comerç</string>
+    <string name= "store_info_type">Tipus</string>
+    <string name= "store_info_subtype">Subtipus</string>
+    <string name= "store_info_phone">Telèfon</string>
+    <string name= "store_info_mobilephone">Número de mòbil</string>
+    <string name= "store_info_address">Adreça</string>
+    <string name= "store_info_web">Web</string>
+    <string name= "store_info_email">Email</string>
+    <string name= "store_info_schedule">Horari</string>
+    <string name= "store_info_accepts_preorders">Accepta comandes</string>
+    <string name= "store_info_delivers">Reparteix comandes</string>
+    <string name= "store_info_location_not_set">Prem per seleccionar un valor</string>
+    <string name= "store_info_location_error">La localització és necessària</string>
+
+    <string name= "location_latitude_north">l: %.7d N</string>
+    <string name= "location_latitude_south">l: %.7d S</string>
+    <string name= "location_longitude_east">L: %.7d E</string>
+    <string name= "location_longitude_west">L: %.7d O</string>
+
 </resources>
