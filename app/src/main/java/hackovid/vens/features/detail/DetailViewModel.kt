@@ -51,20 +51,20 @@ class DetailViewModel(
             StoreType.EGGS_AND_BIRDS-> R.drawable.eggs_birds
             StoreType.FASHION-> R.drawable.fashion
             StoreType.FISH_AND_SEA_FOOD-> R.drawable.fish_sea_food
-            StoreType. FOOD-> R.drawable.food
+            StoreType.FOOD-> R.drawable.food
             StoreType.FRUIT_AND_VEGETABLES-> R.drawable.fruits_and_vegetables
             StoreType.HEALTH-> R.drawable.health
-            StoreType.HOME-> R.drawable.others
+            StoreType.HOME-> R.drawable.home
             StoreType.LEISURE_AND_CULTURE-> R.drawable.leisure_culture
             StoreType.LOOK-> R.drawable.look
-            StoreType. MARKET-> R.drawable.market
+            StoreType.MARKET-> R.drawable.market
             StoreType.MEAT-> R.drawable.meat
-            StoreType. OTHER-> R.drawable.others
+            StoreType.OTHER-> R.drawable.others
             StoreType.PREPARED_DISHES-> R.drawable.prepared_dishes
-            StoreType. SERVICES-> R.drawable.services
+            StoreType.SERVICES-> R.drawable.services
             StoreType.SHOPPING_CENTER-> R.drawable.comercial_gallery
-            StoreType. SHOPPING_GALLERY-> R.drawable.comercial_gallery
-            StoreType. SUPERMARKET-> R.drawable.supermarket
+            StoreType.SHOPPING_GALLERY-> R.drawable.comercial_gallery
+            StoreType.SUPERMARKET-> R.drawable.supermarket
             else -> R.drawable.others
         }
     }

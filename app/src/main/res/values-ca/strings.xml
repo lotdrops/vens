@@ -60,11 +60,10 @@
     <string name="store_type_other">Atres</string>
     <string name="store_type_fruits_veggies">Fruites i verdures</string>
     <string name="store_type_prepared_dishes">Plats preparats</string>
-    <string name="store_type_look">Aparença</string>
+    <string name="store_type_look">Estètica</string>
     <string name="store_type_food">Menjar</string>
     <string name="store_type_leisure_and_culture">Oci i cultura</string>
     <string name="store_type_bakery_pastry">Forns de pa, pastisseries i lactics</string>
-
 
     <string name="store_subtype_eggs_and_birds">Ous i ocells</string>
     <string name="store_subtype_others">Altres</string>
@@ -119,8 +118,6 @@
     <string name="store_subtype_footwear_leather">Calçat i pell</string>
     <string name="store_subtype_shopping_center">Centre comercial</string>
     <string name="store_subtype_shopping_gallery">Galeria comercial</string>
-
-
 
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">El teu comerç de confiança</string>

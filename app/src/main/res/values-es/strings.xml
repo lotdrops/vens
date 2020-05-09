@@ -60,7 +60,7 @@
     <string name="store_type_other">Otros</string>
     <string name="store_type_fruits_veggies">Fruitas y verduras</string>
     <string name="store_type_prepared_dishes">Platos preparados</string>
-    <string name="store_type_look">Apariencia</string>
+    <string name="store_type_look">Estética</string>
     <string name="store_type_food">Comida</string>
     <string name="store_type_leisure_and_culture">Ocio y cultura</string>
     <string name="store_type_bakery_pastry">Panaderías, pastelerías y lácteos</string>
@@ -118,7 +118,6 @@
     <string name="store_subtype_footwear_leather">Calzado y piel</string>
     <string name="store_subtype_shopping_center">Centro comercial</string>
     <string name="store_subtype_shopping_gallery">Galería comercial</string>
-
 
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">Tu comercio de confianza</string>
