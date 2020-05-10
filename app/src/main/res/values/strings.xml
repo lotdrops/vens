@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Vens?</string>
+    <string name="app_new_version_available">New version available</string>
+    <string name="app_new_version_update_please">Please, update app to new version to continue using it</string>
+    <string name="app_new_version_update">Update</string>
     <string name="title_map">Map</string>
     <string name="title_list">List</string>
     <string name="title_favourites">Favourites</string>

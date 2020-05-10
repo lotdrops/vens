@@ -1,27 +1,28 @@
 package hackovid.vens.common.ui
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hackovid.vens.BuildConfig
 import hackovid.vens.R
 import hackovid.vens.common.utils.getImmediateLocation
 import hackovid.vens.common.utils.hasLocationPermission
 import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.requestLocationPermission
-import java.util.concurrent.TimeUnit
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
+
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: SharedViewModel by viewModel()
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (hasLocationPermission()) startLocationUpdates()
+        checkMinAppVersion()
     }
 
     override fun onStop() {
@@ -124,6 +126,23 @@ class MainActivity : AppCompatActivity() {
     private fun stopLocationUpdates() {
         fusedLocationClient?.removeLocationUpdates(locationCallback)
     }
+
+    private fun checkMinAppVersion() {
+       if(viewModel.minForcedVersion > BuildConfig.VERSION_CODE) {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.app_new_version_available)
+            .setMessage(R.string.app_new_version_update_please)
+            .setPositiveButton(R.string.app_new_version_update) { _ , _ -> redirectStore(viewModel.updateStoreUrl) }
+            dialog.show()
+       }
+    }
+
+    private fun redirectStore(updateUrl: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl))
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
 }
 
 private const val FIRST_TIME_LOCATION = 100

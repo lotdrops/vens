@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.common.data.LocalStorage
 import hackovid.vens.common.data.config.FirebaseRemoteConfigController
-import hackovid.vens.common.data.filter.FilterParams
+import hackovid.vens.common.data.config.RemoteConfig
 import hackovid.vens.common.data.updatedata.UpdateDataUseCase
 import hackovid.vens.common.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,8 @@ import kotlinx.coroutines.launch
 class SharedViewModel(
     localStorage: LocalStorage,
     updateDataUseCase: UpdateDataUseCase,
-    firebaseRemoteConfigController: FirebaseRemoteConfigController
+    firebaseRemoteConfigController: FirebaseRemoteConfigController,
+    remoteConfig: RemoteConfig
 ) : ViewModel() {
     private val _location: MutableLiveData<LatLng?> = MutableLiveData()
     val location: LiveData<LatLng?> get() = _location
@@ -29,6 +30,9 @@ class SharedViewModel(
     val onLocationAccepted = SingleLiveEvent<Unit>()
 
     val filter = MutableLiveData(localStorage.getFilterParams())
+
+    val minForcedVersion = remoteConfig.minForcedVersion
+    val updateStoreUrl = "" //TODO add real url playstore
 
     val onObserverActive: LiveData<Unit> = object : LiveData<Unit>(Unit) {
         override fun onActive() {

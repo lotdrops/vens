@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Vens?</string>
+    <string name="app_new_version_available">Hay una nueva versión disponible</string>
+    <string name="app_new_version_update_please">Porfavor, actualiza la aplicación para poder seguir utilizándola</string>
+    <string name="app_new_version_update">Actualizar</string>
     <string name="title_map">Mapa</string>
     <string name="title_list">Lista</string>
     <string name="title_favourites">Favoritas</string>

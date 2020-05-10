@@ -8,4 +8,8 @@
         <key>register_new_user_enabled</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>min_forced_version</key>
+        <value>1</value>
+    </entry>
 </defaultsMap>
