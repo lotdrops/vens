@@ -120,6 +120,8 @@
     <string name= "login_write_your_user">Email: </string>
     <string name= "login_write_your_password">Contraseña: </string>
     <string name= "login_message">Login</string>
+    <string name= "login_forgot_password">Has oblidat la contrasenya</string>
+    <string name= "login_restore_my_password">Recuperar la meva contrasenya</string>
     <string name="login_google_button">Login amb Google</string>
     <string name= "skip_login_button">Saltar-se el login</string>
     <string name= "skip_login_message">No tindràs accés a algunes funcionalitats</string>
@@ -143,6 +145,9 @@
     <string name= "register_select_consumer">Sóc un consumidor</string>
     <string name= "register_select_owner">Sóc un comerciant</string>
     <string name= "register_select_store_button">Tria la teva botiga</string>
+    <string name= "register_user_mail_sended">T\'acabem d\'enviar el correu de verificació del teu usuari, mira la teva safata de entrada del teu correu
+                                              electrónic per a poder accedir</string>
+    <string name= "register_user_mail_not_verified">Mira la teva safata de entrada per verificar el teu usuari</string>
 
     <string name= "select_store_screen_title">Selecciona la teva botiga</string>
     <string name= "select_store_search_title">Busca la teva botiga</string>

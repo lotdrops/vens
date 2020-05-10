@@ -54,6 +54,11 @@
     </fragment>
 
     <fragment
+            android:id="@+id/forgotPasswordFragment"
+            android:name="hackovid.vens.features.login.ForgotPasswordFragment"
+            tools:layout="@layout/fragment_forgot_password"/>
+
+    <fragment
         android:id="@+id/registerFragment"
         android:name="hackovid.vens.features.register.RegisterFragment"
         tools:layout="@layout/fragment_register"
@@ -131,6 +136,9 @@
         android:name="hackovid.vens.features.login.LoginFragment"
         tools:layout="@layout/fragment_login"
         >
+        <action
+            android:id="@+id/nav_to_forgot_password"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
 
     <fragment

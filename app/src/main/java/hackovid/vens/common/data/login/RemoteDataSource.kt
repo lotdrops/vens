@@ -7,11 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
+
 interface RemoteDataSource<T> {
     suspend fun login(user: User): T
     suspend fun loginWithGoogle(credentials: AuthCredential): T
     fun isUserAlreadyLoged(): T
     suspend fun registerUser(user: User): T
+    suspend fun forgotPassword(email: String): T
 }
 
 class FirebaseDataSource(
@@ -22,7 +24,11 @@ class FirebaseDataSource(
     override suspend fun login(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
         try {
             auth.signInWithEmailAndPassword(user.email, user.password).await()
-            FirebaseResponse(success = true)
+            if(auth.currentUser?.isEmailVerified!!) {
+                FirebaseResponse(success = true)
+            } else {
+                FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(UserNotVerifiedFirebaseException()))
+            }
         } catch (e: FirebaseException) {
             FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
         }
@@ -36,6 +42,7 @@ class FirebaseDataSource(
     override suspend fun registerUser(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
         try {
             auth.createUserWithEmailAndPassword(user.email, user.password).await()
+            auth.currentUser?.sendEmailVerification()?.await()
             FirebaseResponse(success = true)
         } catch (e: FirebaseException) {
             FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
@@ -51,4 +58,14 @@ class FirebaseDataSource(
                 FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
             }
         }
+
+    override suspend fun forgotPassword(email: String): FirebaseResponse = withContext(Dispatchers.IO) {
+        try {
+            auth.sendPasswordResetEmail(email).await()
+            FirebaseResponse(success = true)
+        } catch (e: FirebaseException) {
+            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
+        }
+    }
+
 }

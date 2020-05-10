@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import hackovid.vens.R
 import hackovid.vens.common.ui.UiState
 
+const val errorDefaultMessage = "Default message error firebase"
 class FirebaseErrorMapper {
 
     fun mapToUiError(firebaseException: FirebaseException): UiState.Error {
@@ -32,9 +33,14 @@ class FirebaseErrorMapper {
             is FirebaseAuthUserCollisionException -> {
                 return UiState.Error(R.string.register_user_already_exist)
             }
+            is UserNotVerifiedFirebaseException -> {
+                return UiState.Error(R.string.register_user_mail_not_verified)
+            }
             else -> {
                 return UiState.Error(R.string.login_generic_error)
             }
         }
     }
+
 }
+class UserNotVerifiedFirebaseException : FirebaseException(errorDefaultMessage)

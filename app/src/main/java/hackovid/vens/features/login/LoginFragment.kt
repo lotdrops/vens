@@ -3,6 +3,7 @@ package hackovid.vens.features.login
 import android.content.Intent
 import android.view.View
 import android.view.WindowManager
+import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
@@ -11,6 +12,7 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentLoginBinding
+import hackovid.vens.features.onboarding.ui.SplashFragmentDirections
 import kotlinx.android.synthetic.main.fragment_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,6 +39,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun setupBinding(binding: FragmentLoginBinding) {
         this.binding = binding
         this.binding.viewModel = viewModel
+        binding.forgotPassword.setOnClickListener { forgotPassword() }
         setupLogin()
         observeViewModels()
     }
@@ -76,6 +79,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun navigateToMain() {
         startActivity(Intent(activity, MainActivity::class.java))
         activity?.finish()
+    }
+
+    private fun forgotPassword() {
+        NavHostFragment.findNavController(this).navigate(
+            LoginFragmentDirections.navToForgotPassword()
+        )
     }
 
     private fun validateLoginFields() = when {

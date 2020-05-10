@@ -122,6 +122,8 @@
     <string name= "login_write_your_user">Nombre: </string>
     <string name= "login_write_your_password">Contrasenya: </string>
     <string name= "login_message">Login</string>
+    <string name= "login_forgot_password">Has olvidado la contraseña</string>
+    <string name= "login_restore_my_password">Recuperar contraseña</string>
     <string name= "login_google_button">Login con Google</string>
     <string name= "skip_login_button">Saltarse el login</string>
     <string name= "skip_login_message">No tindràs accés a algunes funcionalitats</string>
@@ -141,6 +143,9 @@
     <string name= "register_surname">Apellido</string>
     <string name= "register_email">Correo electrónico</string>
     <string name= "register_password">Contraseña</string>
+    <string name= "register_user_mail_sended">Te acabamos de enviar el mail de verificación de tu usuario, mira la bandeja de tu correo electrónico para poder acceder</string>
+    <string name= "register_user_mail_not_verified">Mira tu bandeja de entrada para verificar tu usuario</string>
+
     <string name= "register_repeat_password">Repite la contraseña</string>
     <string name= "register_select_consumer">Soy un consumidor</string>
     <string name= "register_select_owner">Soy un comerciante</string>
