@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-
 interface RemoteDataSource<T> {
     suspend fun login(user: User): T
     suspend fun loginWithGoogle(credentials: AuthCredential): T
@@ -24,7 +23,7 @@ class FirebaseDataSource(
     override suspend fun login(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
         try {
             auth.signInWithEmailAndPassword(user.email, user.password).await()
-            if(auth.currentUser?.isEmailVerified!!) {
+            if (auth.currentUser?.isEmailVerified!!) {
                 FirebaseResponse(success = true)
             } else {
                 FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(UserNotVerifiedFirebaseException()))
@@ -67,5 +66,4 @@ class FirebaseDataSource(
             FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
         }
     }
-
 }

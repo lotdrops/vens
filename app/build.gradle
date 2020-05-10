@@ -43,6 +43,8 @@ android {
     buildTypes {
         debug {
             debuggable true
+
+            buildConfigField "int", "TOS_VERSION", "1"
         }
         release {
             minifyEnabled true
@@ -50,6 +52,8 @@ android {
                 signingConfig signingConfigs.release
             }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "int", "TOS_VERSION", "1"
         }
     }
 

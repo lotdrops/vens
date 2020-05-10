@@ -1,10 +1,7 @@
 package hackovid.vens.features.login
 
-import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
-import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentForgotPasswordBinding
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
@@ -38,7 +35,4 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>() {
             }
         }*/
     }
-
-
-
 }

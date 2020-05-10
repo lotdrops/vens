@@ -3,7 +3,6 @@ package hackovid.vens.features.login
 import android.app.Activity
 import android.content.Intent
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -23,7 +22,7 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSelectLoginBinding
-import kotlinx.android.synthetic.main.fragment_select_login.*
+import kotlinx.android.synthetic.main.fragment_select_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
@@ -137,7 +136,6 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
     private fun handleSignInResult(singIn: Task<GoogleSignInAccount>) {
         try {
             val account = singIn.getResult(ApiException::class.java)
-            Log.d("asddd", "Google Login, email:${account?.email}, dispName:${account?.displayName}, famName:${account?.familyName}, givenName:${account?.givenName}, account:$account")
             if (account != null) {
                 findNavController(this).navigate(
                     SelectLoginFragmentDirections.navToRegisterFragment(

@@ -12,7 +12,6 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentLoginBinding
-import hackovid.vens.features.onboarding.ui.SplashFragmentDirections
 import kotlinx.android.synthetic.main.fragment_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

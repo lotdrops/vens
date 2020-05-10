@@ -15,4 +15,6 @@ interface LocalStorage {
     fun setLocationPermissionRequested()
     fun getLastUpdateTimestamp(): Long
     fun setLastUpdateTimestamp(timestamp: Long)
+    fun getTosAcceptedVersion(): Int
+    fun setTosAcceptedVersion(version: Int)
 }

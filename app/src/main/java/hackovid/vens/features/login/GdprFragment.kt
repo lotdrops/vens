@@ -16,7 +16,19 @@ class GdprFragment : BaseFragment<FragmentGdprBinding>() {
     override fun setupBinding(binding: FragmentGdprBinding) {
         this.binding = binding
         binding.viewModel = viewModel
+        binding.setupViews()
         subscribeVm()
+    }
+
+    private fun FragmentGdprBinding.setupViews() {
+        termsOfUse.setOnClickListener {
+            findNavController(this@GdprFragment).navigate(GdprFragmentDirections.navToTermsOfUse())
+        }
+        privacyDetails.setOnClickListener {
+            findNavController(this@GdprFragment).navigate(
+                GdprFragmentDirections.navToPrivacyPolicy()
+            )
+        }
     }
 
     private fun subscribeVm() {
@@ -24,5 +36,4 @@ class GdprFragment : BaseFragment<FragmentGdprBinding>() {
             findNavController(this).navigate(GdprFragmentDirections.navToLoginFragment())
         }
     }
-
 }

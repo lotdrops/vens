@@ -158,6 +158,24 @@
         <action
             android:id="@+id/nav_to_login_fragment"
             app:destination="@id/selectLoginFragment"/>
+        <action
+            android:id="@+id/nav_to_terms_of_use"
+            app:destination="@id/termsOfUseFragment"/>
+        <action
+            android:id="@+id/nav_to_privacy_policy"
+            app:destination="@id/privacyPolicyFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/termsOfUseFragment"
+        android:name="hackovid.vens.features.login.TermsOfUseFragment"
+        tools:layout="@layout/fragment_terms_of_use"
+        />
+
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="hackovid.vens.features.login.PrivacyPolicyFragment"
+        tools:layout="@layout/fragment_privacy_policy"
+        />
 
 </navigation>

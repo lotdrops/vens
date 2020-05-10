@@ -130,6 +130,20 @@
     <string name= "select_login_title">Join Vens</string>
     <string name= "select_login_account_selected">Selected %s, switch?</string>
 
+    <string name= "gdpr_screen_terms_title">Terms and conditions</string>
+    <string name= "gdpr_screen_terms_description">By accepting you agree with the <b>terms of use of the application</b></string>
+    <string name= "gdpr_screen_privacy_title">Privacy policy</string>
+    <string name= "gdpr_screen_privacy_description">We care about your privacy. Before using your data for other reasons than the following, we will ask for your consent.
+        \nRegarding your personal information, your name will be shared when you contact a shop owner, so that they know who you are.
+        \nIf you are a shop owner, the information of the store that you provide will be shown to users to provide the most reliable information.
+        Finally, we will also collect anonymous information about how you use the application to improve this application.
+    </string>
+    <string name= "gdpr_screen_privacy_details">Here you can <b>see the details</b></string>
+    <string name= "gdpr_screen_before_accept">This button accepts both the terms and conditions and the privacy policy.</string>
+    <string name= "gdpr_screen_accept_button">Accept</string>
+    <string name= "tos_screen_content">Lorem ipsum terms of use</string>
+    <string name= "privacy_screen_content">Lorem ipsum privacy policy</string>
+
     <string name= "register_generic_error">An error occurred, please try again</string>
     <string name= "register_password_too_short">Password must have at least 6 characters</string>
     <string name= "register_passwords_do_not_match">Passwords must match</string>

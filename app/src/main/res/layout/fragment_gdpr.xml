@@ -18,15 +18,83 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/gdpr_screen_terms_title"
+            style="@style/TextAppearance.Custom.Title"
+            />
+
+        <TextView
+            android:id="@+id/terms_of_use"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingVertical="16dp"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:text="@string/gdpr_screen_terms_description"
+            style="@style/TextAppearance.Custom.Body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/gdpr_screen_privacy_title"
+            style="@style/TextAppearance.Custom.Title"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:text="@string/gdpr_screen_privacy_description"
+            style="@style/TextAppearance.Custom.Body"
+            />
+
+        <TextView
+            android:id="@+id/privacy_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingVertical="16dp"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:text="@string/gdpr_screen_privacy_details"
+            style="@style/TextAppearance.Custom.Body"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingVertical="16dp"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:text="@string/gdpr_screen_before_accept"
+            style="@style/TextAppearance.Custom.Body"
+            />
 
         <Button
             android:id="@+id/login_button"
             android:background="@drawable/purple_rounded_bg"
             android:gravity="center"
-            android:text="@string/login_message"
+            android:text="@string/gdpr_screen_accept_button"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             bind:cornerRadius="@dimen/login_button_corner_radius"
             android:onClick="@{() -> viewModel.onAcceptClicked()}"
             style="@style/LoginActionButton"

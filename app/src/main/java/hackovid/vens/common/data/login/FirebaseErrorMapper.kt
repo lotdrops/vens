@@ -41,6 +41,5 @@ class FirebaseErrorMapper {
             }
         }
     }
-
 }
 class UserNotVerifiedFirebaseException : FirebaseException(errorDefaultMessage)

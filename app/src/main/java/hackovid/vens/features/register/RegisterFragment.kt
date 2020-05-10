@@ -49,7 +49,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 }
                 is UiState.Error -> {
                     this.binding.loadingView.visibility = View.GONE
-                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show()
                 }
                 UiState.Loading -> {
                     this.binding.loadingView.visibility = View.VISIBLE

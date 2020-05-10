@@ -19,7 +19,6 @@ import hackovid.vens.databinding.FragmentLocateStoreOnMapBinding
 import hackovid.vens.features.onboarding.di.OnBoardingSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class LocateStoreOnMapFragment : BaseFragment<FragmentLocateStoreOnMapBinding>(),
     OnMapReadyCallback, GoogleMap.OnMapClickListener {
     override val layoutRes = R.layout.fragment_locate_store_on_map

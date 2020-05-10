@@ -44,8 +44,18 @@ class SharedPreferencesPersistence(val context: Context) : LocalStorage {
             .edit()
             .putLong(LAST_UPDATE_TIMESTAMP, timestamp)
             .apply()
+
+    override fun getTosAcceptedVersion() =
+        context.getSharedPreferences(TOS_VERSION, Context.MODE_PRIVATE).getInt(TOS_VERSION, -1)
+
+    override fun setTosAcceptedVersion(version: Int) =
+        context.getSharedPreferences(TOS_VERSION, Context.MODE_PRIVATE)
+            .edit()
+            .putInt(TOS_VERSION, version)
+            .apply()
 }
 private const val ON_BOARDING_SHOULD_BE_DISPLAYED = "on_boarding_should_be_displayed"
 private const val DATABASE_LOADED_IDENTIFIER = "database_loaded_identifier"
 private const val LOCATION_PERMISSION_REQUESTED = "location_permission_requested"
 private const val LAST_UPDATE_TIMESTAMP = "last_update_timestamp"
+private const val TOS_VERSION = "tos_version"

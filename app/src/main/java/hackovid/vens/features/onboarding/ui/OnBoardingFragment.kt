@@ -6,7 +6,6 @@ import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentOnboardingBinding
-import hackovid.vens.features.login.SelectLoginFragmentDirections
 import hackovid.vens.features.onboarding.OnboardingModel
 import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
 import org.koin.android.ext.android.inject
