@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="hackovid.vens.features.register.LocateStoreOnMapViewModel" />
+        <variable
+                name="fragment"
+                type="hackovid.vens.features.register.LocateStoreOnMapFragment" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/mapContainerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:tag="locateOnStoreMapFragment"
+                />
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/mapSelectStoreLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="36dp"
+                android:layout_marginVertical="8dp"
+                android:text="@string/store_info_create_title"
+                android:layout_gravity="bottom|center"
+                bind:cornerRadius="@dimen/button_corner_radius"
+                android:onClick="@{()->fragment.onButtonClick()}"
+                android:visibility="@{viewModel.enableButton ? View.VISIBLE : View.GONE}"
+                style="@style/RoundedButton"
+                />
+
+    </FrameLayout>
+</layout>

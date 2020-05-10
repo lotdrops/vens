@@ -102,6 +102,25 @@
             android:name="storeId"
             app:argType="long"
             app:nullable="false" />
+        <action
+            android:id="@+id/nav_to_locate_store_on_map"
+            app:destination="@id/locateStoreOnMap"
+                >
+            <argument
+                android:name="location"
+                app:argType="com.google.android.gms.maps.model.LatLng"
+                app:nullable="true" />
+        </action>
+    </fragment>
+
+    <fragment
+            android:id="@+id/locateStoreOnMap"
+            android:name="hackovid.vens.features.register.LocateStoreOnMapFragment"
+            tools:layout="@layout/fragment_locate_store_on_map">
+        <argument
+            android:name="location"
+            app:argType="com.google.android.gms.maps.model.LatLng"
+            app:nullable="true" />
     </fragment>
 
     <fragment
@@ -117,10 +136,5 @@
             android:id="@+id/nav_to_login_fragment"
             app:destination="@id/selectLoginFragment"/>
     </fragment>
-
-    <fragment
-        android:id="@+id/locateStoreOnMap"
-        android:name="hackovid.vens.features.register.LocateStoreOnMapFragment"
-        tools:layout="@layout/fragment_locate_store_on_map"/>
 
 </navigation>
