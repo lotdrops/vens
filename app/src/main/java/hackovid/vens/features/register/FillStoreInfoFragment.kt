@@ -21,6 +21,7 @@ import hackovid.vens.common.ui.DEFAULT_LAT
 import hackovid.vens.common.ui.DEFAULT_LONG
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentFillStoreInfoBinding
+import hackovid.vens.features.onboarding.di.OnBoardingSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -29,8 +30,23 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
 
     private val args: FillStoreInfoFragmentArgs by navArgs()
     private val viewModel: FillStoreInfoViewModel by viewModel { parametersOf(args.storeId) }
+    private val onBoardingSharedViewModel: OnBoardingSharedViewModel by viewModel()
 
     private var marker: Marker? = null
+
+    override fun onStart() {
+        super.onStart()
+        val mapResult = onBoardingSharedViewModel.onMapResult
+        if (mapResult != null) {
+            viewModel.location.value = mapResult
+            onBoardingSharedViewModel.onMapResult = null
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        marker = null
+    }
 
     override fun setupBinding(binding: FragmentFillStoreInfoBinding) {
         binding.viewModel = viewModel
@@ -44,11 +60,11 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
             val subTypes = StoreSubtype.values()
                 .map { context.resources.getString(it.textRes) }
                 .toTypedArray()
-            subtype.setDrowdownEntries(subTypes)
+            subtype.setDropdownEntries(subTypes)
             val types = StoreType.values()
                 .map { context.resources.getString(it.textRes) }
                 .toTypedArray()
-            type.setDrowdownEntries(types)
+            type.setDropdownEntries(types)
         }
     }
 
@@ -59,7 +75,9 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
             )
         }
         observe(viewModel.selectLocationEvent) {
-            // TODO create screen and navigate
+            NavHostFragment.findNavController(this).navigate(
+                FillStoreInfoFragmentDirections.navToLocateStoreOnMap(viewModel.location.value)
+            )
         }
         observe(viewModel.registerEvent) {
             // TODO create screen and navigate
@@ -118,7 +136,7 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
     }
 }
 
-private fun AutoCompleteTextView.setDrowdownEntries(elements: Array<String>) {
+private fun AutoCompleteTextView.setDropdownEntries(elements: Array<String>) {
     setAdapter((ArrayAdapter(context, R.layout.item_dropdown_standard, elements)))
     threshold = 9999 // bug where only 1 option is displayed with preselection
     inputType = 0

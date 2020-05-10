@@ -2,6 +2,8 @@ package hackovid.vens.features.register.di
 
 import hackovid.vens.features.register.FillStoreInfoViewModel
 import hackovid.vens.features.register.RegisterFieldsValidator
+import hackovid.vens.features.register.LocateStoreOnMapViewModel
+
 import hackovid.vens.features.register.RegisterViewModel
 import hackovid.vens.features.register.SelectStoreViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,6 +17,6 @@ val registerModule = module {
     }
     viewModel { (storeId: Long) -> FillStoreInfoViewModel(storeId, get(), get(), get()) }
     viewModel { SelectStoreViewModel(get { parametersOf(true, false) }) }
-
     factory { RegisterFieldsValidator() }
+    viewModel { LocateStoreOnMapViewModel() }
 }

@@ -6,6 +6,7 @@ import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
 import org.koin.dsl.module
 
 val onBoardingModule = module {
+    single { OnBoardingSharedViewModel() }
     single { OnBoardingViewModel(get(), get(), get()) }
     factory { SharedPreferencesPersistence(get()) as LocalStorage }
 }

@@ -23,12 +23,12 @@ import hackovid.vens.common.utils.hasLocationPermission
 import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.observeOnce
 import hackovid.vens.databinding.FragmentMapBinding
-import kotlin.math.roundToInt
-import kotlinx.android.synthetic.main.fragment_map.mapFilterButton
-import kotlinx.android.synthetic.main.fragment_map.view.infoLayout
+import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.math.roundToInt
 
 class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapClickListener,
     OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
