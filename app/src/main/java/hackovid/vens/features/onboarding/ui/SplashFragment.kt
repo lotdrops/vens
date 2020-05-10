@@ -9,6 +9,7 @@ import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSplashBinding
+import hackovid.vens.features.login.SelectLoginFragmentDirections
 import hackovid.vens.features.login.SelectLoginViewModel
 import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
 import org.koin.android.ext.android.inject
@@ -38,19 +39,28 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     private fun navigateToOnBoardScreen() {
-        NavHostFragment.findNavController(this)
-            .navigate(R.id.nav_to_onboarding_fragment)
+        NavHostFragment.findNavController(this).navigate(
+            SplashFragmentDirections.navToOnboardingFragment()
+        )
     }
 
     private fun navigateToLoginIfUserIsNotLogged() {
         FirebaseAuth.getInstance().signOut()
         if (selectLoginViewModel.isUserAlreadyLogged()) {
             navigateToMapScreen()
+        } else if (!gdprAccepted()){
+            NavHostFragment.findNavController(this).navigate(
+                SplashFragmentDirections.navToGdpr()
+            )
         } else {
-            NavHostFragment.findNavController(this)
-                .navigate(R.id.nav_to_login_fragment)
+            NavHostFragment.findNavController(this).navigate(
+                SplashFragmentDirections.navToLoginFragment()
+            )
         }
     }
+
+    // TODO do properly
+    private fun gdprAccepted() = false
 
     private fun navigateToMapScreen() {
         startActivity(Intent(activity, MainActivity::class.java))

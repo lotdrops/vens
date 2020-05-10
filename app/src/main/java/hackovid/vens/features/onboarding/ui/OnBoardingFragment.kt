@@ -6,6 +6,7 @@ import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentOnboardingBinding
+import hackovid.vens.features.login.SelectLoginFragmentDirections
 import hackovid.vens.features.onboarding.OnboardingModel
 import hackovid.vens.features.onboarding.viewmodel.OnBoardingViewModel
 import org.koin.android.ext.android.inject
@@ -43,22 +44,24 @@ class OnBoardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
     private fun onNextButtonClicked(onboardingModel: OnboardingModel, position: Int) {
         if (!onboardingModel.hasNextScreen) {
-            navigateToSelectLogin()
+            navigateToGdpr()
         } else {
             onBoardBinding.viewpager.currentItem = position
         }
     }
 
     private fun onDiscoverButtonClicked() {
-        navigateToSelectLogin()
+        navigateToGdpr()
     }
 
     private fun onSkipButtonClicked() {
-        navigateToSelectLogin()
+        navigateToGdpr()
     }
 
-    private fun navigateToSelectLogin() {
+    private fun navigateToGdpr() {
         viewModel.hideDashBoard()
-        NavHostFragment.findNavController(this).navigate(R.id.nav_to_login_fragment)
+        NavHostFragment.findNavController(this).navigate(
+            OnBoardingFragmentDirections.navToGdpr()
+        )
     }
 }

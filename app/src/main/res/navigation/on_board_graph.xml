@@ -15,6 +15,9 @@
         <action
             android:id="@+id/nav_to_login_fragment"
             app:destination="@id/selectLoginFragment"/>
+        <action
+            android:id="@+id/nav_to_gdpr"
+            app:destination="@id/gdprFragment"/>
     </fragment>
 
     <fragment
@@ -107,12 +110,24 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="hackovid.vens.features.login.LoginFragment"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_login"
+        >
+    </fragment>
 
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="hackovid.vens.features.onboarding.ui.OnBoardingFragment"
         tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/nav_to_gdpr"
+            app:destination="@id/gdprFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/gdprFragment"
+        android:name="hackovid.vens.features.login.GdprFragment"
+        tools:layout="@layout/fragment_gdpr"
+        >
         <action
             android:id="@+id/nav_to_login_fragment"
             app:destination="@id/selectLoginFragment"/>
