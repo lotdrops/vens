@@ -122,6 +122,8 @@
     <string name= "login_message">Login</string>
     <string name= "login_forgot_password">Has oblidat la contrasenya</string>
     <string name= "login_restore_my_password">Recuperar la meva contrasenya</string>
+    <string name= "login_restore_my_password_email">Acabem d\'enviar-te un correu amb la teva nova contrasenya</string>
+    <string name= "login_restore_my_password_email_back">Tornar</string>
     <string name="login_google_button">Login amb Google</string>
     <string name= "skip_login_button">Saltar-se el login</string>
     <string name= "skip_login_message">No tindràs accés a algunes funcionalitats</string>

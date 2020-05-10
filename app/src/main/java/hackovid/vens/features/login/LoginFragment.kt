@@ -1,9 +1,13 @@
 package hackovid.vens.features.login
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.view.WindowManager
-import androidx.navigation.fragment.NavHostFragment
+import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.color
 import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
@@ -38,9 +42,25 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override fun setupBinding(binding: FragmentLoginBinding) {
         this.binding = binding
         this.binding.viewModel = viewModel
-        binding.forgotPassword.setOnClickListener { forgotPassword() }
+        this.binding.fragment = this
         setupLogin()
         observeViewModels()
+        setForgotPassword()
+    }
+
+    private fun setForgotPassword() {
+        val validEmail = true
+        val context = context
+        if (validEmail && context != null) {
+            val text = resources.getString(R.string.login_forgot_password)
+            val start = text.lastIndexOf(" ") + 1
+            val end = text.length
+            val spanColor = ContextCompat.getColor(context, R.color.main_purple)
+            val spannable = SpannableStringBuilder()
+                .append(text.subSequence(0, start))
+                .bold { color(spanColor) { append(text.subSequence(start, end)) } }
+            binding.forgotPassword.text = spannable
+        }
     }
 
     private fun setupLogin() {
@@ -73,6 +93,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             }
         }
+
+        observe(viewModel.recoverState) { uiState ->
+            when (uiState) {
+                UiState.Success -> {
+                    AlertDialog.Builder(context)
+                        .setMessage(resources.getString(R.string.login_restore_my_password_email))
+                        .setPositiveButton(resources.getString(R.string.login_restore_my_password_email_back)) {dialogInterface, i -> dialogInterface.dismiss() }
+                        .show()
+                }
+            }
+
+        }
     }
 
     private fun navigateToMain() {
@@ -80,10 +112,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         activity?.finish()
     }
 
-    private fun forgotPassword() {
-        NavHostFragment.findNavController(this).navigate(
-            LoginFragmentDirections.navToForgotPassword()
-        )
+    fun onForgotPasswordClick() {
+        viewModel.recoverPassword(binding.email.toString())
     }
 
     private fun validateLoginFields() = when {

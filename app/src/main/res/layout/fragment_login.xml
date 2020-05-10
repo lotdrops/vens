@@ -4,6 +4,7 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="viewModel" type="hackovid.vens.features.login.LoginViewModel" />
+        <variable name="fragment" type="hackovid.vens.features.login.LoginFragment" />
     </data>
     <LinearLayout
         android:id="@+id/root_view"
@@ -78,8 +79,8 @@
             android:paddingVertical="8dp"
             android:singleLine="true"
             android:ellipsize="middle"
-            style="@style/TextAppearance.Custom.Body"
-            />
+            android:onClick="@{view -> fragment.onForgotPasswordClick()}"
+            style="@style/TextAppearance.Custom.Body" />
 
         <Button
             android:id="@+id/login_button"
