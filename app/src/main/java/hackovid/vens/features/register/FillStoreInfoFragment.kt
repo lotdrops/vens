@@ -38,9 +38,14 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
         super.onStart()
         val mapResult = onBoardingSharedViewModel.onMapResult
         if (mapResult != null) {
-            onBoardingSharedViewModel.onMapResult = null
             viewModel.location.value = mapResult
+            onBoardingSharedViewModel.onMapResult = null
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        marker = null
     }
 
     override fun setupBinding(binding: FragmentFillStoreInfoBinding) {

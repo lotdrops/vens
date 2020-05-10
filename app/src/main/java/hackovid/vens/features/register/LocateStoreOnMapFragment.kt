@@ -1,5 +1,6 @@
 package hackovid.vens.features.register
 
+import android.util.Log
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -7,6 +8,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import hackovid.vens.R
@@ -52,7 +54,7 @@ class LocateStoreOnMapFragment : BaseFragment<FragmentLocateStoreOnMapBinding>()
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-        //googleMap.styleMap()
+        googleMap.styleMap()
         googleMap.setOnMapLongClickListener { latLng ->
             googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         }
@@ -85,5 +87,13 @@ class LocateStoreOnMapFragment : BaseFragment<FragmentLocateStoreOnMapBinding>()
             return
         }
         marker.position = latLng
+    }
+
+    private fun GoogleMap.styleMap() {
+        try {
+            setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.google_map_style))
+        } catch (e: Exception) {
+            Log.e("MapFragment", "Error loading map style: $e")
+        }
     }
 }
