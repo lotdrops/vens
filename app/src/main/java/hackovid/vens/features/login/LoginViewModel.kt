@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>) : ViewModel() {
 
     val loginState = MutableLiveData<UiState>()
+    val recoverState = MutableLiveData<UiState>()
+
     val showProgress = loginState.map { it == UiState.Loading }
     val enableButtons = loginState.map { it != UiState.Loading }
 
@@ -30,6 +32,23 @@ class LoginViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>)
             loginState.value = result.error?.errorMessage?.let {
                 UiState.Error(it)
             }
+        }
+    }
+
+    fun recoverPassword(email: String) {
+        viewModelScope.launch {
+            recoverState.value = UiState.Loading
+            val result = dataSource.forgotPassword(email)
+            recoverState.value = UiState.Success
+
+            /*if (result.success) {
+                recoverState.value = UiState.Success
+            } else {
+                recoverState.value = result.error?.errorMessage?.let {
+                    UiState.Error(it)
+
+                }
+            }*/
         }
     }
 

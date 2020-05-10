@@ -123,6 +123,8 @@
     <string name= "login_message">Login</string>
     <string name= "login_forgot_password">Forgot password? Recover</string>
     <string name= "login_restore_my_password">Restore my password</string>
+    <string name= "login_restore_my_password_email">We\'ve just sent you an email with the new password</string>
+    <string name= "login_restore_my_password_email_back">Back</string>
     <string name= "login_google_button">Sign in with Google</string>
     <string name= "skip_login_button">Skip login</string>
     <string name= "skip_login_message">You will not have access to all functionality</string>
