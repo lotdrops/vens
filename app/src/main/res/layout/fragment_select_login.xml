@@ -105,6 +105,20 @@
                 />
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/switch_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:visibility="@{viewModel.selectedGoogleAccount.length() > 0 ? View.VISIBLE : View.GONE}"
+            android:onClick="@{view -> viewModel.onSwitchAccountClicked()}"
+            style="@style/TextAppearance.Custom.Body"
+            />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp"

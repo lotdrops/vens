@@ -9,7 +9,10 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 val registerModule = module {
-    viewModel { RegisterViewModel(get(), get()) }
+    viewModel { (externalLogin: Boolean, initialEmail: String?, initialName: String?,
+                    initialLastName: String?) ->
+        RegisterViewModel(externalLogin, initialEmail, initialName, initialLastName, get(), get())
+    }
     viewModel { (storeId: Long) -> FillStoreInfoViewModel(storeId, get(), get(), get()) }
     viewModel { SelectStoreViewModel(get { parametersOf(true, false) }) }
 

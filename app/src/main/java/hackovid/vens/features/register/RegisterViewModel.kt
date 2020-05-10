@@ -13,6 +13,10 @@ import hackovid.vens.common.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
+    val externalLogin: Boolean,
+    val initialEmail: String?,
+    private val initialName: String?,
+    private val initialLastname: String?,
     private val dataSource: RemoteDataSource<FirebaseResponse>,
     private val validator: RegisterFieldsValidator
 ) : ViewModel() {
@@ -42,6 +46,13 @@ class RegisterViewModel(
     }
 
     var registerResult = MutableLiveData<UiState>()
+
+    init {
+        if (externalLogin) {
+            name.value = initialName ?: ""
+            lastName.value = initialLastname ?: ""
+        }
+    }
 
     fun onBuyerClicked() {
         isShopOwner.value = false

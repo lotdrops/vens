@@ -121,11 +121,13 @@
     <string name= "login_too_many_times">Has intentado hacer login con credenciales incorrectas muchas veces, intentalo más tarde</string>
     <string name= "login_write_your_user">Nombre: </string>
     <string name= "login_write_your_password">Contrasenya: </string>
-    <string name="select_login_title">Únete a Vens</string>
     <string name= "login_message">Login</string>
     <string name= "login_google_button">Login con Google</string>
     <string name= "skip_login_button">Saltarse el login</string>
     <string name= "skip_login_message">No tindràs accés a algunes funcionalitats</string>
+
+    <string name="select_login_title">Únete a Vens</string>
+    <string name= "select_login_account_selected">Has elegido %s, quieres cambiar?</string>
 
     <string name= "register_generic_error">Ha ocurrido un error, por favor, vuelve a intentarlo</string>
     <string name="register_password_too_short">La contraseña debe tener al menos 6 caracteres</string>

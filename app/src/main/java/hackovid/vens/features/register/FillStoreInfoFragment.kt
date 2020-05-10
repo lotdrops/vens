@@ -115,7 +115,6 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
                 marker!!.position = latLng
             }
         }
-
     }
 }
 

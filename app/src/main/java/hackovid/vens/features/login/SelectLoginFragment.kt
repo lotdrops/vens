@@ -1,7 +1,14 @@
 package hackovid.vens.features.login
 
+import android.app.Activity
 import android.content.Intent
+import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.View
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.color
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -28,35 +35,52 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
     val RC_GOOGLE_SIGN_IN_CODE: Int = 1
 
     override fun setupBinding(binding: FragmentSelectLoginBinding) {
+        checkGoogleSignedInAccount()
         this.binding = binding
         binding.viewModel = viewModel
-        setupGoogleLogin()
 
         binding.logo.clipToOutline = true
+        binding.loginWithGoogle.setOnClickListener {
+            googleSignIn()
+        }
         binding.registerView.setOnClickListener {
-            findNavController(this).navigate(SelectLoginFragmentDirections.navToRegisterFragment())
+            findNavController(this).navigate(
+                SelectLoginFragmentDirections.navToRegisterFragment()
+            )
         }
         binding.registerButton.setOnClickListener {
-            findNavController(this).navigate(SelectLoginFragmentDirections.navToLoginFragment())
+            findNavController(this).navigate(
+                SelectLoginFragmentDirections.navToLoginFragment()
+            )
         }
         binding.skipLogin.setOnClickListener {
             startActivity(Intent(activity, MainActivity::class.java))
             activity?.finish()
         }
+        subscribeSwitchAccount(binding.switchAccount)
         observeViewModels()
     }
 
-    private fun setupGoogleLogin() {
-        binding.loginWithGoogle.setOnClickListener {
-            val mGoogleSignInOptions =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-            val mGoogleSignInClient =
-                GoogleSignIn.getClient(requireActivity(), mGoogleSignInOptions)
-            val signInIntent: Intent = mGoogleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_GOOGLE_SIGN_IN_CODE)
+    private fun subscribeSwitchAccount(switchAccount: TextView) {
+        observe(viewModel.selectedGoogleAccount) { email ->
+            val context = context
+            if (email.isNotEmpty() && context != null) {
+                val text = resources.getString(R.string.select_login_account_selected, email)
+                val start = text.lastIndexOf(" ") + 1
+                val end = text.length
+                val spanColor = ContextCompat.getColor(context, R.color.main_purple)
+                val spannable = SpannableStringBuilder()
+                    .append(text.subSequence(0, start))
+                    .bold { color(spanColor) { append(text.subSequence(start, end)) } }
+                switchAccount.text = spannable
+            }
+        }
+    }
+
+    private fun checkGoogleSignedInAccount() {
+        val account = GoogleSignIn.getLastSignedInAccount(context)
+        if (account != null) {
+            viewModel.selectedGoogleAccount.value = account.email
         }
     }
 
@@ -76,7 +100,31 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                 }
             }
         }
+        observe(viewModel.switchAccountEvent) {
+            googleSignOut()
+        }
     }
+
+    private fun googleSignIn() {
+        activity?.getGoogleSignInClient()?.signInIntent?.let { intent ->
+            startActivityForResult(intent, RC_GOOGLE_SIGN_IN_CODE)
+        }
+    }
+
+    private fun googleSignOut() {
+        activity?.getGoogleSignInClient()?.revokeAccess()?.addOnSuccessListener {
+            viewModel.selectedGoogleAccount.value = ""
+            googleSignIn()
+        }
+    }
+
+    private fun Activity.getGoogleSignInClient() = GoogleSignIn.getClient(
+        this,
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+    )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -89,7 +137,21 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
     private fun handleSignInResult(singIn: Task<GoogleSignInAccount>) {
         try {
             val account = singIn.getResult(ApiException::class.java)
-            firebaseGoogleAuthentication(account!!)
+            Log.d("asddd", "Google Login, email:${account?.email}, dispName:${account?.displayName}, famName:${account?.familyName}, givenName:${account?.givenName}, account:$account")
+            if (account != null) {
+                findNavController(this).navigate(
+                    SelectLoginFragmentDirections.navToRegisterFragment(
+                        externalLogin = true,
+                        email = account.email,
+                        name = account.givenName,
+                        lastName = account.familyName
+                    )
+                )
+                // TODO move to screen after GDPR?
+                // firebaseGoogleAuthentication(account)
+            } else {
+                Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
+            }
         } catch (exception: ApiException) {
             Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
         }

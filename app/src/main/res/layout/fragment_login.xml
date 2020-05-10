@@ -41,6 +41,9 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:maxLength="50"
+                style="@style/LoginEditTextStyle"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,6 +54,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
             android:hint="@string/login_write_your_password"
+            app:passwordToggleEnabled="true"
             app:boxBackgroundColor="@color/light_purple"
             app:hintTextColor="@color/colorPrimaryDark"
             >
@@ -59,6 +63,9 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                style="@style/LoginEditTextPasswordStyle"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

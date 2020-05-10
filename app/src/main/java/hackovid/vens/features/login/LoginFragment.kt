@@ -2,6 +2,7 @@ package hackovid.vens.features.login
 
 import android.content.Intent
 import android.view.View
+import android.view.WindowManager
 import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
@@ -19,6 +20,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by viewModel()
     private lateinit var binding: FragmentLoginBinding
     private val NO_LOGIN_ERRORS_MESSAGE = 0
+
+    private var initialSoftInputMode: Int? = null
+
+    override fun onStart() {
+        super.onStart()
+        initialSoftInputMode = activity?.window?.attributes?.softInputMode
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        initialSoftInputMode?.let { activity?.window?.setSoftInputMode(it) }
+    }
 
     override fun setupBinding(binding: FragmentLoginBinding) {
         this.binding = binding

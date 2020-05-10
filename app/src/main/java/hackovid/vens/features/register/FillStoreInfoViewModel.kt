@@ -1,7 +1,5 @@
 package hackovid.vens.features.register
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
@@ -15,12 +13,9 @@ import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.utils.SingleLiveEvent
-import hackovid.vens.common.utils.combineLiveDatas
 import hackovid.vens.common.utils.combineWith
-import hackovid.vens.features.register.RegisterFieldsValidator.Companion.MIN_ADDRESS_LENGTH
-import hackovid.vens.features.register.RegisterFieldsValidator.Companion.MIN_NAME_LENGTH
-import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
+import kotlinx.coroutines.launch
 
 class FillStoreInfoViewModel(
     private val storeId: Long,
