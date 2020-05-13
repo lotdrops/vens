@@ -64,7 +64,7 @@ enum class StoreSubtype(val textRes: Int) {
     APPLIANCES(R.string.store_subtype_appliances),
     EQUIPMENT(R.string.store_subtype_equipment),
     FLOWER_SHOP(R.string.store_subtype_flower),
-    FURNITURE_AND_ARTICLES(R.string.store_subtype_furnitures_and_moblement),
+    FURNITURE_AND_ARTICLES(R.string.store_subtype_furniture),
     HARDWARE(R.string.store_subtype_hardware),
     STAMPS_COINS_ANTIQUES(R.string.store_subtype_stamps_coins_antiques),
     BOOKSHOP_NEWSPAPER_MAGAZINES(R.string.store_subtype_books),

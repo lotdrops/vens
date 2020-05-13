@@ -47,7 +47,7 @@
     <string name="filter_crowded_unknown">Desconocido</string>
 
     <string name="store_type_grocery">Alimentación</string>
-    <string name="store_type_eggs_and_birds">Huevos y pajaros</string>
+    <string name="store_type_eggs_and_birds">Huevos y aves de corral</string>
     <string name="store_type_beauty">Belleza</string>
     <string name="store_type_mall">Centro comercial</string>
     <string name="store_type_gallery">Galería</string>
@@ -58,7 +58,7 @@
     <string name="store_type_everyday">Cotidiano</string>
     <string name="store_type_services">Servicios</string>
     <string name="store_type_other">Otros</string>
-    <string name="store_type_fruits_veggies">Fruitas y verduras</string>
+    <string name="store_type_fruits_veggies">Frutas y verduras</string>
     <string name="store_type_prepared_dishes">Platos preparados</string>
     <string name="store_type_look">Estética</string>
     <string name="store_type_food">Comida</string>
@@ -101,7 +101,7 @@
     <string name="store_subtype_books">Libros, diarios y revistas</string>
     <string name="store_subtype_music">Música</string>
     <string name="store_subtype_drugstore_perfumery">Drogueria y perfumeria</string>
-    <string name="store_subtype_pharmacy">Farmacias y Parafarmacias</string>
+    <string name="store_subtype_pharmacy">Farmacias y parafarmacias</string>
     <string name="store_subtype_dietetics">Herbolario, dietética y nutrición</string>
     <string name="store_subtype_tobacco_shop">Tabaco y artículos para fumadores</string>
     <string name="store_subtype_maintenance_cleaning">Mantenimento, limpieza y similares</string>
@@ -113,7 +113,7 @@
     <string name="store_subtype_equipment">Equipamiento</string>
     <string name="store_subtype_repairs">Reparaciones</string>
     <string name="store_subtype_beauty_center">Centro de belleza</string>
-    <string name="store_subtype_furnitures_and_moblement">Mobiliario</string>
+    <string name="store_subtype_furniture">Mobiliario</string>
     <string name="store_subtype_stamps_coins_antiques">Sellos, monedas y antigüedades</string>
     <string name="store_subtype_footwear_leather">Calzado y piel</string>
     <string name="store_subtype_shopping_center">Centro comercial</string>

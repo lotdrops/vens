@@ -47,7 +47,7 @@
     <string name="filter_crowded_unknown">Unknown</string>
 
     <string name="store_type_grocery">Grocery</string>
-    <string name="store_type_eggs_and_birds">Eggs and Birds</string>
+    <string name="store_type_eggs_and_birds">Eggs and poultry</string>
     <string name="store_type_beauty">Beauty</string>
     <string name="store_type_mall">Mall</string>
     <string name="store_type_gallery">Gallery</string>
@@ -63,11 +63,11 @@
     <string name="store_type_look">Look</string>
     <string name="store_type_food">Food</string>
     <string name="store_type_leisure_and_culture">Leisure and culture</string>
-    <string name="store_type_bakery_pastry">Bakerys, Pastry and dairy</string>
+    <string name="store_type_bakery_pastry">Bakeries, Pastry and dairy</string>
 
     <string name="store_subtype_eggs_and_birds">Eggs and Birds</string>
     <string name="store_subtype_others">Others</string>
-    <string name="store_subtype_self_service_supermarket">Selfservice and supermarkets</string>
+    <string name="store_subtype_self_service_supermarket">Self-service and supermarkets</string>
     <string name="store_subtype_drinks">Drinks</string>
     <string name="store_subtype_meat_pork">Meat and pork</string>
     <string name="store_subtype_fruits_veggies">Fruits and veggies</string>
@@ -111,13 +111,13 @@
     <string name="store_subtype_vet_store">Vet store</string>
     <string name="store_subtype_prepared_dishes">Prepared dishes</string>
     <string name="store_subtype_equipment">Equipment</string>
-    <string name="store_subtype_repairs">Reparacions</string>
+    <string name="store_subtype_repairs">Repairs</string>
     <string name="store_subtype_beauty_center">Beauty center</string>
-    <string name="store_subtype_furnitures_and_moblement">Furniture and moblement</string>
+    <string name="store_subtype_furniture">Furniture</string>
     <string name="store_subtype_stamps_coins_antiques">Stamps, coins and antiques</string>
     <string name="store_subtype_footwear_leather">Footwear and leader</string>
-    <string name="store_subtype_shopping_center">Shooping center</string>
-    <string name="store_subtype_shopping_gallery">Shooping gallery</string>
+    <string name="store_subtype_shopping_center">Shopping center</string>
+    <string name="store_subtype_shopping_gallery">Shopping gallery</string>
 
     <string name="on_boarding_screen_skip_text">Skip</string>
     <string name="on_boarding_screen_title_slide_one">Your trust commerce</string>
