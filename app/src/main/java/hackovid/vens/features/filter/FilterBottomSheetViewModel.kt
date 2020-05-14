@@ -32,8 +32,11 @@ class FilterBottomSheetViewModel(
     }
 
     fun onCategorySelected(position: Int, isSelected: Boolean) {
-        categories.value = (categories.value ?: FilterParams.defaultCategories())
-            .setInPosition(isSelected, position)
+        val initialValue = categories.value ?: FilterParams.defaultCategories()
+        categories.value = initialValue
+            .takeIf { it.canSwitchCategory(isSelected) }
+            ?.setInPosition(isSelected, position)
+            ?: initialValue
     }
 
     fun onPrioritySelected(position: Int) {
@@ -78,4 +81,7 @@ class FilterBottomSheetViewModel(
 
     private fun List<Boolean>.flipPosition(position: Int) =
         this.toMutableList().apply { set(position, !this[position]) }.toList()
+
+    private fun List<Boolean>.canSwitchCategory(newValue: Boolean) =
+        newValue || filter { it }.count() > 1
 }

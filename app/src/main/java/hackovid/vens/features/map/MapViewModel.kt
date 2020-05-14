@@ -32,8 +32,9 @@ class MapViewModel(
         storesUseCase.getData(it.noSorting()).map {
                 stores -> stores.map { store -> store.toClusterStoreItem(it?.second) } }
     }
+    val showEmpty = stores.map { it.isEmpty() }
 
-    val selectedStoreId = MutableLiveData<Int>()
+    val selectedStoreId = MutableLiveData<Int?>()
     val selectedStore = selectedStoreId.switchMap { id ->
         if (id != null) {
             storeDao.getStoreById(id).map { store ->
@@ -43,10 +44,20 @@ class MapViewModel(
     }
 
     val showStoreInfo = selectedStoreId.map { it != null }
-
+    
     private val cardMapPadding = MutableLiveData(0)
     val mapBottomPadding = cardMapPadding.combineWith(showStoreInfo) { padding, showing ->
         if (showing == true) padding ?: 0 else 0
+    }
+
+    init {
+        stores.observeForever { resetSelectedStoreIfNecessary(it) }
+    }
+    private fun resetSelectedStoreIfNecessary(stores: List<ClusterStoreItem>) {
+        val selectedId = selectedStoreId.value?.toLong()
+        if (selectedId != null && stores.find { it.id == selectedId } == null) {
+            selectedStoreId.value = null
+        }
     }
 
     fun setCardMapPadding(padding: Int) {

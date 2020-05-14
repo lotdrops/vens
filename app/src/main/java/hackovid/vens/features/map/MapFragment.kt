@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.algo.NonHierarchicalViewBasedAlgorithm
 import hackovid.vens.R
@@ -23,12 +24,12 @@ import hackovid.vens.common.utils.hasLocationPermission
 import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.observeOnce
 import hackovid.vens.databinding.FragmentMapBinding
-import kotlin.math.roundToInt
-import kotlinx.android.synthetic.main.fragment_map.mapFilterButton
-import kotlinx.android.synthetic.main.fragment_map.view.infoLayout
+import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.fragment_map.view.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.math.roundToInt
 
 class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapClickListener,
     OnMapReadyCallback, ClusterManager.OnClusterItemClickListener<ClusterStoreItem> {
@@ -41,6 +42,8 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
     private lateinit var googleMap: GoogleMap
     private lateinit var clusterManager: ClusterManager<ClusterStoreItem>
     private lateinit var renderer: ClusterStoreRenderer
+
+    private lateinit var snackBar : Snackbar
 
     private val fabMargin by lazy {
         resources.getDimension(R.dimen.map_location_margin).roundToInt()
@@ -65,6 +68,9 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
             this@MapFragment.viewModel.setCardMapPadding(it.height +
                     it.resources.getDimension(R.dimen.map_info_margin).roundToInt())
         }
+
+         snackBar = Snackbar.make(location_fab, resources.getString(R.string.filter_snackbar_map), Snackbar.LENGTH_INDEFINITE)
+            .setAction(resources.getString(R.string.filter_snackbar_map_action)) {onFilterClicked()}
     }
 
     private fun subscribeUi(binding: FragmentMapBinding) {
@@ -92,6 +98,9 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
             observeOnce(sharedViewModel.location) {
                 locateUser()
             }
+        }
+        observe(viewModel.showEmpty) { show ->
+            if(show) snackBar.show() else snackBar.dismiss()
         }
     }
 

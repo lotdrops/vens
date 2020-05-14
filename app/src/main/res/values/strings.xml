@@ -17,6 +17,9 @@
     <string name="list_distance_m">%sm, about %d min</string>
     <string name="list_distance_km">%skm, about %d min</string>
 
+    <string name="list_empty_title">We have not found shops with this filter</string>
+    <string name="list_empty_message">Please, select another filter and find great shops</string>
+
     <string name="detail_distance_no_permission">Location permission needed</string>
     <string name="detail_distance_m">Distance of %sm, about %d min</string>
     <string name="detail_distance_km">Distance of %skm, about %d min</string>
@@ -45,6 +48,8 @@
     <string name="filter_crowded_medium">Medium</string>
     <string name="filter_crowded_large">Large</string>
     <string name="filter_crowded_unknown">Unknown</string>
+    <string name="filter_snackbar_map">No shops found with the filter selected</string>
+    <string name="filter_snackbar_map_action">@string/title_filter</string>
 
     <string name="store_type_grocery">Grocery</string>
     <string name="store_type_eggs_and_birds">Eggs and poultry</string>

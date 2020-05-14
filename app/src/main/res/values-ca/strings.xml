@@ -22,6 +22,9 @@
     <string name="list_distance_m">%sm, uns %d min</string>
     <string name="list_distance_km">%skm, uns %d min</string>
 
+    <string name="list_empty_title">No s\'han trobat botigues amb els criteris sel·leccionats</string>
+    <string name="list_empty_message">Si us plau canvia els criteris i troba botigues ben aprop</string>
+
     <string name="detail_distance_no_permission">Cal el permís de localització</string>
     <string name="detail_distance_m">Distància de %sm, uns %d min</string>
     <string name="detail_distance_km">Distància de %skm, uns %d min</string>
@@ -45,6 +48,8 @@
     <string name="filter_crowded_medium">Mitja</string>
     <string name="filter_crowded_large">Alta</string>
     <string name="filter_crowded_unknown">Desconegut</string>
+    <string name="filter_snackbar_map">No s\'han trobat botigues amb el filtre sel·leccionat</string>
+    <string name="filter_snackbar_map_action">@string/title_filter</string>
 
     <string name="store_type_grocery">Alimentació</string>
     <string name="store_type_eggs_and_birds">Ous i ocells</string>
