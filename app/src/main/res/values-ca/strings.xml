@@ -22,6 +22,9 @@
     <string name="list_distance_m">%sm, uns %d min</string>
     <string name="list_distance_km">%skm, uns %d min</string>
 
+    <string name="list_empty_title">No s\'han trobat botigues amb els criteris sel·leccionats</string>
+    <string name="list_empty_message">Si us plau canvia els criteris i troba botigues ben aprop</string>
+
     <string name="detail_distance_no_permission">Cal el permís de localització</string>
     <string name="detail_distance_m">Distància de %sm, uns %d min</string>
     <string name="detail_distance_km">Distància de %skm, uns %d min</string>
@@ -45,8 +48,11 @@
     <string name="filter_crowded_medium">Mitja</string>
     <string name="filter_crowded_large">Alta</string>
     <string name="filter_crowded_unknown">Desconegut</string>
+    <string name="filter_snackbar_map">No s\'han trobat botigues amb el filtre sel·leccionat</string>
+    <string name="filter_snackbar_map_action">@string/title_filter</string>
 
     <string name="store_type_grocery">Alimentació</string>
+    <string name="store_type_eggs_and_birds">Ous i ocells</string>
     <string name="store_type_beauty">Bellesa</string>
     <string name="store_type_mall">Centre comercial</string>
     <string name="store_type_gallery">Galeria</string>
@@ -57,7 +63,14 @@
     <string name="store_type_everyday">Quotidià</string>
     <string name="store_type_services">Serveis</string>
     <string name="store_type_other">Atres</string>
+    <string name="store_type_fruits_veggies">Fruites i verdures</string>
+    <string name="store_type_prepared_dishes">Plats preparats</string>
+    <string name="store_type_look">Estètica</string>
+    <string name="store_type_food">Menjar</string>
+    <string name="store_type_leisure_and_culture">Oci i cultura</string>
+    <string name="store_type_bakery_pastry">Forns de pa, pastisseries i làctics</string>
 
+    <string name="store_subtype_eggs_and_birds">Ous i aviram</string>
     <string name="store_subtype_others">Altres</string>
     <string name="store_subtype_self_service_supermarket">Autoservei / supermercat</string>
     <string name="store_subtype_drinks">Begudes</string>
@@ -80,7 +93,7 @@
     <string name="store_subtype_appliances">Aparells domèstics</string>
     <string name="store_subtype_flower">Floristeries</string>
     <string name="store_subtype_home_equipment">Material equipament llar</string>
-    <string name="store_subtype_wooden_furniture">Mobles i articles fusta i metall</string>
+    <string name="store_subtype_wooden_furniture">Mobiliari</string>
     <string name="store_subtype_hardware">Parament ferreteria</string>
     <string name="store_subtype_stamps_shop">Segells, monedes i antiguitats</string>
     <string name="store_subtype_market">Mercat</string>
@@ -101,6 +114,15 @@
     <string name="store_subtype_health">Sanitat i assistència</string>
     <string name="store_subtype_dry_cleaner">Tintoreries</string>
     <string name="store_subtype_vet_store">Veterinaris / Mascotes</string>
+    <string name="store_subtype_prepared_dishes">Plats preparats</string>
+    <string name="store_subtype_equipment">Equipament</string>
+    <string name="store_subtype_repairs">Reparacions</string>
+    <string name="store_subtype_beauty_center">Centre de bellesa</string>
+    <string name="store_subtype_furniture">Mobiliari</string>
+    <string name="store_subtype_stamps_coins_antiques">Segells, monedes y antiguitats</string>
+    <string name="store_subtype_footwear_leather">Calçat i pell</string>
+    <string name="store_subtype_shopping_center">Centre comercial</string>
+    <string name="store_subtype_shopping_gallery">Galeria comercial</string>
 
     <string name= "on_boarding_screen_skip_text">Saltar</string>
     <string name= "on_boarding_screen_title_slide_one">El teu comerç de confiança</string>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>hours_interval_refresh_stores</key>
+        <value>6</value>
+    </entry>
+    <entry>
+        <key>register_new_user_enabled</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

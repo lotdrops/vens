@@ -20,3 +20,14 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class hackovid.vens.common.data.json.** { *; }
+
+# Kotlinx Serialization
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.SerializationKt
+-keep,includedescriptorclasses class hackovid.vens.**$$serializer { *; }
+-keepclassmembers class hackovid.vens.** {
+    *** Companion;
+}
+-keepclasseswithmembers class hackovid.vens.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}

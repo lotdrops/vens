@@ -2,8 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.firebase-perf'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
@@ -70,6 +73,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.kotlinStdLib
+    implementation libs.ktSerializationRun
     implementation libs.appCompat
     implementation libs.ktxCore
     implementation libs.materialDesign
@@ -81,22 +85,28 @@ dependencies {
     implementation libs.koin
     implementation libs.koinViewmodel
     implementation libs.liveData
+    implementation libs.preference
     implementation libs.moshi
     kapt libs.moshiKapt
     implementation libs.liveData
     kapt libs.roomCompiler
     implementation libs.roomRuntime
     implementation libs.roomKtx
+    implementation libs.firebaseCrashlytics
     implementation libs.firebase
     implementation libs.firestore
     implementation libs.firestoreKtx
     implementation libs.firebaseAuth
     implementation libs.authPlayServices
     implementation libs.ktxCoroutines
+    implementation libs.firebaseConfig
     implementation libs.googleMaps
     implementation libs.playLocation
     implementation libs.mapsUtils
+
     testImplementation libs.junit
+    testImplementation libs.coroutinesTest
+    testImplementation libs.mockk
     androidTestImplementation libs.androidJunit
     androidTestImplementation libs.espressoCore
 }

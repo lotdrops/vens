@@ -2,33 +2,41 @@ package hackovid.vens.features.filter
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import hackovid.vens.common.data.LocalStorage
 import hackovid.vens.common.data.filter.FilterParams
 import hackovid.vens.common.data.filter.MEDIUM_DISTANCE_METERS
 import hackovid.vens.common.data.filter.SHORT_DISTANCE_METERS
 import hackovid.vens.common.ui.SharedViewModel
 import hackovid.vens.common.utils.SingleLiveEvent
 
-class FilterBottomSheetViewModel(private val sharedViewModel: SharedViewModel) : ViewModel() {
-    val categories = MutableLiveData(
-        sharedViewModel.filter.value?.categories ?: FilterParams.defaultCategories()
-    )
+class FilterBottomSheetViewModel(
+    private val sharedViewModel: SharedViewModel,
+    private val localStorage: LocalStorage
+) : ViewModel() {
+    val categories = MutableLiveData<List<Boolean>>()
     val priorities = MutableLiveData(FilterParams.defaultSelectable())
-    val distance = MutableLiveData<Int?>(
-        sharedViewModel.filter.value?.distance ?: FilterParams.DEFAULT_DISTANCE
-    )
+    val distance = MutableLiveData<Int?>()
     val mustHave = MutableLiveData(FilterParams.defaultSelectable())
-    val crowd = MutableLiveData<Int?>(
-        sharedViewModel.filter.value?.crowd ?: FilterParams.DEFAULT_CROWD
-    )
+    val crowd = MutableLiveData<Int?>()
 
     val closeFilter = SingleLiveEvent<Unit>()
 
     val shortDistance = SHORT_DISTANCE_METERS
     val mediumDistance = MEDIUM_DISTANCE_METERS
 
+    init {
+        val initialFilterConfig = localStorage.getFilterParams()
+        categories.value = initialFilterConfig.categories
+        distance.value = initialFilterConfig.distance
+        crowd.value = initialFilterConfig.crowd
+    }
+
     fun onCategorySelected(position: Int, isSelected: Boolean) {
-        categories.value = (categories.value ?: FilterParams.defaultCategories())
-            .setInPosition(isSelected, position)
+        val initialValue = categories.value ?: FilterParams.defaultCategories()
+        categories.value = initialValue
+            .takeIf { it.canSwitchCategory(isSelected) }
+            ?.setInPosition(isSelected, position)
+            ?: initialValue
     }
 
     fun onPrioritySelected(position: Int) {
@@ -60,6 +68,7 @@ class FilterBottomSheetViewModel(private val sharedViewModel: SharedViewModel) :
             crowd
         )
         sharedViewModel.filter.value = params
+        localStorage.setFilterParams(params)
         closeFilter.call()
     }
 
@@ -72,4 +81,7 @@ class FilterBottomSheetViewModel(private val sharedViewModel: SharedViewModel) :
 
     private fun List<Boolean>.flipPosition(position: Int) =
         this.toMutableList().apply { set(position, !this[position]) }.toList()
+
+    private fun List<Boolean>.canSwitchCategory(newValue: Boolean) =
+        newValue || filter { it }.count() > 1
 }

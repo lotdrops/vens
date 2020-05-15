@@ -3,7 +3,7 @@ package hackovid.vens.features.map
 import android.location.Location
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
-import hackovid.vens.common.data.Store
+import hackovid.vens.common.data.StoreAndFavourite
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.core.distance
@@ -43,21 +43,21 @@ data class ClusterStoreItem(
     }
 }
 
-fun Store.toClusterStoreItem(location: Location?) = ClusterStoreItem(
-    id = id,
-    latitude = latitude,
-    longitude = longitude,
-    name = name,
-    type = type,
-    subtype = subtype,
-    isFavourite = isFavourite,
-    phone = phone,
-    mobilePhone = mobilePhone,
-    address = address,
-    web = web,
-    email = email,
-    schedule = schedule,
+fun StoreAndFavourite.toClusterStoreItem(location: Location?) = ClusterStoreItem(
+    id = store.id,
+    latitude = store.latitude,
+    longitude = store.longitude,
+    name = store.name,
+    type = store.type,
+    subtype = store.subtype,
+    isFavourite = userStore != null,
+    phone = store.phone,
+    mobilePhone = store.mobilePhone,
+    address = store.address,
+    web = store.web,
+    email = store.email,
+    schedule = store.schedule,
     crowd = null,
-    distance = location?.distance(latitude, longitude)?.roundToInt(),
-    acceptsOrders = acceptsOrders,
-    delivers = delivers)
+    distance = location?.distance(store.latitude, store.longitude)?.roundToInt(),
+    acceptsOrders = store.acceptsOrders,
+    delivers = store.delivers)

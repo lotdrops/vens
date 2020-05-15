@@ -4,12 +4,21 @@ import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.common.data.LocalStorage
-import hackovid.vens.common.data.filter.FilterParams
+import hackovid.vens.common.data.config.FirebaseRemoteConfigController
+import hackovid.vens.common.data.updatedata.UpdateDataUseCase
 import hackovid.vens.common.utils.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.launch
 
-class SharedViewModel(localStorage: LocalStorage) : ViewModel() {
+class SharedViewModel(
+    localStorage: LocalStorage,
+    updateDataUseCase: UpdateDataUseCase,
+    firebaseRemoteConfigController: FirebaseRemoteConfigController
+) : ViewModel() {
     private val _location: MutableLiveData<LatLng?> = MutableLiveData()
     val location: LiveData<LatLng?> get() = _location
 
@@ -18,16 +27,21 @@ class SharedViewModel(localStorage: LocalStorage) : ViewModel() {
     val userRequestsLocationEvent = SingleLiveEvent<Unit>()
     val onLocationAccepted = SingleLiveEvent<Unit>()
 
-    val filter = MutableLiveData(
-        FilterParams(
-            FilterParams.defaultCategories()
-        )
-    )
+    val filter = MutableLiveData(localStorage.getFilterParams())
+
+    val onObserverActive: LiveData<Unit> = object : LiveData<Unit>(Unit) {
+        override fun onActive() {
+            firebaseRemoteConfigController.fetchAndActivate()
+        }
+    }
 
     init {
         if (!localStorage.wasLocationPermissionRequested()) {
             requestLocationEvent.call()
             localStorage.setLocationPermissionRequested()
+        }
+        viewModelScope.launch(NonCancellable + Dispatchers.Default) {
+            updateDataUseCase.updateData()
         }
     }
 
