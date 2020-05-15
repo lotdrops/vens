@@ -16,6 +16,8 @@ interface LocalStorage {
     fun setLocationPermissionRequested()
     fun setFilterParams(params: FilterParams)
     fun getFilterParams(): FilterParams
+    fun setListIsFavourites(listIsFavourites: Boolean)
+    fun getListIsFavourites(): Boolean
     fun getLastUpdateTimestamp(): Long
     fun setLastUpdateTimestamp(timestamp: Long)
 }

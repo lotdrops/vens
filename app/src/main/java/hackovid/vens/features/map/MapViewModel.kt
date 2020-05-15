@@ -44,7 +44,7 @@ class MapViewModel(
     }
 
     val showStoreInfo = selectedStoreId.map { it != null }
-    
+
     private val cardMapPadding = MutableLiveData(0)
     val mapBottomPadding = cardMapPadding.combineWith(showStoreInfo) { padding, showing ->
         if (showing == true) padding ?: 0 else 0
@@ -77,7 +77,7 @@ class MapViewModel(
         viewModelScope.launch {
             selectedStore.value?.let { st ->
                 val fav = Favourite(st.id)
-                if (st.isFavourite) favouriteDao.removeFavourite(fav) else favouriteDao.addFavourite(fav)}
+                if (st.isFavourite) favouriteDao.removeFavourite(fav) else favouriteDao.addFavourite(fav) }
         }
     }
 

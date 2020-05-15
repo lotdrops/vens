@@ -11,7 +11,7 @@ data class Favourite(
     @ForeignKey(entity = Store::class,
         onDelete = CASCADE,
         onUpdate = CASCADE,
-        childColumns =["storeId"],
+        childColumns = ["storeId"],
         parentColumns = ["id"])
     val storeId: Long
 )

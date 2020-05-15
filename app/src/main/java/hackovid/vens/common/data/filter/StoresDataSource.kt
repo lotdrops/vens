@@ -11,7 +11,6 @@ import java.lang.Math.PI
 import kotlin.math.cos
 
 class StoresDataSource(
-    private val favouritesOnly: Boolean,
     private val storeDao: StoreDao
 ) : UpdateStoresDataSource {
     override suspend fun deleteStore(id: Long) = storeDao.deleteStore(id)
@@ -108,10 +107,11 @@ class StoresDataSource(
     }
 
     private fun buildWhereClause(params: Pair<FilterParams, Location?>): String {
-        val favsClause =
-            if (favouritesOnly) " INNER JOIN Favourites ON Favourites.storeId = Stores.id" else ""
+        val favsClause = if (params.first.favouritesOnly) {
+            " INNER JOIN Favourites ON Favourites.storeId = Stores.id"
+        } else ""
         val catCondition = params.first.categories.categoriesInCondition()
-        val beforeCatClause = if (favouritesOnly && catCondition.isNotEmpty()) " AND "
+        val beforeCatClause = if (params.first.favouritesOnly && catCondition.isNotEmpty()) " AND "
         else if (catCondition.isNotEmpty()) " WHERE " else ""
 
         return "$favsClause$beforeCatClause $catCondition"

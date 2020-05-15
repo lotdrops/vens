@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.common.data.LocalStorage
 import hackovid.vens.common.data.config.FirebaseRemoteConfigController
-import hackovid.vens.common.data.filter.FilterParams
 import hackovid.vens.common.data.updatedata.UpdateDataUseCase
 import hackovid.vens.common.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
