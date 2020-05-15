@@ -61,7 +61,7 @@ fun String.toStoreType() = when (this.toLowerCase()) {
     }
 }
 
-fun String.toStoreSubtype() = when (this.toLowerCase().replace("\n","")) {
+fun String.toStoreSubtype() = when (this.toLowerCase().replace("\n", "")) {
     "bakery, pastry and dairy".toLowerCase() -> StoreSubtype.BAKERY_PASTRY_DAIRY
     "drinks".toLowerCase() -> StoreSubtype.DRINKS
     "eggs and birds".toLowerCase() -> StoreSubtype.EGGS_AND_BIRDS

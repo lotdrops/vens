@@ -8,7 +8,6 @@ import hackovid.vens.common.di.dataModule
 import hackovid.vens.common.di.utilitiesModule
 import hackovid.vens.common.ui.di.commonUiModule
 import hackovid.vens.features.detail.di.detailModule
-import hackovid.vens.features.favourites.di.favouritesModule
 import hackovid.vens.features.filter.di.filterModule
 import hackovid.vens.features.list.di.listModule
 import hackovid.vens.features.map.di.mapModule
@@ -33,7 +32,6 @@ class BaseApplication : Application() {
         dataModule,
         mapModule,
         listModule,
-        favouritesModule,
         detailModule,
         utilitiesModule,
         onBoardingModule,

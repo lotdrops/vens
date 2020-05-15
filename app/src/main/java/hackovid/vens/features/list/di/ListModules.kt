@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 val listModule = module {
     viewModel { (sharedViewModel: SharedViewModel) ->
-        ListViewModel(sharedViewModel, get { parametersOf(true, false) }, get(), get())
+        ListViewModel(sharedViewModel, get(), get { parametersOf(true, false) }, get())
     }
 }
