@@ -6,11 +6,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
+import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentRegisterBinding
-import kotlinx.android.synthetic.main.fragment_login.root_view
+import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -57,7 +58,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
         observe(viewModel.registerEvent) {
-            // TODO create screen and navigate
+
+            val user = User(viewModel.name.value!!, viewModel.lastName.value!!, viewModel.initialEmail!!)
+            if(viewModel.externalLogin) viewModel.registerExternalUser(user)
+            else viewModel.registerUser()
         }
     }
 }

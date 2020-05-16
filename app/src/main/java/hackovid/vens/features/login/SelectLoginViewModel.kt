@@ -10,10 +10,12 @@ import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.SingleLiveEvent
+import hackovid.vens.features.register.RegisterUseCase
 import kotlinx.coroutines.launch
 
 class SelectLoginViewModel(
-    private val dataSource: RemoteDataSource<FirebaseResponse>
+    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
     val switchAccountEvent = SingleLiveEvent<Unit>()
@@ -25,7 +27,7 @@ class SelectLoginViewModel(
     val selectedGoogleAccount = MutableLiveData("")
 
     fun isUserAlreadyLogged(): Boolean {
-        return dataSource.isUserAlreadyLoged().success
+        return registerUseCase.isUserAlreadyLoged()
     }
 
     fun login(user: User) = viewModelScope.launch {
@@ -42,7 +44,7 @@ class SelectLoginViewModel(
 
     fun loginWithGoogle(credentials: AuthCredential) = viewModelScope.launch {
         loginState.value = UiState.Loading
-        val result = dataSource.loginWithGoogle(credentials)
+        val result = registerUseCase.loginWithGoogle(credentials)
         if (result.success) {
             loginState.value = UiState.Success
         } else {

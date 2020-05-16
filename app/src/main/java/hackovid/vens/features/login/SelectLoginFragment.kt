@@ -145,8 +145,7 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                         lastName = account.familyName
                     )
                 )
-                // TODO move to screen after GDPR?
-                // firebaseGoogleAuthentication(account)
+                firebaseGoogleAuthentication(account)
             } else {
                 Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
             }

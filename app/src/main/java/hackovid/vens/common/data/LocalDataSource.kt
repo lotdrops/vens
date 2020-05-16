@@ -17,6 +17,8 @@ interface LocalStorage {
     fun setLocationPermissionRequested()
     fun getLastUpdateTimestamp(): Long
     fun setLastUpdateTimestamp(timestamp: Long)
+    fun isFirstLogin(): Boolean
+    fun setFirstLogin(id: Boolean)
     fun getTosAcceptedVersion(): Int
     fun setTosAcceptedVersion(version: Int)
     fun setFilterParams(params: FilterParams)
@@ -24,5 +26,5 @@ interface LocalStorage {
     fun setListIsFavourites(listIsFavourites: Boolean)
     fun getListIsFavourites(): Boolean
     fun getUserDataOnRegister(): User?
-    fun setUserDataOnRegister(user: User)
+    fun setUserDataOnRegister(user: User?)
 }

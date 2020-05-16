@@ -18,7 +18,8 @@ class RegisterViewModel(
     private val initialName: String?,
     private val initialLastname: String?,
     private val dataSource: RemoteDataSource<FirebaseResponse>,
-    private val validator: RegisterFieldsValidator
+    private val validator: RegisterFieldsValidator,
+    private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
     val selectStoreEvent = SingleLiveEvent<Unit>()
@@ -64,14 +65,14 @@ class RegisterViewModel(
 
     fun onButtonClick() {
         selectStoreEvent.call()
-        /*validateFields()
-        if (!anyErrorRemaining()) {
+        validateFields()
+        //if (!anyErrorRemaining()) {
             if (isShopOwner.value == true) {
                 selectStoreEvent.call()
             } else {
                 registerEvent.call()
             }
-        }*/
+       // }
     }
 
     private fun validateFields() {
@@ -93,9 +94,10 @@ class RegisterViewModel(
             emailError.value != null || passwordError.value != null ||
             repeatPasswordError.value != null
 
-    fun registerUser(user: User) = viewModelScope.launch {
+    fun registerUser() = viewModelScope.launch {
         registerResult.value = UiState.Loading
-        val result = dataSource.registerUser(user)
+        val user = User(name.value!!, lastName.value!!, email.value!!, password.value!! )
+        val result = registerUseCase.register(user)
         if (result.success) {
             registerResult.value = UiState.Success
         } else {
@@ -103,5 +105,9 @@ class RegisterViewModel(
                 UiState.Error(it)
             }
         }
+    }
+
+    fun registerExternalUser(user: User) {
+        registerUseCase.storeUserOnFirestoreIfNotExists(user)
     }
 }

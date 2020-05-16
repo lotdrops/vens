@@ -3,6 +3,7 @@ package hackovid.vens.common.data.login
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -17,7 +18,8 @@ interface RemoteDataSource<T> {
 
 class FirebaseDataSource(
     private val auth: FirebaseAuth,
-    private val firebaseErrorMapper: FirebaseErrorMapper
+    private val firebaseErrorMapper: FirebaseErrorMapper,
+    private val db: FirebaseFirestore
 ) : RemoteDataSource<FirebaseResponse> {
 
     override suspend fun login(user: User): FirebaseResponse = withContext(Dispatchers.IO) {

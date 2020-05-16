@@ -9,23 +9,28 @@ import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.UiState
+import hackovid.vens.features.register.RegisterUseCase
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val dataSource: RemoteDataSource<FirebaseResponse>) : ViewModel() {
+class LoginViewModel(
+    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val registerUseCase: RegisterUseCase
+) : ViewModel() {
 
     val loginState = MutableLiveData<UiState>()
     val recoverState = MutableLiveData<UiState>()
 
     val showProgress = loginState.map { it == UiState.Loading }
-    val enableButtons = loginState.map { it != UiState.Loading }
+    val enableButtons = true//loginState.map { it != UiState.Loading }
 
     fun isUserAlreadyLogged(): Boolean {
         return dataSource.isUserAlreadyLoged().success
     }
 
     fun login(user: User) = viewModelScope.launch {
+        val result = registerUseCase.login(user)
         loginState.value = UiState.Loading
-        val result = dataSource.login(user)
+       // val result = dataSource.login(user)
         if (result.success) {
             loginState.value = UiState.Success
         } else {

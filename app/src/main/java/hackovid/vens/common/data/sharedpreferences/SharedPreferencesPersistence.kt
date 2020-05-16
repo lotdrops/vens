@@ -46,9 +46,13 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
         else Json(JsonConfiguration.Stable).parse(User.serializer(), stringUser)
     }
 
-    override fun setUserDataOnRegister(user: User) {
-        val stringUser = Json(JsonConfiguration.Stable).stringify(User.serializer(), user)
-        preferences.edit{putString(USER_DATA_ON_REGISTER, stringUser)}
+    override fun setUserDataOnRegister(user: User?) {
+        if (user != null) {
+            val stringUser = Json(JsonConfiguration.Stable).stringify(User.serializer(), user)
+            preferences.edit { putString(USER_DATA_ON_REGISTER, stringUser) }
+        } else {
+            preferences.edit { putString(USER_DATA_ON_REGISTER, "") }
+        }
     }
 
     override fun setListIsFavourites(listIsFavourites: Boolean) = preferences
@@ -75,7 +79,13 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
             FilterParams.defaultCategories()
         }
 
+    override fun isFirstLogin() = preferences.getBoolean(FIRST_TIME_LOGIN, false)
+
+    override fun setFirstLogin(firstTime: Boolean) { preferences
+         .edit{ putBoolean(FIRST_TIME_LOGIN, firstTime) }
+    }
 }
+
 private const val ON_BOARDING_SHOULD_BE_DISPLAYED = "on_boarding_should_be_displayed"
 private const val DATABASE_LOADED_IDENTIFIER = "database_loaded_identifier"
 private const val LOCATION_PERMISSION_REQUESTED = "location_permission_requested"
@@ -85,3 +95,4 @@ private const val FILTER_PARAMS_CATEGORIES = "filter_params_categories"
 private const val FILTER_PARAMS_DISTANCE = "filter_params_distance"
 private const val LIST_IS_FAVOURITES = "list_as_favourites"
 private const val USER_DATA_ON_REGISTER = "user_data_on_register"
+private const val FIRST_TIME_LOGIN = "first_time_login"
