@@ -47,12 +47,11 @@ class RegisterViewModel(
     }
 
     var registerResult = MutableLiveData<UiState>()
+    var registerExternalResult = MutableLiveData<UiState>()
 
     init {
-        if (externalLogin) {
-            name.value = initialName ?: ""
-            lastName.value = initialLastname ?: ""
-        }
+        name.value = if(initialName == ("null")) "" else initialName
+        lastName.value = if(initialLastname == ("null")) "" else initialLastname
     }
 
     fun onBuyerClicked() {
@@ -64,30 +63,32 @@ class RegisterViewModel(
     }
 
     fun onButtonClick() {
-        selectStoreEvent.call()
         validateFields()
-        //if (!anyErrorRemaining()) {
-            if (isShopOwner.value == true) {
-                selectStoreEvent.call()
-            } else {
-                registerEvent.call()
-            }
-       // }
+        if (!anyErrorRemaining()) {
+            if (isShopOwner.value == true) selectStoreEvent.call()
+            else registerEvent.call()
+        }
     }
 
     private fun validateFields() {
         nameError.value =
-            if (validator.isValidName(name.value)) R.string.register_empty_field_error else null
+            if (!validator.isValidName(name.value)) R.string.register_empty_field_error else null
         lastNameError.value =
-            if (validator.isValidName(lastName.value)) R.string.register_empty_field_error else null
-        emailError.value =
+            if (!validator.isValidName(lastName.value)) R.string.register_empty_field_error else null
+        if(!externalLogin) {
+            emailError.value =
             if (!validator.isValidEmail(email.value)) R.string.register_mail_is_incorrect else null
-        passwordError.value =
-            if (!validator.isValidPassword(password.value)) R.string.register_password_too_short
-            else null
-        repeatPasswordError.value =
-            if (password.value != repeatPassword.value) R.string.register_passwords_do_not_match
-            else null
+            passwordError.value =
+                if (!validator.isValidPassword(password.value)) R.string.register_password_too_short
+                else null
+            repeatPasswordError.value =
+                if (password.value != repeatPassword.value) R.string.register_passwords_do_not_match
+                else null
+        } else {
+            emailError.value = null
+            passwordError.value = null
+            repeatPasswordError.value = null
+        }
     }
 
     private fun anyErrorRemaining() = nameError.value != null || lastNameError.value != null ||
@@ -108,6 +109,9 @@ class RegisterViewModel(
     }
 
     fun registerExternalUser(user: User) {
-        registerUseCase.storeUserOnFirestoreIfNotExists(user)
+        viewModelScope.launch {
+            registerUseCase.storeUserOnFirestoreIfNotExists(user)
+            registerExternalResult.value = UiState.Success
+        }
     }
 }

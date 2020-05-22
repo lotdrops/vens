@@ -85,6 +85,9 @@
         <action
             android:id="@+id/nav_to_select_store_fragment"
             app:destination="@id/selectStoreFragment"/>
+        <action
+            android:id="@+id/nav_to_login_fragment"
+            app:destination="@id/loginFragment"/>
     </fragment>
 
     <fragment

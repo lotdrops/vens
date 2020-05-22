@@ -1,5 +1,7 @@
 package hackovid.vens.features.register
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
@@ -8,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentRegisterBinding
@@ -43,10 +46,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             when (it) {
                 UiState.Success -> {
                     this.binding.loadingView.visibility = View.GONE
-                    // TODO show dialog with about email and go to login
-                    // TODO Check register does not send email when coming from googleSignIn
-                    /*this.binding.verifyMail.visibility = View.VISIBLE
-                    this.binding.verifyMail.text = resources.getString(R.string.register_user_mail_sended)*/
+                    AlertDialog.Builder(context)
+                        .setMessage(resources.getString(R.string.register_user_mail_sended))
+                        .setPositiveButton(resources.getString(R.string.generic_positive_button)) {
+                                dialogInterface, i ->
+                            dialogInterface.dismiss()
+                            navigateToLogin()
+                        }
+                        .show()
                 }
                 is UiState.Error -> {
                     this.binding.loadingView.visibility = View.GONE
@@ -58,10 +65,22 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
         observe(viewModel.registerEvent) {
-
             val user = User(viewModel.name.value!!, viewModel.lastName.value!!, viewModel.initialEmail!!)
             if(viewModel.externalLogin) viewModel.registerExternalUser(user)
             else viewModel.registerUser()
         }
+        observe(viewModel.registerExternalResult) {
+            navigateToMapScreen()
+        }
+    }
+
+    private fun navigateToLogin() {
+        NavHostFragment.findNavController(this).navigate(
+            RegisterFragmentDirections.navToLoginFragment()
+        )
+    }
+    private fun navigateToMapScreen() {
+        startActivity(Intent(activity, MainActivity::class.java))
+        activity?.finish()
     }
 }

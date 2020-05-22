@@ -37,15 +37,12 @@ class RegisterUseCase(
 
     suspend fun loginWithGoogle(credentials: AuthCredential) = remoteDataSource.loginWithGoogle(credentials)
 
-     fun storeUserOnFirestoreIfNotExists(userStored: User) {
+    fun storeUserOnFirestoreIfNotExists(userStored: User) {
         auth.uid?.let { uid ->
             val userDataRef = db.collection(COLLECTION_USERS).document(uid)
             userDataRef.get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    if (task.result?.exists() == true)
-                    else {
-                        userDataRef.set(userStored)
-                    }
+                    if (task.result?.exists() == false) userDataRef.set(userStored)
                 } else {
                     Log.e("firestore", task.exception?.localizedMessage)
                 }
@@ -53,11 +50,11 @@ class RegisterUseCase(
             localStore.setFirstLogin(false)
             localStore.setUserDataOnRegister(null)
         }
-     }
+    }
 
     fun isUserAlreadyLoged() = !localStore.isFirstLogin()
 
     companion object {
-        private const val COLLECTION_USERS = "Uers"
+        private const val COLLECTION_USERS = "Users"
     }
 }

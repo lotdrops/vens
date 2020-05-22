@@ -79,7 +79,7 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
             FilterParams.defaultCategories()
         }
 
-    override fun isFirstLogin() = preferences.getBoolean(FIRST_TIME_LOGIN, false)
+    override fun isFirstLogin() = preferences.getBoolean(FIRST_TIME_LOGIN, true)
 
     override fun setFirstLogin(firstTime: Boolean) { preferences
          .edit{ putBoolean(FIRST_TIME_LOGIN, firstTime) }
