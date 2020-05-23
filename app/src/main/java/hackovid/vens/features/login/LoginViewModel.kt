@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.AuthCredential
+import hackovid.vens.R
 import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
-import hackovid.vens.common.ui.UiState
+import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.features.register.RegisterUseCase
 import kotlinx.coroutines.launch
 
@@ -17,54 +17,42 @@ class LoginViewModel(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
-    val loginState = MutableLiveData<UiState>()
-    val recoverState = MutableLiveData<UiState>()
+    val email = MutableLiveData("")
+    val password = MutableLiveData("")
+    val loading = MutableLiveData(false)
+    val enableButtons = loading.map { !it }
 
-    val showProgress = loginState.map { it == UiState.Loading }
-    val enableButtons = true//loginState.map { it != UiState.Loading }
-
-    fun isUserAlreadyLogged(): Boolean {
-        return dataSource.isUserAlreadyLoged().success
-    }
+    val errorEvent = SingleLiveEvent<Int>()
+    val recoverOkEvent = SingleLiveEvent<Unit>()
+    val loginOkEvent = SingleLiveEvent<Unit>()
 
     fun login(user: User) = viewModelScope.launch {
+        loading.value = true
         val result = registerUseCase.login(user)
-        loginState.value = UiState.Loading
-       // val result = dataSource.login(user)
+        loading.value = false
         if (result.success) {
-            loginState.value = UiState.Success
+            loginOkEvent.call()
         } else {
-            loginState.value = result.error?.errorMessage?.let {
-                UiState.Error(it)
-            }
+            errorEvent.value = result.error?.errorMessage ?: R.string.generic_error_message
         }
     }
 
-    fun recoverPassword(email: String) {
+    fun recoverPassword() {
+        if (loading.value == true) return
+
         viewModelScope.launch {
-            recoverState.value = UiState.Loading
-            val result = dataSource.forgotPassword(email)
-            recoverState.value = UiState.Success
-
-            /*if (result.success) {
-                recoverState.value = UiState.Success
+            val email = email.value
+            if (email.isNullOrEmpty()) {
+                errorEvent.value = R.string.register_mail_is_incorrect
             } else {
-                recoverState.value = result.error?.errorMessage?.let {
-                    UiState.Error(it)
-
+                loading.value = true
+                val result = dataSource.forgotPassword(email)
+                loading.value = false
+                if (result.success) {
+                    recoverOkEvent.call()
+                } else {
+                    errorEvent.value = result.error?.errorMessage ?: R.string.generic_error_message
                 }
-            }*/
-        }
-    }
-
-    fun loginWithGoogle(credentials: AuthCredential) = viewModelScope.launch {
-        loginState.value = UiState.Loading
-        val result = dataSource.loginWithGoogle(credentials)
-        if (result.success) {
-            loginState.value = UiState.Success
-        } else {
-            loginState.value = result.error?.errorMessage?.let {
-                UiState.Error(it)
             }
         }
     }

@@ -37,7 +37,7 @@ class FirebaseErrorMapper {
                 return UiState.Error(R.string.register_user_mail_not_verified)
             }
             else -> {
-                return UiState.Error(R.string.login_generic_error)
+                return UiState.Error(R.string.generic_error_message)
             }
         }
     }

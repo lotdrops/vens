@@ -136,7 +136,7 @@
     nuevos servicios, promociones…</string>
     <string name= "on_boarding_discover_text">Descubre</string>
 
-    <string name= "login_generic_error">Ha ocurrido un error, vuelve a intentarlo</string>
+    <string name="generic_error_message">Ha ocurrido un error, vuelve a intentarlo</string>
     <string name= "login_incorrect_user_or_password">Usuario o contraseña incorrectos</string>
     <string name= "login_user_not_valid">Usuari no valido</string>
     <string name= "login_incorrect_mail">Mail incorrecto</string>
