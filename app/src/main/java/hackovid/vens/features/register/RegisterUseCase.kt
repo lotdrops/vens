@@ -35,7 +35,13 @@ class RegisterUseCase(
         return result
     }
 
-    suspend fun loginWithGoogle(credentials: AuthCredential) = remoteDataSource.loginWithGoogle(credentials)
+    suspend fun loginWithGoogle(credentials: AuthCredential) : FirebaseResponse{
+        val result = remoteDataSource.loginWithGoogle(credentials)
+        if(result.success) {
+            localStore.setFirstLogin(true)
+        }
+        return result
+    }
 
     fun storeUserOnFirestoreIfNotExists(userStored: User) {
         auth.uid?.let { uid ->
