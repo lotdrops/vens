@@ -35,7 +35,8 @@ class DetailViewModel(
             val isFavourite = storeUi.value?.isFavourite
             if (id != null && isFavourite != null) {
                 val fav = Favourite(id)
-                if (isFavourite) favouriteDao.removeFavourite(fav) else favouriteDao.addFavourite(fav)
+                if (isFavourite) favouriteDao.removeFavourite(fav)
+                else favouriteDao.addFavourite(fav)
             }
         }
     }

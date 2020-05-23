@@ -29,14 +29,18 @@ class StoresUseCase(
         return storesDataSource.findStoreByName(name)
     }
 
-    private fun getStoresNoOrder(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> =
+    private fun getStoresNoOrder(
+        params: Pair<FilterParams, Location?>?
+    ): LiveData<List<StoreAndFavourite>> =
         storesDataSource.getUnorderedData(params).map {
             val location = params?.second
             if (location != null) it.filterByDistance(params.first.distance, location)
             else it
         }
 
-    private fun getStoresByDistance(params: Pair<FilterParams, Location>): LiveData<List<StoreAndFavourite>> {
+    private fun getStoresByDistance(
+        params: Pair<FilterParams, Location>
+    ): LiveData<List<StoreAndFavourite>> {
         val res = MediatorLiveData<List<StoreAndFavourite>>()
         var sentFirstValue = false
         val emit: (List<StoreAndFavourite>) -> Unit = { stores ->
@@ -63,7 +67,9 @@ class StoresUseCase(
         return res
     }
 
-    private fun getStoresByName(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> {
+    private fun getStoresByName(
+        params: Pair<FilterParams, Location?>?
+    ): LiveData<List<StoreAndFavourite>> {
         val res = MediatorLiveData<List<StoreAndFavourite>>()
         var sentFirstValue = false
         val emit: (List<StoreAndFavourite>) -> Unit = { stores ->
@@ -73,10 +79,10 @@ class StoresUseCase(
         val emitIfFirst: (List<StoreAndFavourite>) -> Unit = { if (!sentFirstValue) emit(it) }
 
         if (fastLoadFirstResults) {
-            if (params != null)
-                res.addSource(storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE), emitIfFirst)
-            else
-                res.addSource(storesDataSource.getDataByName(FIRST_RESULTS_SIZE), emitIfFirst)
+            if (params != null) res.addSource(
+                storesDataSource.getDataByName(params, FIRST_RESULTS_SIZE), emitIfFirst
+            )
+            else res.addSource(storesDataSource.getDataByName(FIRST_RESULTS_SIZE), emitIfFirst)
         }
         if (params != null)
             res.addSource(storesDataSource.getDataByName(params, -1), emit)
@@ -89,9 +95,14 @@ class StoresUseCase(
     private fun Pair<FilterParams, Location>.shouldFastLoadByDistance() =
         fastLoadFirstResults && first.distance == FilterParams.ANY_DISTANCE
 
-    private fun List<StoreAndFavourite>.filterByDistance(distance: Int, location: Location) = when (distance) {
-        FilterParams.SHORT_DISTANCE -> filter { it.store.distance(location) <= SHORT_DISTANCE_METERS }
-        FilterParams.MEDIUM_DISTANCE -> filter { it.store.distance(location) <= MEDIUM_DISTANCE_METERS }
+    private fun List<StoreAndFavourite>.filterByDistance(
+        distance: Int,
+        location: Location
+    ) = when (distance) {
+        FilterParams.SHORT_DISTANCE ->
+            filter { it.store.distance(location) <= SHORT_DISTANCE_METERS }
+        FilterParams.MEDIUM_DISTANCE ->
+            filter { it.store.distance(location) <= MEDIUM_DISTANCE_METERS }
         else -> this
     }
 

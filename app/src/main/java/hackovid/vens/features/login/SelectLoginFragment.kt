@@ -3,7 +3,6 @@ package hackovid.vens.features.login
 import android.app.Activity
 import android.content.Intent
 import android.text.SpannableStringBuilder
-import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
@@ -140,9 +139,11 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                 )
                 firebaseGoogleAuthentication(account)
             } else {
+                // TODO should be dialog
                 Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
             }
         } catch (exception: ApiException) {
+            // TODO should be dialog
             Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
         }
     }

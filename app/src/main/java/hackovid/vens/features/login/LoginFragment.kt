@@ -1,9 +1,7 @@
 package hackovid.vens.features.login
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.text.SpannableStringBuilder
-import android.view.View
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold

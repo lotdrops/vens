@@ -41,8 +41,8 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
 
     override fun getListIsFavourites() = preferences.getBoolean(LIST_IS_FAVOURITES, false)
     override fun getUserDataOnRegister(): User? {
-        val stringUser = preferences.getString(USER_DATA_ON_REGISTER,"")
-        return if(stringUser.isNullOrEmpty()) null
+        val stringUser = preferences.getString(USER_DATA_ON_REGISTER, "")
+        return if (stringUser.isNullOrEmpty()) null
         else Json(JsonConfiguration.Stable).parse(User.serializer(), stringUser)
     }
 
@@ -82,7 +82,7 @@ class SharedPreferencesPersistence(private val preferences: SharedPreferences) :
     override fun isFirstLogin() = preferences.getBoolean(FIRST_TIME_LOGIN, true)
 
     override fun setFirstLogin(firstTime: Boolean) { preferences
-         .edit{ putBoolean(FIRST_TIME_LOGIN, firstTime) }
+        .edit { putBoolean(FIRST_TIME_LOGIN, firstTime) }
     }
 }
 

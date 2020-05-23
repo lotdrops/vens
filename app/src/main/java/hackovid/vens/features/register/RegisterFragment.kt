@@ -1,12 +1,9 @@
 package hackovid.vens.features.register
 
-import android.app.AlertDialog
 import android.content.Intent
-import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
@@ -58,8 +55,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             }
         }
         observe(viewModel.registerEvent) {
+            // TODO this should be in the viewModel!
             val user = User(viewModel.name.value!!, viewModel.lastName.value!!, viewModel.initialEmail!!)
-            if(viewModel.externalLogin) viewModel.registerExternalUser(user)
+            if (viewModel.externalLogin) viewModel.registerExternalUser(user)
             else viewModel.registerUser()
         }
         observe(viewModel.registerExternalEvent) {

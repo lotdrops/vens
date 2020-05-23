@@ -53,8 +53,8 @@ class RegisterViewModel(
     val registerExternalEvent = SingleLiveEvent<Unit>()
 
     init {
-        name.value = if(initialName == ("null")) "" else initialName
-        lastName.value = if(initialLastname == ("null")) "" else initialLastname
+        name.value = if (initialName == ("null")) "" else initialName
+        lastName.value = if (initialLastname == ("null")) "" else initialLastname
     }
 
     fun onBuyerClicked() {
@@ -77,8 +77,9 @@ class RegisterViewModel(
         nameError.value =
             if (!validator.isValidName(name.value)) R.string.register_empty_field_error else null
         lastNameError.value =
-            if (!validator.isValidName(lastName.value)) R.string.register_empty_field_error else null
-        if(!externalLogin) {
+            if (!validator.isValidName(lastName.value)) R.string.register_empty_field_error
+            else null
+        if (!externalLogin) {
             emailError.value =
             if (!validator.isValidEmail(email.value)) R.string.register_mail_is_incorrect else null
             passwordError.value =

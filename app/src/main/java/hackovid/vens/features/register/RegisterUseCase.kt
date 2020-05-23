@@ -1,7 +1,6 @@
 package hackovid.vens.features.register
 
 import android.util.Log
-import com.github.michaelbull.result.Result
 import com.github.michaelbull.result.onSuccess
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth

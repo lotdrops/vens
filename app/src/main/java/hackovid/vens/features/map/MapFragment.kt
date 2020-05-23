@@ -68,9 +68,11 @@ class MapFragment : FilterBaseFragment<FragmentMapBinding>(), GoogleMap.OnMapCli
             this@MapFragment.viewModel.setCardMapPadding(it.height +
                     it.resources.getDimension(R.dimen.map_info_margin).roundToInt())
         }
-
-         snackBar = Snackbar.make(locationFab, resources.getString(R.string.filter_snackbar_map), Snackbar.LENGTH_INDEFINITE)
-            .setAction(resources.getString(R.string.filter_snackbar_map_action)) { onFilterClicked() }
+        snackBar = Snackbar.make(
+            locationFab,
+            resources.getString(R.string.filter_snackbar_map),
+            Snackbar.LENGTH_INDEFINITE
+        ).setAction(resources.getString(R.string.filter_snackbar_map_action)) { onFilterClicked() }
     }
 
     private fun subscribeUi(binding: FragmentMapBinding) {

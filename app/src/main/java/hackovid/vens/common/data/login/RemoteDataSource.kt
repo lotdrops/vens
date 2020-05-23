@@ -1,7 +1,13 @@
 package hackovid.vens.common.data.login
 
-import com.github.michaelbull.result.*
-import com.google.firebase.FirebaseException
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.Result
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.runCatching
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

@@ -1,7 +1,11 @@
 package hackovid.vens.features.map
 
 import android.location.Location
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import hackovid.vens.common.data.Favourite
 import hackovid.vens.common.data.FavouriteDao
 import hackovid.vens.common.data.StoreDao
@@ -77,7 +81,8 @@ class MapViewModel(
         viewModelScope.launch {
             selectedStore.value?.let { st ->
                 val fav = Favourite(st.id)
-                if (st.isFavourite) favouriteDao.removeFavourite(fav) else favouriteDao.addFavourite(fav) }
+                if (st.isFavourite) favouriteDao.removeFavourite(fav)
+                else favouriteDao.addFavourite(fav) }
         }
     }
 

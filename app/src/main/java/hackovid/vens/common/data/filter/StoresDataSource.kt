@@ -16,7 +16,10 @@ class StoresDataSource(
     override suspend fun deleteStore(id: Long) = storeDao.deleteStore(id)
     override suspend fun upsertStore(store: Store) = storeDao.upsert(store)
 
-    fun getUnorderedData(params: Pair<FilterParams, Location?>?): LiveData<List<StoreAndFavourite>> {
+    fun getUnorderedData(
+        params: Pair<FilterParams,
+                Location?>?
+    ): LiveData<List<StoreAndFavourite>> {
         return if (params != null) {
             val whereClause = buildWhereClause(params)
             val distanceFilter = buildDistanceFilter(params)
@@ -87,12 +90,15 @@ class StoresDataSource(
         val latitude = location.latitude
         val longitude = location.longitude
         val distance = getDistanceFromType(distanceType)
-        val longitudeEast = longitude + (distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180)
-        val longitudeWest = longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
+        val longitudeEast =
+            longitude + (distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180)
+        val longitudeWest =
+            longitude - ((distance / EARTH_RADIUS) * (180 / PI) / cos(latitude * PI / 180))
         val latitudeNorth = latitude + (distance / EARTH_RADIUS) * 180 / PI
         val latitudeSouth = latitude - ((distance / EARTH_RADIUS) * 180 / PI)
 
-        return "(latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND (longitude BETWEEN $longitudeWest AND $longitudeEast)"
+        return "(latitude BETWEEN $latitudeSouth AND $latitudeNorth) AND " +
+                "(longitude BETWEEN $longitudeWest AND $longitudeEast)"
     }
 
     private fun getDistanceFromType(distanceType: Int) = when (distanceType) {
@@ -102,7 +108,8 @@ class StoresDataSource(
 
     private fun buildOrderByDistance(params: Pair<FilterParams, Location?>): String {
         return "ORDER BY ((longitude -(${params.second?.longitude})) *" +
-                "(longitude -(${params.second?.longitude}))) + ((latitude -(${params.second?.latitude})) " +
+                "(longitude -(${params.second?.longitude}))) + " +
+                "((latitude -(${params.second?.latitude})) " +
                 "* (latitude -(${params.second?.latitude})))"
     }
 
@@ -133,7 +140,7 @@ class StoresDataSource(
     }
 
     fun findStoreByName(name: String = ""): LiveData<List<Store>> {
-       return storeDao.getStoreByName("%$name%")
+        return storeDao.getStoreByName("%$name%")
     }
 }
 
