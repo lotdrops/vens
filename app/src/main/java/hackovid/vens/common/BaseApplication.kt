@@ -7,11 +7,13 @@ import hackovid.vens.common.data.updatedata.updateDataModule
 import hackovid.vens.common.di.dataModule
 import hackovid.vens.common.di.utilitiesModule
 import hackovid.vens.common.ui.di.commonUiModule
+import hackovid.vens.features.about.di.aboutModule
 import hackovid.vens.features.detail.di.detailModule
 import hackovid.vens.features.filter.di.filterModule
 import hackovid.vens.features.list.di.listModule
 import hackovid.vens.features.map.di.mapModule
 import hackovid.vens.features.onboarding.di.onBoardingModule
+import hackovid.vens.features.shopprofile.di.shopProfileModule
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -32,6 +34,8 @@ class BaseApplication : Application() {
         dataModule,
         mapModule,
         listModule,
+        aboutModule,
+        shopProfileModule,
         detailModule,
         utilitiesModule,
         onBoardingModule,

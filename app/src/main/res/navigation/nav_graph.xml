@@ -48,4 +48,54 @@
             app:argType="long"
             app:nullable="false" />
     </fragment>
+
+    <fragment
+        android:id="@+id/store_profile"
+        android:name="hackovid.vens.features.shopprofile.ShopProfileFragment"
+        android:label="@string/shop_profile_title"
+        tools:layout="@layout/fragment_shop_profile"
+        >
+        <action
+            android:id="@+id/nav_to_slots_config"
+            app:destination="@id/store_slots_config"
+            />
+        <action
+            android:id="@+id/nav_to_schedule"
+            app:destination="@id/store_schedule"
+            />
+        <action
+            android:id="@+id/nav_to_pending_slot_requests"
+            app:destination="@id/store_pending_slot_requests"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/store_schedule"
+        android:name="hackovid.vens.features.shopprofile.ScheduleFragment"
+        android:label="@string/shop_set_schedule_title"
+        tools:layout="@layout/fragment_schedule"/>
+
+    <fragment
+        android:id="@+id/store_slots_config"
+        android:name="hackovid.vens.features.shopprofile.SlotsConfigFragment"
+        android:label="@string/shop_slots_config"
+        tools:layout="@layout/fragment_slots_config"
+        >
+        <action
+            android:id="@+id/nav_to_schedule"
+            app:destination="@id/store_schedule"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/store_pending_slot_requests"
+        android:name="hackovid.vens.features.shopprofile.PendingSlotRequestsFragment"
+        android:label="@string/shop_pending_requests"
+        tools:layout="@layout/fragment_pending_slot_requests"/>
+
+    <fragment
+        android:id="@+id/about_screen"
+        android:name="hackovid.vens.features.about.AboutFragment"
+        android:label="@string/title_list"
+        tools:layout="@layout/fragment_about"/>
 </navigation>

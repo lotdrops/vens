@@ -32,6 +32,11 @@
         <item name="android:fontFamily">@font/vag_rounded_std_bold</item>
     </style>
 
+    <style name="Chip.Schedule" parent="@style/Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/schedule_chip_bg</item>
+        <item name="rippleColor">@color/dark_purple</item>
+    </style>
+
     <!--    TEXT STYLES-->
     <!--    Base    -->
     <style name="BaseTitleStyle" parent="android:Widget.Material.TextView">
@@ -56,6 +61,14 @@
     <style name="TextAppearance.Custom.Body" parent="BaseBodyStyle">
         <item name="android:textSize">@dimen/body_text_size</item>
         <item name="android:textColor">@color/unselected_text</item>
+    </style>
+
+    <style name="TextAppearance.ClickableElement" parent="BaseBodyStyle">
+        <item name="android:fontFamily">@font/open_sans_regular</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <!--    Filter    -->

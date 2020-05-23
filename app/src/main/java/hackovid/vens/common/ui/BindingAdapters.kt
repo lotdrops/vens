@@ -17,6 +17,42 @@ fun setSelected(view: View, selected: Boolean) {
     view.isSelected = selected
 }
 
+@BindingAdapter("bind:store_phones")
+fun setStorePhones(view: TextView, store: Store?) {
+    if (store != null) {
+        if (store.mobilePhone.isNullOrEmpty() && store.phone.isNullOrEmpty()) {
+            view.visibility = View.GONE
+        } else {
+            view.visibility = View.VISIBLE
+            view.text = if (!store.mobilePhone.isNullOrEmpty() && !store.phone.isNullOrEmpty()) {
+                 "${store.mobilePhone} - ${store.phone}"
+            } else if (!store.mobilePhone.isNullOrEmpty()) {
+                store.mobilePhone
+            } else {
+                store.phone
+            }
+        }
+    }
+}
+
+@BindingAdapter("bind:store_accepts_orders")
+fun setStoreAcceptsOrders(view: TextView, store: Store?) {
+    view.text = if (store?.acceptsOrders == true) {
+         view.resources.getString(R.string.shop_accepts_orders)
+    } else {
+        view.resources.getString(R.string.shop_accepts_orders_not)
+    }
+}
+
+@BindingAdapter("bind:store_delivers")
+fun setStoreDelivers(view: TextView, store: Store?) {
+    view.text = if (store?.acceptsOrders == true) {
+        view.resources.getString(R.string.shop_delivers)
+    } else {
+        view.resources.getString(R.string.shop_delivers_not)
+    }
+}
+
 @BindingAdapter("bind:store_types")
 fun setStoreType(view: TextView, store: Store?) {
     if (store != null) {

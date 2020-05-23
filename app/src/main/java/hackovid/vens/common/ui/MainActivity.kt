@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
         stopLocationUpdates()
     }
 
+    override fun onSupportNavigateUp() = true.also { onBackPressed() }
+
     override fun onBackPressed() {
         findNavController(R.id.nav_host).apply {
             val backHandled = getCurrentFragment()?.onBackPressed() ?: false

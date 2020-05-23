@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="android.view.View" />
+        <variable name="day" type="String" />
+        <variable name="time" type="String" />
+        <variable name="show" type="Boolean" />
+        <variable name="onClick" type="android.view.View.OnClickListener" />
+    </data>
+    <merge
+        tools:parentTag="android.widget.TableLayout"
+        >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_horizontal_margin"
+            android:layout_marginEnd="8dp"
+            >
+            <TextView
+                style="@style/TextAppearance.Custom.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="2dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary"
+                android:text="@{day}"
+                tools:text="Monday"
+                />
+
+            <TextView
+                style="@style/TextAppearance.Custom.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical|end"
+                android:layout_marginStart="16dp"
+                android:layout_marginVertical="2dp"
+                android:textSize="16sp"
+                android:textColor="@color/textPrimary"
+                android:text="@{time}"
+                tools:text="8:00 - 13:00"
+                />
+
+            <ImageView
+                android:id="@+id/remove"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:padding="8dp"
+                android:layout_marginHorizontal="8dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_edit"
+                android:visibility="@{show ? View.VISIBLE : View.INVISIBLE}"
+                android:onClick="@{onClick}"
+                />
+        </TableRow>
+    </merge>
+</layout>

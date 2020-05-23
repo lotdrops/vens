@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="hackovid.vens.features.slots.SlotsViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp">
+
+            <TextView
+                style="@style/TextAppearance.Custom.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="@dimen/screen_horizontal_margin"
+                android:layout_marginVertical="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/slots_title"
+                />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/slots_scheduled_slots"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:layout_marginVertical="16dp"
+            style="@style/TextAppearance.ClickableElement"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
+            android:text="@string/slots_past_slots"
+            android:layout_marginVertical="16dp"
+            style="@style/TextAppearance.ClickableElement"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mapFilterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="36dp"
+            android:layout_marginVertical="8dp"
+            android:text="@string/slots_request_slot"
+            android:layout_gravity="top|center"
+            android:drawableStart="@drawable/ic_add_shopping_cart"
+            bind:cornerRadius="@dimen/button_corner_radius"
+            style="@style/RoundedButton"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="8dp"
+            >
+            <TextView
+                style="@style/TextAppearance.Custom.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="16dp"
+                android:gravity="center_vertical"
+                android:text="@string/slots_requests_of_today"
+                />
+
+            <TextView
+                style="@style/TextAppearance.Custom.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_vertical"
+                android:text="@string/slots_no_requests_for_today"
+                android:visibility="@{viewModel.showNoSlots ? View.VISIBLE : View.GONE}"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/slots_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_background"
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
