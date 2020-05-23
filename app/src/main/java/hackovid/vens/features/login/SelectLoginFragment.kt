@@ -147,10 +147,10 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                 )
                 firebaseGoogleAuthentication(account)
             } else {
-                Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
             }
         } catch (exception: ApiException) {
-            Snackbar.make(root_view, R.string.login_generic_error, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
         }
     }
 

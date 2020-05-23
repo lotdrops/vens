@@ -6,6 +6,8 @@
     <string name="map_store_action">See detail</string>
     <string name="title_filter">Filter</string>
 
+    <string name= "generic_error_title">Error</string>
+    <string name= "generic_error_message">Some error occurred, try again</string>
     <string name="generic_error_not_done_yet_title">Not available</string>
     <string name="generic_error_not_done_yet_message">Sorry, this functionality will be added shortly</string>
     <string name="generic_positive_button">OK</string>
@@ -135,7 +137,6 @@
         chat, receive alerts, see schedule changes, check product availability, find out about new services, promotions…</string>
     <string name= "on_boarding_discover_text">Discover</string>
 
-    <string name= "login_generic_error">Some error occurred, try again</string>
     <string name= "login_incorrect_user_or_password">User or password not correct</string>
     <string name= "login_user_not_valid">User not valid</string>
     <string name= "login_incorrect_mail">Incorrect Mail</string>
@@ -144,6 +145,7 @@
     <string name= "login_write_your_password">Password</string>
     <string name= "login_message">Login</string>
     <string name= "login_forgot_password">Forgot password? Recover</string>
+    <string name= "login_recover_password">Recover password</string>
     <string name= "login_restore_my_password">Restore my password</string>
     <string name= "login_restore_my_password_email">We\'ve just sent you an email with the new password</string>
     <string name= "login_restore_my_password_email_back">Back</string>

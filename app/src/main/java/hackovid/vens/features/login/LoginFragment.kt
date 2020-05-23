@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
@@ -78,32 +79,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun observeViewModels() {
-        observe(viewModel.loginState) {
-            when (it) {
-                UiState.Success -> {
-                    this.binding.loadingView.visibility = View.GONE
-                    navigateToMain()
-                }
-                is UiState.Error -> {
-                    this.binding.loadingView.visibility = View.GONE
-                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show()
-                }
-                UiState.Loading -> {
-                    this.binding.loadingView.visibility = View.VISIBLE
-                }
+        observe(viewModel.loginOkEvent) {
+            navigateToMain()
+        }
+        observe(viewModel.recoverOkEvent) {
+            context?.let { context ->
+                Dialogs.showAlert(
+                    context = context,
+                    title = R.string.login_recover_password,
+                    message = R.string.login_restore_my_password_email
+                )
             }
         }
-
-        observe(viewModel.recoverState) { uiState ->
-            when (uiState) {
-                UiState.Success -> {
-                    AlertDialog.Builder(context)
-                        .setMessage(resources.getString(R.string.login_restore_my_password_email))
-                        .setPositiveButton(resources.getString(R.string.login_restore_my_password_email_back)) {dialogInterface, i -> dialogInterface.dismiss() }
-                        .show()
-                }
+        observe(viewModel.errorEvent) { error ->
+            context?.let { context ->
+                Dialogs.showAlert(context = context, message = error)
             }
-
         }
     }
 
@@ -113,7 +104,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     fun onForgotPasswordClick() {
-        viewModel.recoverPassword(binding.email.toString())
+        viewModel.recoverPassword()
     }
 
     private fun validateLoginFields() = when {

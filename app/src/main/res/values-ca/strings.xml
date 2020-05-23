@@ -134,7 +134,7 @@
     <string name= "on_boarding_screen_body_slide_three">Tingues una comunicaci més propera i senzilla amb les teves botigues preferides:
          xateja, rep avisos, veu els canvis d\'horaris, consulta disponibilitat de productes, informa\'t de nous serveis i promocions…</string>
     <string name= "on_boarding_discover_text">Descobreix</string>
-    <string name= "login_generic_error">Hi ha hagut un error, torna a intentar-ho</string>
+    <string name="generic_error_message">Hi ha hagut un error, torna a intentar-ho</string>
     <string name= "login_incorrect_user_or_password">Usuari o contrasenya incorrectes</string>
     <string name= "login_user_not_valid">Usuari no vàlid</string>
     <string name= "login_incorrect_mail">Mail incorrecte</string>
