@@ -32,16 +32,12 @@ class RegisterUseCase(
         if (result.success && localStore.isFirstLogin() && userStored != null) {
             storeUserOnFirestoreIfNotExists(userStored)
         }
+        localStore.setFirstLogin(false)
+        localStore.setUserDataOnRegister(null)
         return result
     }
 
-    suspend fun loginWithGoogle(credentials: AuthCredential) : FirebaseResponse{
-        val result = remoteDataSource.loginWithGoogle(credentials)
-        if(result.success) {
-            localStore.setFirstLogin(true)
-        }
-        return result
-    }
+    suspend fun loginWithGoogle(credentials: AuthCredential)  = remoteDataSource.loginWithGoogle(credentials)
 
     fun storeUserOnFirestoreIfNotExists(userStored: User) {
         auth.uid?.let { uid ->
@@ -53,8 +49,6 @@ class RegisterUseCase(
                     Log.e("firestore", task.exception?.localizedMessage)
                 }
             }
-            localStore.setFirstLogin(false)
-            localStore.setUserDataOnRegister(null)
         }
     }
 

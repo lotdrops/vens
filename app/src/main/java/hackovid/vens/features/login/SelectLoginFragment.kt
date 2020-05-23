@@ -22,7 +22,7 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSelectLoginBinding
-import kotlinx.android.synthetic.main.fragment_select_login.root_view
+import kotlinx.android.synthetic.main.fragment_select_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
@@ -88,7 +88,7 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
             when (it) {
                 UiState.Success -> {
                     this.binding.loadingView.visibility = View.GONE
-                    navigateToMain()
+                 //   navigateToMain()
                 }
                 is UiState.Error -> {
                     this.binding.loadingView.visibility = View.GONE
