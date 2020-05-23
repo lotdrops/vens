@@ -10,7 +10,6 @@ import hackovid.vens.common.data.Store
 import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
-import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.common.utils.combineWith
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 class FillStoreInfoViewModel(
     private val storeId: Long,
     private val storeDao: StoreDao,
-    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val dataSource: RemoteDataSource,
     private val validator: RegisterFieldsValidator
 ) : ViewModel() {
     private val isEditing = storeId > 0L

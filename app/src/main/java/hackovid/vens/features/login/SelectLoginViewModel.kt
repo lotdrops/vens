@@ -4,25 +4,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import com.google.firebase.auth.AuthCredential
-import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
-import hackovid.vens.common.data.login.User
-import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.features.register.RegisterUseCase
 import kotlinx.coroutines.launch
 
 class SelectLoginViewModel(
-    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val dataSource: RemoteDataSource,
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
     val switchAccountEvent = SingleLiveEvent<Unit>()
+    val errorEvent = SingleLiveEvent<Int>()
+    val loginWithGoogleOkEvent = SingleLiveEvent<Unit>()
 
-    val loginState = MutableLiveData<UiState>(UiState.Idle)
-    val showProgress = loginState.map { it == UiState.Loading }
-    val enableButtons = loginState.map { it != UiState.Loading }
+    val showProgress = MutableLiveData(false)
+    val enableButtons = showProgress.map { !it }
 
     val selectedGoogleAccount = MutableLiveData("")
 
@@ -30,28 +30,12 @@ class SelectLoginViewModel(
         return registerUseCase.isUserAlreadyLoged()
     }
 
-    fun login(user: User) = viewModelScope.launch {
-        loginState.value = UiState.Loading
-        val result = dataSource.login(user)
-        if (result.success) {
-            loginState.value = UiState.Success
-        } else {
-            loginState.value = result.error?.errorMessage?.let {
-                UiState.Error(it)
-            }
-        }
-    }
-
     fun loginWithGoogle(credentials: AuthCredential) = viewModelScope.launch {
-        loginState.value = UiState.Loading
+        showProgress.value = true
         val result = registerUseCase.loginWithGoogle(credentials)
-        if (result.success) {
-            loginState.value = UiState.Success
-        } else {
-            loginState.value = result.error?.errorMessage?.let {
-                UiState.Error(it)
-            }
-        }
+        showProgress.value = false
+        if (result is Ok) loginWithGoogleOkEvent.call()
+        else errorEvent.value = (result as Err).error
     }
 
     fun onSwitchAccountClicked() {

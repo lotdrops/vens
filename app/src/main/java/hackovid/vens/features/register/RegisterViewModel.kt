@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import hackovid.vens.R
-import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
-import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,7 @@ class RegisterViewModel(
     val initialEmail: String?,
     private val initialName: String?,
     private val initialLastname: String?,
-    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val dataSource: RemoteDataSource,
     private val validator: RegisterFieldsValidator,
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
@@ -46,8 +46,11 @@ class RegisterViewModel(
         else R.drawable.ic_person
     }
 
-    var registerResult = MutableLiveData<UiState>()
-    var registerExternalResult = MutableLiveData<UiState>()
+    val loading = MutableLiveData(false)
+    val enableButtons = loading.map { !it }
+    val errorEvent = SingleLiveEvent<Int>()
+    val registerOkEvent = SingleLiveEvent<Unit>()
+    val registerExternalEvent = SingleLiveEvent<Unit>()
 
     init {
         name.value = if(initialName == ("null")) "" else initialName
@@ -96,22 +99,24 @@ class RegisterViewModel(
             repeatPasswordError.value != null
 
     fun registerUser() = viewModelScope.launch {
-        registerResult.value = UiState.Loading
-        val user = User(name.value!!, lastName.value!!, email.value!!, password.value!! )
-        val result = registerUseCase.register(user)
-        if (result.success) {
-            registerResult.value = UiState.Success
-        } else {
-            registerResult.value = result.error?.errorMessage?.let {
-                UiState.Error(it)
-            }
+        loading.value = true
+        val name = name.value
+        val lastName = lastName.value
+        val email = email.value
+        val password = password.value
+        if (name != null && lastName != null && email != null && password != null) {
+            val user = User(name, lastName, email, password)
+            val result = registerUseCase.register(user)
+            loading.value = false
+            if (result is Ok) registerOkEvent.call()
+            else errorEvent.value = (result as Err).error
         }
     }
 
     fun registerExternalUser(user: User) {
         viewModelScope.launch {
             registerUseCase.storeUserOnFirestoreIfNotExists(user)
-            registerExternalResult.value = UiState.Success
+            registerEvent.call()
         }
     }
 }

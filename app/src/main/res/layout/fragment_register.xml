@@ -250,6 +250,7 @@
                         android:elevation="20dp"
                         android:padding="4dp"
                         android:theme="@style/AppTheme.Purple"
+                        android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE}"
                         tools:visibility="visible"
                         />
 
@@ -264,6 +265,7 @@
                         android:onClick="@{view -> viewModel.onButtonClick()}"
                         android:orientation="vertical"
                         android:text="@{viewModel.buttonText}"
+                        android:enabled="@{viewModel.enableButtons}"
                         bind:cornerRadius="@dimen/login_button_corner_radius"
                         tools:text="Register"
                         />

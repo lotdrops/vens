@@ -103,6 +103,7 @@ dependencies {
     implementation libs.googleMaps
     implementation libs.playLocation
     implementation libs.mapsUtils
+    implementation libs.kotlinResult
 
     testImplementation libs.junit
     testImplementation libs.coroutinesTest

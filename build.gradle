@@ -46,6 +46,8 @@ buildscript {
         firebaseCrashlyticsVersion = '2.10.1'
         firebasePerformancePluginVersion = '1.3.1'
         CrashlyticsGradleClassPathVersion = '2.0.0'
+        // Other
+        kotlinResultVersion = '1.1.6'
         // Testing
         junitVersion = '4.13'
         mockkVersion = '1.9.3'
@@ -107,6 +109,8 @@ buildscript {
                 firestore           : ('com.google.firebase:firebase-firestore:' + firestoreVersion),
                 firestoreKtx        : ('com.google.firebase:firebase-firestore-ktx:' + firestoreKtxVersion),
                 mapsUtils           : ('com.google.maps.android:android-maps-utils:' + mapsUtilsVersion),
+                // Other
+                kotlinResult        : ('com.michael-bull.kotlin-result:kotlin-result:' + kotlinResultVersion),
                 // Testing
                 junit               : ('junit:junit:' + junitVersion),
                 mockk               : ('io.mockk:mockk:' + mockkVersion),

@@ -1,71 +1,58 @@
 package hackovid.vens.common.data.login
 
+import com.github.michaelbull.result.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-interface RemoteDataSource<T> {
-    suspend fun login(user: User): T
-    suspend fun loginWithGoogle(credentials: AuthCredential): T
-    fun isUserAlreadyLoged(): T
-    suspend fun registerUser(user: User): T
-    suspend fun forgotPassword(email: String): T
+interface RemoteDataSource {
+    suspend fun login(user: User): Result<Unit, Int>
+    suspend fun loginWithGoogle(credentials: AuthCredential): Result<Unit, Int>
+    fun isUserAlreadyLoged(): Boolean
+    suspend fun registerUser(user: User): Result<Unit, Int>
+    suspend fun forgotPassword(email: String): Result<Unit, Int>
 }
 
 class FirebaseDataSource(
     private val auth: FirebaseAuth,
     private val firebaseErrorMapper: FirebaseErrorMapper,
     private val db: FirebaseFirestore
-) : RemoteDataSource<FirebaseResponse> {
+) : RemoteDataSource {
 
-    override suspend fun login(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
-        try {
-            auth.signInWithEmailAndPassword(user.email, user.password).await()
-            if (auth.currentUser?.isEmailVerified!!) {
-                FirebaseResponse(success = true)
-            } else {
-                FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(UserNotVerifiedFirebaseException()))
-            }
-        } catch (e: FirebaseException) {
-            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
-        }
+    override suspend fun login(user: User) = withContext(Dispatchers.IO) {
+        runCatching { auth.signInWithEmailAndPassword(user.email, user.password).await() }
+            .andThen { auth ->
+                if (auth.isEmailVerified()) Ok(Unit)
+                else Err(UserNotVerifiedFirebaseException())
+            }.mapError { firebaseErrorMapper.mapToError(it) }
     }
 
-    override fun isUserAlreadyLoged(): FirebaseResponse {
-        return if (auth.currentUser == null) FirebaseResponse(success = false)
-        else FirebaseResponse(success = true)
+    private fun AuthResult.isEmailVerified() = user?.isEmailVerified == true
+
+    override fun isUserAlreadyLoged() = auth.currentUser != null
+
+    override suspend fun registerUser(user: User) = withContext(Dispatchers.IO) {
+        runCatching { auth.createUserWithEmailAndPassword(user.email, user.password).await() }
+            .onSuccess { runCatching { it.user?.sendEmailVerification()?.await() } }
+            .map { Unit }
+            .mapError { firebaseErrorMapper.mapToError(it) }
     }
 
-    override suspend fun registerUser(user: User): FirebaseResponse = withContext(Dispatchers.IO) {
-        try {
-            auth.createUserWithEmailAndPassword(user.email, user.password).await()
-            auth.currentUser?.sendEmailVerification()?.await()
-            FirebaseResponse(success = true)
-        } catch (e: FirebaseException) {
-            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
-        }
-    }
-
-    override suspend fun loginWithGoogle(credentials: AuthCredential): FirebaseResponse =
+    override suspend fun loginWithGoogle(credentials: AuthCredential) =
         withContext(Dispatchers.IO) {
-            try {
-                auth.signInWithCredential(credentials).await()
-                FirebaseResponse(success = true)
-            } catch (e: FirebaseException) {
-                FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
-            }
+            runCatching { auth.signInWithCredential(credentials).await() }
+                .map { Unit }
+                .mapError { firebaseErrorMapper.mapToError(it) }
         }
 
-    override suspend fun forgotPassword(email: String): FirebaseResponse = withContext(Dispatchers.IO) {
-        try {
-            auth.sendPasswordResetEmail(email).await()
-            FirebaseResponse(success = true)
-        } catch (e: FirebaseException) {
-            FirebaseResponse(success = false, error = firebaseErrorMapper.mapToUiError(e))
-        }
+    override suspend fun forgotPassword(email: String) = withContext(Dispatchers.IO) {
+        runCatching { auth.sendPasswordResetEmail(email).await() }
+            .map { Unit }
+            .mapError { firebaseErrorMapper.mapToError(it) }
     }
 }

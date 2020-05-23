@@ -9,12 +9,16 @@ object Dialogs {
         context: Context,
         title: Int? = R.string.generic_error_title,
         message: Int? = R.string.generic_error_message,
-        buttonText: Int = R.string.generic_positive_button
+        buttonText: Int = R.string.generic_positive_button,
+        onPositive: (() -> Unit)? = null
     ) {
         MaterialAlertDialogBuilder(context).apply {
             if (title != null) setTitle(title)
             if (message != null) setMessage(message)
-            setPositiveButton(buttonText) { dialog, _ -> dialog.dismiss() }
+            setPositiveButton(buttonText) { dialog, _ ->
+                onPositive?.invoke()
+                dialog.dismiss()
+            }
             show()
         }
     }

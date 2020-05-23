@@ -10,8 +10,8 @@ import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
+import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
-import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -42,26 +42,19 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 RegisterFragmentDirections.navToSelectStoreFragment()
             )
         }
-        observe(viewModel.registerResult) {
-            when (it) {
-                UiState.Success -> {
-                    this.binding.loadingView.visibility = View.GONE
-                    AlertDialog.Builder(context)
-                        .setMessage(resources.getString(R.string.register_user_mail_sended))
-                        .setPositiveButton(resources.getString(R.string.generic_positive_button)) {
-                                dialogInterface, i ->
-                            dialogInterface.dismiss()
-                            navigateToLogin()
-                        }
-                        .show()
-                }
-                is UiState.Error -> {
-                    this.binding.loadingView.visibility = View.GONE
-                    Snackbar.make(root_view, it.errorMessage, Snackbar.LENGTH_SHORT).show()
-                }
-                UiState.Loading -> {
-                    this.binding.loadingView.visibility = View.VISIBLE
-                }
+        observe(viewModel.registerOkEvent) {
+            context?.let { context ->
+                Dialogs.showAlert(
+                    context = context,
+                    title = null,
+                    message = R.string.register_user_mail_sended,
+                    onPositive = { navigateToLogin() }
+                )
+            }
+        }
+        observe(viewModel.errorEvent) { error ->
+            context?.let { context ->
+                Dialogs.showAlert(context = context, message = error)
             }
         }
         observe(viewModel.registerEvent) {
@@ -69,7 +62,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             if(viewModel.externalLogin) viewModel.registerExternalUser(user)
             else viewModel.registerUser()
         }
-        observe(viewModel.registerExternalResult) {
+        observe(viewModel.registerExternalEvent) {
             navigateToMapScreen()
         }
     }

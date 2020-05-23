@@ -4,8 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import hackovid.vens.R
-import hackovid.vens.common.data.login.FirebaseResponse
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
 import hackovid.vens.common.utils.SingleLiveEvent
@@ -13,7 +14,7 @@ import hackovid.vens.features.register.RegisterUseCase
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val dataSource: RemoteDataSource<FirebaseResponse>,
+    private val dataSource: RemoteDataSource,
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
@@ -30,11 +31,8 @@ class LoginViewModel(
         loading.value = true
         val result = registerUseCase.login(user)
         loading.value = false
-        if (result.success) {
-            loginOkEvent.call()
-        } else {
-            errorEvent.value = result.error?.errorMessage ?: R.string.generic_error_message
-        }
+        if (result is Ok) loginOkEvent.call()
+        else errorEvent.value = (result as Err).error
     }
 
     fun recoverPassword() {
@@ -48,11 +46,8 @@ class LoginViewModel(
                 loading.value = true
                 val result = dataSource.forgotPassword(email)
                 loading.value = false
-                if (result.success) {
-                    recoverOkEvent.call()
-                } else {
-                    errorEvent.value = result.error?.errorMessage ?: R.string.generic_error_message
-                }
+                if (result is Ok) recoverOkEvent.call()
+                else errorEvent.value = (result as Err).error
             }
         }
     }

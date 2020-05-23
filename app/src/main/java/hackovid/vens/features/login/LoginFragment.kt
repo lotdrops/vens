@@ -14,7 +14,6 @@ import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
-import hackovid.vens.common.ui.UiState
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_login.root_view
