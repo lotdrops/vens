@@ -14,6 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fitsSystemWindows="true"
         >
         <View
             android:layout_width="match_parent"
@@ -32,17 +36,19 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email"
+            android:id="@+id/email_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
             android:hint="@string/login_write_your_user"
+            app:errorEnabled="true"
+            bind:errorText="@{viewModel.emailError}"
             app:boxBackgroundColor="@color/light_purple"
             app:hintTextColor="@color/colorPrimaryDark"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -56,9 +62,11 @@
             android:id="@+id/password_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginHorizontal="@dimen/screen_horizontal_margin"
             android:hint="@string/login_write_your_password"
+            app:errorEnabled="true"
+            bind:errorText="@{viewModel.passwordError}"
             app:passwordToggleEnabled="true"
             app:boxBackgroundColor="@color/light_purple"
             app:hintTextColor="@color/colorPrimaryDark"
@@ -85,7 +93,9 @@
             android:singleLine="true"
             android:ellipsize="middle"
             android:onClick="@{view -> fragment.onForgotPasswordClick()}"
-            style="@style/TextAppearance.Custom.Body" />
+            style="@style/TextAppearance.Custom.Body"
+            tools:text="@string/login_recover_password"
+            />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -119,6 +129,7 @@
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:enabled="@{viewModel.enableButtons}"
+                android:onClick="@{v -> viewModel.onLoginClicked()}"
                 bind:cornerRadius="@dimen/login_button_corner_radius"
                 style="@style/LoginActionButton"
                 />

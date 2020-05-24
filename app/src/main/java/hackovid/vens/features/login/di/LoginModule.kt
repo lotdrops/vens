@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 val loginModule = module {
     viewModel { SelectLoginViewModel(get(), get()) }
-    viewModel { LoginViewModel(get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { GdprViewModel(get()) }
     single {
         FirebaseDataSource(FirebaseAuth.getInstance(), get(), get()) as RemoteDataSource

@@ -23,7 +23,6 @@ class RegisterViewModel(
 ) : ViewModel() {
 
     val selectStoreEvent = SingleLiveEvent<Unit>()
-    val registerEvent = SingleLiveEvent<Unit>()
 
     val name = MutableLiveData("")
     val lastName = MutableLiveData("")
@@ -69,7 +68,15 @@ class RegisterViewModel(
         validateFields()
         if (!anyErrorRemaining()) {
             if (isShopOwner.value == true) selectStoreEvent.call()
-            else registerEvent.call()
+            else doRegister()
+        }
+    }
+
+    private fun doRegister() {
+        when {
+            isShopOwner.value == true -> selectStoreEvent.call()
+            externalLogin -> registerExternalUser()
+            else -> registerUser()
         }
     }
 
@@ -114,10 +121,28 @@ class RegisterViewModel(
         }
     }
 
-    fun registerExternalUser(user: User) {
-        viewModelScope.launch {
-            registerUseCase.storeUserOnFirestoreIfNotExists(user)
-            registerEvent.call()
+    fun registerExternalUser() = viewModelScope.launch {
+        val name = name.value
+        val lastName = lastName.value
+        if (name != null && lastName != null && initialEmail != null) {
+            registerUseCase.storeUserOnFirestoreIfNotExists(User(name, lastName, initialEmail))
+            registerOkEvent.call()
         }
+    }
+
+    fun onNameFocus(focused: Boolean) {
+        if (focused) nameError.value = null
+    }
+    fun onLastnameFocus(focused: Boolean) {
+        if (focused) lastNameError.value = null
+    }
+    fun onEmailFocus(focused: Boolean) {
+        if (focused) emailError.value = null
+    }
+    fun onPasswordFocus(focused: Boolean) {
+        if (focused) passwordError.value = null
+    }
+    fun onRepeatPasswordFocus(focused: Boolean) {
+        if (focused) repeatPasswordError.value = null
     }
 }

@@ -6,15 +6,13 @@ import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.color
-import com.google.android.material.snackbar.Snackbar
 import hackovid.vens.R
-import hackovid.vens.common.data.login.User
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
+import hackovid.vens.common.utils.hideKeyboard
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentLoginBinding
-import kotlinx.android.synthetic.main.fragment_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -22,7 +20,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val layoutRes = R.layout.fragment_login
     private val viewModel: LoginViewModel by viewModel()
     private lateinit var binding: FragmentLoginBinding
-    private val NO_LOGIN_ERRORS_MESSAGE = 0
 
     private var initialSoftInputMode: Int? = null
 
@@ -41,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         this.binding = binding
         this.binding.viewModel = viewModel
         this.binding.fragment = this
-        setupLogin()
+        setupViews()
         observeViewModels()
         setForgotPassword()
     }
@@ -61,22 +58,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    private fun setupLogin() {
-        binding.loginButton.setOnClickListener {
-            val loginFieldsErrorMessage = validateLoginFields()
-            if (loginFieldsErrorMessage == NO_LOGIN_ERRORS_MESSAGE) {
-                val user = User(
-                    "", "", binding.username.text.toString(), binding.password.text.toString()
-                )
-                viewModel.login(user)
-            } else {
-                Snackbar.make(root_view, loginFieldsErrorMessage, Snackbar.LENGTH_SHORT).show()
-            }
+    private fun setupViews() {
+        binding.rootView.setOnFocusChangeListener { _, _ -> hideKeyboard() }
+        binding.email.setOnFocusChangeListener { _, focused ->
+            viewModel.onEmailFocus(focused)
+        }
+        binding.password.setOnFocusChangeListener { _, focused ->
+            viewModel.onPasswordFocus(focused)
         }
     }
 
     private fun observeViewModels() {
         observe(viewModel.loginOkEvent) {
+            hideKeyboard()
             navigateToMain()
         }
         observe(viewModel.recoverOkEvent) {
@@ -102,12 +96,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     fun onForgotPasswordClick() {
         viewModel.recoverPassword()
-    }
-
-    private fun validateLoginFields() = when {
-        binding.username.text.isNullOrEmpty() -> R.string.register_some_empty_field
-        binding.password.text.isNullOrEmpty() -> R.string.register_some_empty_field
-        binding.password.text?.length ?: 0 < 6 -> R.string.register_password_too_short
-        else -> NO_LOGIN_ERRORS_MESSAGE
     }
 }
