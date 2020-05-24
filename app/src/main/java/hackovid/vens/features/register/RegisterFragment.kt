@@ -11,7 +11,6 @@ import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.hideKeyboard
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentRegisterBinding
-import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -75,7 +74,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 Dialogs.showAlert(context = context, message = error)
             }
         }
-        observe(viewModel.registerExternalEvent) {
+        observe(viewModel.externalRegisterOkEvent) {
             hideKeyboard()
             navigateToMapScreen()
         }

@@ -21,11 +21,15 @@ import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSelectLoginBinding
-import kotlinx.android.synthetic.main.fragment_select_login.*
+import kotlinx.android.synthetic.main.fragment_select_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
 
+    private var googleLastName: String? = ""
+    private var googleName: String? = ""
+    private var googleEmail: String? = ""
+    private var externalLogin: Boolean = false
     override val layoutRes = R.layout.fragment_select_login
     private val viewModel: SelectLoginViewModel by viewModel()
     private lateinit var binding: FragmentSelectLoginBinding
@@ -52,8 +56,7 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
             )
         }
         binding.skipLogin.setOnClickListener {
-            startActivity(Intent(activity, MainActivity::class.java))
-            activity?.finish()
+            navigateToMain()
         }
         subscribeSwitchAccount(binding.switchAccount)
         observeViewModels()
@@ -91,6 +94,19 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
         observe(viewModel.switchAccountEvent) {
             googleSignOut()
         }
+        observe(viewModel.alreadyRegisteredUser) {
+            navigateToMain()
+        }
+        observe(viewModel.navToRegisterFromGoogleEvent) {
+            findNavController(this).navigate(
+                SelectLoginFragmentDirections.navToRegisterFragment(
+                    externalLogin = true,
+                    email = googleEmail,
+                    name = googleName,
+                    lastName = googleLastName
+                )
+            )
+        }
     }
 
     private fun googleSignIn() {
@@ -123,17 +139,14 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
     }
 
     private fun handleSignInResult(singIn: Task<GoogleSignInAccount>) {
+
         try {
             val account = singIn.getResult(ApiException::class.java)
             if (account != null) {
-                findNavController(this).navigate(
-                    SelectLoginFragmentDirections.navToRegisterFragment(
-                        externalLogin = true,
-                        email = account.email,
-                        name = account.givenName,
-                        lastName = account.familyName
-                    )
-                )
+                externalLogin = true
+                googleEmail = account.email
+                googleName = account.givenName
+                googleLastName = account.familyName
                 firebaseGoogleAuthentication(account)
             } else {
                 // TODO should be dialog

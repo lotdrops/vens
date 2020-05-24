@@ -49,7 +49,7 @@ class RegisterViewModel(
     val registerOkEvent = SingleLiveEvent<Unit>()
     val registerExternalEvent = SingleLiveEvent<Unit>()
     val selectStoreEvent = SingleLiveEvent<Unit>()
-    val navToMapEvent = SingleLiveEvent<Unit>()
+    val externalRegisterOkEvent = SingleLiveEvent<Unit>()
 
     init {
         name.value = if (initialName == ("null")) "" else initialName
@@ -125,12 +125,12 @@ class RegisterViewModel(
         val name = name.value
         val lastName = lastName.value
         if (name != null && lastName != null && initialEmail != null) {
-            // TODO loading
+            loading.value = true
             val registerResult =
                 registerUseCase.isRegisteredAndStoreIfNot(User(name, lastName, initialEmail))
-            // TODO stop loading
+            loading.value = false
             if (registerResult is Ok) {
-                navToMapEvent.call() // TODO listen from fragment
+                externalRegisterOkEvent.call()
             } else {
                 errorEvent.value = (registerResult as Err).error
             }
