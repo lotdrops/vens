@@ -19,9 +19,9 @@ import hackovid.vens.common.utils.getImmediateLocation
 import hackovid.vens.common.utils.hasLocationPermission
 import hackovid.vens.common.utils.observe
 import hackovid.vens.common.utils.requestLocationPermission
-import java.util.concurrent.TimeUnit
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.nav_host
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: SharedViewModel by viewModel()
