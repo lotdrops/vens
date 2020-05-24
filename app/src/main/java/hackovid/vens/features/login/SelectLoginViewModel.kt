@@ -6,6 +6,11 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.flatMap
+import com.github.michaelbull.result.map
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
 import com.google.firebase.auth.AuthCredential
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.utils.SingleLiveEvent
@@ -17,9 +22,10 @@ class SelectLoginViewModel(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
+    val navToMapEvent = SingleLiveEvent<Unit>()
+    val navToRegisterFromGoogleEvent = SingleLiveEvent<Unit>()
     val switchAccountEvent = SingleLiveEvent<Unit>()
     val errorEvent = SingleLiveEvent<Int>()
-    val loginWithGoogleOkEvent = SingleLiveEvent<Unit>()
 
     val showProgress = MutableLiveData(false)
     val enableButtons = showProgress.map { !it }
@@ -32,10 +38,13 @@ class SelectLoginViewModel(
 
     fun loginWithGoogle(credentials: AuthCredential) = viewModelScope.launch {
         showProgress.value = true
-        val result = registerUseCase.loginWithGoogle(credentials)
+        registerUseCase.loginWithGoogle(credentials)
+            .andThen { registerUseCase.isUserRegistered() }
+            .onSuccess { isRegistered ->
+                if (isRegistered) navToMapEvent.call()
+                else navToRegisterFromGoogleEvent.call()
+            }.onFailure { errorEvent.value = it }
         showProgress.value = false
-        if (result is Ok) loginWithGoogleOkEvent.call()
-        else errorEvent.value = (result as Err).error
     }
 
     fun onSwitchAccountClicked() {

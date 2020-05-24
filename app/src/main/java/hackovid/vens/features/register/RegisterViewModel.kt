@@ -22,8 +22,6 @@ class RegisterViewModel(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
 
-    val selectStoreEvent = SingleLiveEvent<Unit>()
-
     val name = MutableLiveData("")
     val lastName = MutableLiveData("")
     val email = MutableLiveData("")
@@ -50,6 +48,8 @@ class RegisterViewModel(
     val errorEvent = SingleLiveEvent<Int>()
     val registerOkEvent = SingleLiveEvent<Unit>()
     val registerExternalEvent = SingleLiveEvent<Unit>()
+    val selectStoreEvent = SingleLiveEvent<Unit>()
+    val navToMapEvent = SingleLiveEvent<Unit>()
 
     init {
         name.value = if (initialName == ("null")) "" else initialName
@@ -121,12 +121,19 @@ class RegisterViewModel(
         }
     }
 
-    fun registerExternalUser() = viewModelScope.launch {
+    private fun registerExternalUser() = viewModelScope.launch {
         val name = name.value
         val lastName = lastName.value
         if (name != null && lastName != null && initialEmail != null) {
-            registerUseCase.storeUserOnFirestoreIfNotExists(User(name, lastName, initialEmail))
-            registerOkEvent.call()
+            // TODO loading
+            val registerResult =
+                registerUseCase.isRegisteredAndStoreIfNot(User(name, lastName, initialEmail))
+            // TODO stop loading
+            if (registerResult is Ok) {
+                navToMapEvent.call() // TODO listen from fragment
+            } else {
+                errorEvent.value = (registerResult as Err).error
+            }
         }
     }
 

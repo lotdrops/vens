@@ -83,9 +83,6 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
     }
 
     private fun observeViewModels() {
-        observe(viewModel.loginWithGoogleOkEvent) {
-            //   navigateToMain()
-        }
         observe(viewModel.errorEvent) { error ->
             context?.let { context ->
                 Dialogs.showAlert(context = context, message = error)
