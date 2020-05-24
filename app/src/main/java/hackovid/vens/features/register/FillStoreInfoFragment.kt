@@ -85,6 +85,7 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
         observe(viewModel.scrollToTopEvent) {
             binding.scrollview.smoothScrollTo(0, 0)
         }
+        observe(viewModel.navBackEvent) { activity?.onBackPressed() }
     }
 
     private fun setupMap() {

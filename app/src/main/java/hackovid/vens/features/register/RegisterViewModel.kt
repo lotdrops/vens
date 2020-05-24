@@ -50,6 +50,7 @@ class RegisterViewModel(
     val registerExternalEvent = SingleLiveEvent<Unit>()
     val selectStoreEvent = SingleLiveEvent<Unit>()
     val externalRegisterOkEvent = SingleLiveEvent<Unit>()
+    val navBackEvent = SingleLiveEvent<Unit>()
 
     init {
         name.value = if (initialName == ("null")) "" else initialName
@@ -70,6 +71,10 @@ class RegisterViewModel(
             if (isShopOwner.value == true) selectStoreEvent.call()
             else doRegister()
         }
+    }
+
+    fun onBackClicked() {
+        navBackEvent.call()
     }
 
     private fun doRegister() {

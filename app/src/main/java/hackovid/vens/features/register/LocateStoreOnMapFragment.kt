@@ -15,6 +15,7 @@ import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.DEFAULT_LAT
 import hackovid.vens.common.ui.DEFAULT_LONG
+import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentLocateStoreOnMapBinding
 import hackovid.vens.features.onboarding.di.OnBoardingSharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,6 +37,7 @@ class LocateStoreOnMapFragment : BaseFragment<FragmentLocateStoreOnMapBinding>()
         binding.viewModel = viewModel
         binding.fragment = this
         setupMap()
+        observe(viewModel.navBackEvent) { activity?.onBackPressed() }
     }
 
     fun onButtonClick() {

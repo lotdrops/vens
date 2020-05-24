@@ -28,6 +28,7 @@ class FillStoreInfoViewModel(
     val selectLocationEvent = SingleLiveEvent<Unit>()
     val registerEvent = SingleLiveEvent<Unit>()
     val scrollToTopEvent = SingleLiveEvent<Unit>()
+    val navBackEvent = SingleLiveEvent<Unit>()
 
     val title =
         if (isEditing) R.string.store_info_edit_title
@@ -86,6 +87,10 @@ class FillStoreInfoViewModel(
         schedule.value = store.schedule
         acceptsOrders.value = store.acceptsOrders
         delivers.value = store.delivers
+    }
+
+    fun onBackClicked() {
+        navBackEvent.call()
     }
 
     fun onLocationClicked() {
