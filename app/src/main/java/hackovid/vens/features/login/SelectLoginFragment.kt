@@ -149,12 +149,10 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                 googleLastName = account.familyName
                 firebaseGoogleAuthentication(account)
             } else {
-                // TODO should be dialog
-                Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
+                context?.let { context -> Dialogs.showAlert(context) }
             }
         } catch (exception: ApiException) {
-            // TODO should be dialog
-            Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
+            context?.let { context -> Dialogs.showAlert(context) }
         }
     }
 
