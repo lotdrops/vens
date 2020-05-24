@@ -169,7 +169,7 @@
     <string name= "register_select_consumer">Sóc un consumidor</string>
     <string name= "register_select_owner">Sóc un comerciant</string>
     <string name= "register_select_store_button">Tria la teva botiga</string>
-    <string name= "register_user_mail_sended">T\'acabem d\'enviar el correu de verificació del teu usuari, mira la teva safata de entrada del teu correu
+    <string name="register_user_mail_sent">T\'acabem d\'enviar el correu de verificació del teu usuari, mira la teva safata de entrada del teu correu
                                               electrónic per a poder accedir</string>
     <string name= "register_user_mail_not_verified">Mira la teva safata de entrada per verificar el teu usuari</string>
 

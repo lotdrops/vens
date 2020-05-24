@@ -43,8 +43,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             context?.let { context ->
                 Dialogs.showAlert(
                     context = context,
-                    title = null,
-                    message = R.string.register_user_mail_sended,
+                    title = R.string.register_user_mail_sent_title,
+                    message = R.string.register_user_mail_sent,
                     onPositive = { navigateToLogin() }
                 )
             }

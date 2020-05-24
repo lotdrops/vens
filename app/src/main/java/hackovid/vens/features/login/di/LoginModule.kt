@@ -15,7 +15,7 @@ val loginModule = module {
     viewModel { LoginViewModel(get(), get()) }
     viewModel { GdprViewModel(get()) }
     single {
-        FirebaseDataSource(FirebaseAuth.getInstance(), get(), get()) as RemoteDataSource<*>
+        FirebaseDataSource(FirebaseAuth.getInstance(), get(), get()) as RemoteDataSource
     }
     factory {
         FirebaseErrorMapper()

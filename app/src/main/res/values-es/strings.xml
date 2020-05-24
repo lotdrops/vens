@@ -167,7 +167,7 @@
     <string name= "register_surname">Apellido</string>
     <string name= "register_email">Correo electrónico</string>
     <string name= "register_password">Contraseña</string>
-    <string name= "register_user_mail_sended">Te acabamos de enviar el mail de verificación de tu usuario, mira la bandeja de tu correo electrónico para poder acceder</string>
+    <string name="register_user_mail_sent">Te acabamos de enviar el mail de verificación de tu usuario, mira la bandeja de tu correo electrónico para poder acceder</string>
     <string name= "register_user_mail_not_verified">Mira tu bandeja de entrada para verificar tu usuario</string>
 
     <string name= "register_repeat_password">Repite la contraseña</string>

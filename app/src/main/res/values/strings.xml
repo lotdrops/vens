@@ -182,7 +182,8 @@
     <string name= "register_surname">Surname</string>
     <string name= "register_email">Email</string>
     <string name= "register_password">Password</string>
-    <string name= "register_user_mail_sended">We just sent you the verification email of your user, look at your email inbox</string>
+    <string name= "register_user_mail_sent_title">Verify email</string>
+    <string name= "register_user_mail_sent">We just sent you the verification email, please check your inbox.</string>
     <string name= "register_user_mail_not_verified">Look at your inbox to verify your username </string>
     <string name= "register_repeat_password">Repeat password</string>
     <string name= "register_select_consumer">I am a buyer</string>
