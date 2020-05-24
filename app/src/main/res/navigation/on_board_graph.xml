@@ -11,13 +11,22 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/nav_to_onboarding_fragment"
-            app:destination="@id/onBoardingFragment"/>
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            app:destination="@id/onBoardingFragment"
+            />
         <action
             android:id="@+id/nav_to_login_fragment"
-            app:destination="@id/selectLoginFragment"/>
+            app:destination="@id/selectLoginFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            />
         <action
             android:id="@+id/nav_to_gdpr"
-            app:destination="@id/gdprFragment"/>
+            app:destination="@id/gdprFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment
@@ -87,7 +96,10 @@
             app:destination="@id/selectStoreFragment"/>
         <action
             android:id="@+id/nav_to_login_fragment"
-            app:destination="@id/loginFragment"/>
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment
@@ -150,7 +162,10 @@
         tools:layout="@layout/fragment_onboarding">
         <action
             android:id="@+id/nav_to_gdpr"
-            app:destination="@id/gdprFragment"/>
+            app:destination="@id/gdprFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment
@@ -160,13 +175,18 @@
         >
         <action
             android:id="@+id/nav_to_login_fragment"
-            app:destination="@id/selectLoginFragment"/>
+            app:destination="@id/selectLoginFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true"
+            />
         <action
             android:id="@+id/nav_to_terms_of_use"
-            app:destination="@id/termsOfUseFragment"/>
+            app:destination="@id/termsOfUseFragment"
+            />
         <action
             android:id="@+id/nav_to_privacy_policy"
-            app:destination="@id/privacyPolicyFragment"/>
+            app:destination="@id/privacyPolicyFragment"
+            />
     </fragment>
 
     <fragment
