@@ -66,5 +66,6 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
                 )
             )
         }
+        observe(viewModel.navBackEvent) { activity?.onBackPressed() }
     }
 }

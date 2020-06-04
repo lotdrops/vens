@@ -13,7 +13,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.GoogleAuthProvider
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
@@ -21,7 +20,6 @@ import hackovid.vens.common.ui.Dialogs
 import hackovid.vens.common.ui.MainActivity
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentSelectLoginBinding
-import kotlinx.android.synthetic.main.fragment_select_login.root_view
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
@@ -132,7 +130,7 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_GOOGLE_SIGN_IN_CODE) {
+        if (requestCode == RC_GOOGLE_SIGN_IN_CODE && resultCode == Activity.RESULT_OK) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
@@ -149,12 +147,10 @@ class SelectLoginFragment : BaseFragment<FragmentSelectLoginBinding>() {
                 googleLastName = account.familyName
                 firebaseGoogleAuthentication(account)
             } else {
-                // TODO should be dialog
-                Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
+                context?.let { context -> Dialogs.showAlert(context) }
             }
         } catch (exception: ApiException) {
-            // TODO should be dialog
-            Snackbar.make(root_view, R.string.generic_error_message, Snackbar.LENGTH_SHORT).show()
+            context?.let { context -> Dialogs.showAlert(context) }
         }
     }
 

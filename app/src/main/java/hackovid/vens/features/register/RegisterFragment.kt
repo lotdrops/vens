@@ -78,6 +78,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             hideKeyboard()
             navigateToMapScreen()
         }
+        observe(viewModel.navBackEvent) { activity?.onBackPressed() }
     }
 
     private fun navigateToLogin() {

@@ -87,6 +87,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Dialogs.showAlert(context = context, message = error)
             }
         }
+        observe(viewModel.navBackEvent) { activity?.onBackPressed() }
     }
 
     private fun navigateToMain() {

@@ -36,6 +36,12 @@ class SelectStoreViewModel(private val storesUseCase: StoresUseCase) : ViewModel
     }
     val buttonEnabled = selectedStoreId.map { it != null }
 
+    val navBackEvent = SingleLiveEvent<Unit>()
+
+    fun onBackClicked() {
+        navBackEvent.call()
+    }
+
     fun onStoreClicked(id: Long) {
         selectedStoreId.value = if (id == selectedStoreId.value) null else id
     }

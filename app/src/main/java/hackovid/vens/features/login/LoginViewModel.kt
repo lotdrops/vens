@@ -30,6 +30,11 @@ class LoginViewModel(
     val errorEvent = SingleLiveEvent<Int>()
     val recoverOkEvent = SingleLiveEvent<Unit>()
     val loginOkEvent = SingleLiveEvent<Unit>()
+    val navBackEvent = SingleLiveEvent<Unit>()
+
+    fun onBackClicked() {
+        navBackEvent.call()
+    }
 
     fun onLoginClicked() = viewModelScope.launch {
         val email = email.value
