@@ -26,7 +26,7 @@ class RegisterUseCase(
 
     suspend fun register(registerUser: User) = remoteDataSource.registerUser(registerUser)
         .onSuccess {
-            localStore.setFirstLogin(true)
+            localStore.setAlreadyLoggedIn(false)
             localStore.setUserDataOnRegister(registerUser.copy(password = ""))
         }
 
@@ -34,14 +34,14 @@ class RegisterUseCase(
 
     private suspend fun storeUserIfFirstTime(): Result<Unit, Int> {
         val userStored = localStore.getUserDataOnRegister()
-        if (userStored != null && localStore.isFirstLogin()) {
+        if (userStored != null && !localStore.isAlreadyLoggedIn()) {
             val isRegisteredResult = isRegisteredAndStoreIfNot(userStored)
-            if (isRegisteredResult is Ok) {
-                localStore.setFirstLogin(false)
+            return if (isRegisteredResult is Ok) {
+                localStore.setAlreadyLoggedIn(true)
                 localStore.setUserDataOnRegister(null)
-                return Ok(Unit)
+                Ok(Unit)
             } else {
-                return isRegisteredResult.map { Unit }
+                isRegisteredResult.map { Unit }
             }
         }
         return Ok(Unit)
@@ -65,6 +65,7 @@ class RegisterUseCase(
 
     suspend fun isRegisteredAndStoreIfNot(userStored: User) =
         isUserRegistered().andThen { isRegistered ->
+            localStore.setAlreadyLoggedIn(true)
             if (!isRegistered) {
                 auth.uid?.let { uid ->
                     val userDataRef = db.collection(COLLECTION_USERS).document(uid)
@@ -76,7 +77,7 @@ class RegisterUseCase(
             }
         }
 
-    fun isUserAlreadyLoged() = !localStore.isFirstLogin()
+    fun isUserAlreadyLoged() = localStore.isAlreadyLoggedIn()
 
     companion object {
         private const val COLLECTION_USERS = "Users"
