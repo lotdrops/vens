@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.github.michaelbull.result.Err
+import com.github.michaelbull.result.Ok
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
@@ -11,6 +13,7 @@ import hackovid.vens.common.data.StoreDao
 import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.login.RemoteDataSource
+import hackovid.vens.common.data.login.User
 import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.common.utils.combineWith
 import kotlin.math.absoluteValue
@@ -18,17 +21,20 @@ import kotlinx.coroutines.launch
 
 class FillStoreInfoViewModel(
     private val storeId: Long,
+    private val user: User,
     private val storeDao: StoreDao,
     private val dataSource: RemoteDataSource,
-    private val validator: RegisterFieldsValidator
+    private val validator: RegisterFieldsValidator,
+    private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
     private val isEditing = storeId > 0L
 
-    val selectStoreEvent = SingleLiveEvent<Unit>()
     val selectLocationEvent = SingleLiveEvent<Unit>()
-    val registerEvent = SingleLiveEvent<Unit>()
     val scrollToTopEvent = SingleLiveEvent<Unit>()
     val navBackEvent = SingleLiveEvent<Unit>()
+    val errorEvent = SingleLiveEvent<Int>()
+    val registerOkEvent = SingleLiveEvent<Unit>()
+    val externalRegisterOkEvent = SingleLiveEvent<Unit>()
 
     val title =
         if (isEditing) R.string.store_info_edit_title
@@ -55,6 +61,8 @@ class FillStoreInfoViewModel(
     val typeError = MutableLiveData<Int?>(null)
     val subtypeError = MutableLiveData<Int?>(null)
     val locationError = MutableLiveData<Int?>(null)
+
+    val loading = MutableLiveData(false)
 
     val showLocationNotSet = location.combineWith(locationError) { location, error ->
         location == null && (error == null || error == 0)
@@ -98,12 +106,39 @@ class FillStoreInfoViewModel(
     }
 
     fun onButtonClick() {
+        if (loading.value == true) return
+
         validateFields()
         if (anyErrorRemaining()) {
             scrollToTopEvent.call()
         } else {
-            // TODO nav
+            viewModelScope.launch {
+                loading.value = true
+                // TODO register store info before or after
+                if (user.isExternalLogin()) {
+                    registerExternalUser()
+                } else {
+                    registerUser()
+                }
+                loading.value = false
+            }
         }
+    }
+
+    private suspend fun registerExternalUser() {
+        val registerResult =
+            registerUseCase.isRegisteredAndStoreIfNot(user)
+        if (registerResult is Ok) {
+            externalRegisterOkEvent.call()
+        } else {
+            errorEvent.value = (registerResult as Err).error
+        }
+    }
+
+    private suspend fun registerUser() {
+        val result = registerUseCase.register(user)
+        if (result is Ok) registerOkEvent.call()
+        else errorEvent.value = (result as Err).error
     }
 
     private fun validateFields() {
@@ -127,5 +162,7 @@ class FillStoreInfoViewModel(
             locationError.value != null || nameError.value != null || addressError.value != null
 
     private fun Double.formatDecimals() = "%.${LOCATION_DECIMALS}f".format(this.absoluteValue)
+
+    private fun User.isExternalLogin() = password.isEmpty()
 }
 private const val LOCATION_DECIMALS = 7

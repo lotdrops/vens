@@ -88,7 +88,13 @@
             app:nullable="true" />
         <action
             android:id="@+id/nav_to_select_store_fragment"
-            app:destination="@id/selectStoreFragment"/>
+            app:destination="@id/selectStoreFragment"
+            >
+            <argument
+                android:name="user"
+                app:argType="hackovid.vens.common.data.login.User"
+                />
+        </action>
         <action
             android:id="@+id/nav_to_login_fragment"
             app:destination="@id/loginFragment"
@@ -109,7 +115,15 @@
                 android:name="storeId"
                 app:argType="long"
                 app:nullable="false" />
+            <argument
+                android:name="user"
+                app:argType="hackovid.vens.common.data.login.User"
+                />
         </action>
+        <argument
+            android:name="user"
+            app:argType="hackovid.vens.common.data.login.User"
+            />
     </fragment>
 
     <fragment
@@ -120,6 +134,10 @@
             android:name="storeId"
             app:argType="long"
             app:nullable="false" />
+        <argument
+            android:name="user"
+            app:argType="hackovid.vens.common.data.login.User"
+            />
         <action
             android:id="@+id/nav_to_locate_store_on_map"
             app:destination="@id/locateStoreOnMap"
@@ -129,6 +147,12 @@
                 app:argType="com.google.android.gms.maps.model.LatLng"
                 app:nullable="true" />
         </action>
+        <action
+            android:id="@+id/nav_to_login_fragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true"
+            />
     </fragment>
 
     <fragment

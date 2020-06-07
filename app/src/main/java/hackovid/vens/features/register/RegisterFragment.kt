@@ -53,10 +53,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
     }
 
     private fun subscribeToVm() {
-        observe(viewModel.selectStoreEvent) {
+        observe(viewModel.selectStoreEvent) { user ->
             hideKeyboard()
             NavHostFragment.findNavController(this).navigate(
-                RegisterFragmentDirections.navToSelectStoreFragment()
+                RegisterFragmentDirections.navToSelectStoreFragment(user)
             )
         }
         observe(viewModel.registerOkEvent) {

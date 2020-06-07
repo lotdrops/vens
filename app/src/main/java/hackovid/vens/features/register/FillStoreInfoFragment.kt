@@ -1,5 +1,6 @@
 package hackovid.vens.features.register
 
+import android.content.Intent
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -19,6 +20,9 @@ import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.DEFAULT_LAT
 import hackovid.vens.common.ui.DEFAULT_LONG
+import hackovid.vens.common.ui.Dialogs
+import hackovid.vens.common.ui.MainActivity
+import hackovid.vens.common.utils.hideKeyboard
 import hackovid.vens.common.utils.observe
 import hackovid.vens.databinding.FragmentFillStoreInfoBinding
 import hackovid.vens.features.onboarding.di.OnBoardingSharedViewModel
@@ -29,7 +33,9 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
     override val layoutRes = R.layout.fragment_fill_store_info
 
     private val args: FillStoreInfoFragmentArgs by navArgs()
-    private val viewModel: FillStoreInfoViewModel by viewModel { parametersOf(args.storeId) }
+    private val viewModel: FillStoreInfoViewModel by viewModel {
+        parametersOf(args.storeId, args.user)
+    }
     private val onBoardingSharedViewModel: OnBoardingSharedViewModel by viewModel()
 
     private var marker: Marker? = null
@@ -69,23 +75,44 @@ class FillStoreInfoFragment : BaseFragment<FragmentFillStoreInfoBinding>(), OnMa
     }
 
     private fun subscribeToVm(binding: FragmentFillStoreInfoBinding) {
-        observe(viewModel.selectStoreEvent) {
-            NavHostFragment.findNavController(this).navigate(
-                RegisterFragmentDirections.navToSelectStoreFragment()
-            )
-        }
         observe(viewModel.selectLocationEvent) {
             NavHostFragment.findNavController(this).navigate(
                 FillStoreInfoFragmentDirections.navToLocateStoreOnMap(viewModel.location.value)
             )
         }
-        observe(viewModel.registerEvent) {
-            // TODO create screen and navigate
+        observe(viewModel.registerOkEvent) {
+            context?.let { context ->
+                Dialogs.showAlert(
+                    context = context,
+                    title = R.string.register_user_mail_sent_title,
+                    message = R.string.register_user_mail_sent,
+                    onPositive = { navigateToLogin() }
+                )
+            }
+        }
+        observe(viewModel.errorEvent) { error ->
+            context?.let { context ->
+                Dialogs.showAlert(context = context, message = error)
+            }
+        }
+        observe(viewModel.externalRegisterOkEvent) {
+            hideKeyboard()
+            navigateToMapScreen()
         }
         observe(viewModel.scrollToTopEvent) {
             binding.scrollview.smoothScrollTo(0, 0)
         }
         observe(viewModel.navBackEvent) { activity?.onBackPressed() }
+    }
+
+    private fun navigateToLogin() {
+        NavHostFragment.findNavController(this).navigate(
+            FillStoreInfoFragmentDirections.navToLoginFragment()
+        )
+    }
+    private fun navigateToMapScreen() {
+        startActivity(Intent(activity, MainActivity::class.java))
+        activity?.finish()
     }
 
     private fun setupMap() {

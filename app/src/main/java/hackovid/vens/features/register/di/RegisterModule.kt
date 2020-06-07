@@ -1,6 +1,7 @@
 package hackovid.vens.features.register.di
 
 import com.google.firebase.auth.FirebaseAuth
+import hackovid.vens.common.data.login.User
 import hackovid.vens.features.register.FillStoreInfoViewModel
 import hackovid.vens.features.register.LocateStoreOnMapViewModel
 import hackovid.vens.features.register.RegisterFieldsValidator
@@ -18,7 +19,9 @@ val registerModule = module {
             externalLogin, initialEmail, initialName, initialLastName, get(), get(), get()
         )
     }
-    viewModel { (storeId: Long) -> FillStoreInfoViewModel(storeId, get(), get(), get()) }
+    viewModel { (storeId: Long, user: User) ->
+        FillStoreInfoViewModel(storeId, user, get(), get(), get(), get())
+    }
     viewModel { SelectStoreViewModel(get { parametersOf(true, false) }) }
     factory { RegisterFieldsValidator() }
     viewModel { LocateStoreOnMapViewModel() }

@@ -48,7 +48,7 @@ class RegisterViewModel(
     val errorEvent = SingleLiveEvent<Int>()
     val registerOkEvent = SingleLiveEvent<Unit>()
     val registerExternalEvent = SingleLiveEvent<Unit>()
-    val selectStoreEvent = SingleLiveEvent<Unit>()
+    val selectStoreEvent = SingleLiveEvent<User>()
     val externalRegisterOkEvent = SingleLiveEvent<Unit>()
     val navBackEvent = SingleLiveEvent<Unit>()
 
@@ -68,8 +68,7 @@ class RegisterViewModel(
     fun onButtonClick() {
         validateFields()
         if (!anyErrorRemaining()) {
-            if (isShopOwner.value == true) selectStoreEvent.call()
-            else doRegister()
+            doRegister()
         }
     }
 
@@ -79,7 +78,7 @@ class RegisterViewModel(
 
     private fun doRegister() {
         when {
-            isShopOwner.value == true -> selectStoreEvent.call()
+            isShopOwner.value == true -> selectStoreEvent.value = getUser()
             externalLogin -> registerExternalUser()
             else -> registerUser()
         }
@@ -111,14 +110,19 @@ class RegisterViewModel(
             emailError.value != null || passwordError.value != null ||
             repeatPasswordError.value != null
 
-    fun registerUser() = viewModelScope.launch {
-        loading.value = true
+    private fun getUser(): User? {
         val name = name.value
         val lastName = lastName.value
-        val email = email.value
-        val password = password.value
-        if (name != null && lastName != null && email != null && password != null) {
-            val user = User(name, lastName, email, password)
+        val email = if (externalLogin) initialEmail else email.value
+        val password = if (externalLogin) "" else password.value
+        return if (name != null && lastName != null && email != null && password != null)
+            User(name, lastName, email, password)
+        else null
+    }
+
+    fun registerUser() = viewModelScope.launch {
+        loading.value = true
+        getUser()?.let { user ->
             val result = registerUseCase.register(user)
             loading.value = false
             if (result is Ok) registerOkEvent.call()

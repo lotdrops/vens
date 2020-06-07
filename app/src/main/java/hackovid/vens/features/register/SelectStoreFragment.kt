@@ -1,6 +1,8 @@
 package hackovid.vens.features.register
 
+import android.util.Log
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import hackovid.vens.R
 import hackovid.vens.common.ui.BaseFragment
 import hackovid.vens.common.ui.GenericListAdapter
@@ -13,6 +15,7 @@ typealias SelectStoreListAdapter = GenericListAdapter<SelectableStore>
 class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
     override val layoutRes = R.layout.fragment_select_store
 
+    private val args: SelectStoreFragmentArgs by navArgs()
     private val viewModel: SelectStoreViewModel by viewModel()
     private lateinit var binding: FragmentSelectStoreBinding
 
@@ -62,7 +65,8 @@ class SelectStoreFragment : BaseFragment<FragmentSelectStoreBinding>() {
         observe(viewModel.storeSelectedEvent) {
             NavHostFragment.findNavController(this).navigate(
                 SelectStoreFragmentDirections.navToFillStoreInfo(
-                    viewModel.selectedStoreId.value ?: -1L
+                    viewModel.selectedStoreId.value ?: -1L,
+                    args.user
                 )
             )
         }
