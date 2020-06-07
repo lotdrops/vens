@@ -20,7 +20,7 @@ val registerModule = module {
         )
     }
     viewModel { (storeId: Long, user: User) ->
-        FillStoreInfoViewModel(storeId, user, get(), get(), get(), get())
+        FillStoreInfoViewModel(storeId, user, get(), get(), get(), get(), get())
     }
     viewModel { SelectStoreViewModel(get { parametersOf(true, false) }) }
     factory { RegisterFieldsValidator() }

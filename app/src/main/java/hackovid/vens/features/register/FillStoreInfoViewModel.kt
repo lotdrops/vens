@@ -6,6 +6,11 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
+import com.github.michaelbull.result.andThen
+import com.github.michaelbull.result.mapError
+import com.github.michaelbull.result.onFailure
+import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.runCatching
 import com.google.android.gms.maps.model.LatLng
 import hackovid.vens.R
 import hackovid.vens.common.data.Store
@@ -14,10 +19,11 @@ import hackovid.vens.common.data.StoreSubtype
 import hackovid.vens.common.data.StoreType
 import hackovid.vens.common.data.login.RemoteDataSource
 import hackovid.vens.common.data.login.User
+import hackovid.vens.common.data.mystore.UpdateStoreUseCase
 import hackovid.vens.common.utils.SingleLiveEvent
 import hackovid.vens.common.utils.combineWith
-import kotlin.math.absoluteValue
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 class FillStoreInfoViewModel(
     private val storeId: Long,
@@ -25,7 +31,8 @@ class FillStoreInfoViewModel(
     private val storeDao: StoreDao,
     private val dataSource: RemoteDataSource,
     private val validator: RegisterFieldsValidator,
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val updateStoreUseCase: UpdateStoreUseCase
 ) : ViewModel() {
     private val isEditing = storeId > 0L
 
@@ -114,7 +121,6 @@ class FillStoreInfoViewModel(
         } else {
             viewModelScope.launch {
                 loading.value = true
-                // TODO register store info before or after
                 if (user.isExternalLogin()) {
                     registerExternalUser()
                 } else {
@@ -126,16 +132,34 @@ class FillStoreInfoViewModel(
     }
 
     private suspend fun registerExternalUser() {
-        val registerResult =
-            registerUseCase.isRegisteredAndStoreIfNot(user)
-        if (registerResult is Ok) {
-            externalRegisterOkEvent.call()
-        } else {
-            errorEvent.value = (registerResult as Err).error
-        }
+        registerUseCase.isRegisteredAndStoreIfNot(user)
+            .andThen { buildStore() }
+            .andThen { updateStoreUseCase.updateStore(it) }
+            .onSuccess { externalRegisterOkEvent.call() }
+            .onFailure { error -> errorEvent.value = error }
     }
 
+    private fun buildStore() = runCatching {
+        Store(
+            id = storeId,
+            latitude = location.value!!.latitude,
+            longitude = location.value!!.longitude,
+            name = name.value!!,
+            type = StoreType.values()[type.value!!],
+            subtype = StoreSubtype.values()[subtype.value!!],
+            phone = phone.value,
+            mobilePhone = mobilePhone.value,
+            address = address.value,
+            web = web.value,
+            email = email.value,
+            schedule = schedule.value,
+            acceptsOrders = acceptsOrders.value,
+            delivers = delivers.value
+        )
+    }.mapError { R.string.generic_error_message }
+
     private suspend fun registerUser() {
+        // TODO save store data to upload on login
         val result = registerUseCase.register(user)
         if (result is Ok) registerOkEvent.call()
         else errorEvent.value = (result as Err).error

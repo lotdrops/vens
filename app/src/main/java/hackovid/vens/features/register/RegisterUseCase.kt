@@ -21,7 +21,6 @@ class RegisterUseCase(
     private val remoteDataSource: RemoteDataSource,
     private val localStore: LocalStorage,
     private val db: FirebaseFirestore
-
 ) {
 
     suspend fun register(registerUser: User) = remoteDataSource.registerUser(registerUser)

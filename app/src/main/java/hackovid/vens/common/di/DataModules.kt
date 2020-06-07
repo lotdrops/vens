@@ -1,6 +1,7 @@
 package hackovid.vens.common.di
 
 import androidx.preference.PreferenceManager
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -11,6 +12,7 @@ import hackovid.vens.common.data.core.StoresDatabase
 import hackovid.vens.common.data.json.LocalJsonPersistency
 import hackovid.vens.common.data.json.MoshiFactory
 import hackovid.vens.common.data.json.RemoteStore
+import hackovid.vens.common.data.mystore.UpdateStoreUseCase
 import hackovid.vens.common.utils.FileReaderUtilities
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -29,6 +31,7 @@ val dataModule = module {
     factory { FirebaseRemoteConfigController(get()) }
     factory { Firebase.firestore }
     factory { FirebaseRemoteConfig.getInstance() }
+    factory { UpdateStoreUseCase(FirebaseAuth.getInstance(), get()) }
 }
 
 val utilitiesModule = module {
