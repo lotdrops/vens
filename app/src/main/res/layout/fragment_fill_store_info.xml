@@ -558,7 +558,7 @@
                     android:layout_marginVertical="4dp"
                     android:layout_marginStart="16dp"
                     android:text="@string/store_info_accepts_preorders"
-                    android:checked="@{viewModel.acceptsOrders}"
+                    android:checked="@={viewModel.acceptsOrders}"
                     style="@style/LoginEditTextStyle"
                     />
             </LinearLayout>
@@ -586,7 +586,7 @@
                     android:layout_marginVertical="4dp"
                     android:layout_marginStart="16dp"
                     android:text="@string/store_info_delivers"
-                    android:checked="@{viewModel.delivers}"
+                    android:checked="@={viewModel.delivers}"
                     style="@style/LoginEditTextStyle"
                     />
             </LinearLayout>

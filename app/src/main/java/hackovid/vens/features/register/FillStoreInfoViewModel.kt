@@ -153,8 +153,8 @@ class FillStoreInfoViewModel(
             web = web.value,
             email = email.value,
             schedule = schedule.value,
-            acceptsOrders = acceptsOrders.value,
-            delivers = delivers.value
+            acceptsOrders = acceptsOrders.value == true,
+            delivers = delivers.value == true
         )
     }.mapError { R.string.generic_error_message }
 
