@@ -135,4 +135,6 @@
         chat, receive alerts, see schedule changes, check product availability, find out about new services, promotions…</string>
     <string name= "on_boarding_discover_text">Discover</string>
 
+    <string name= "weblate_test">Weblate test</string>
+
 </resources>
